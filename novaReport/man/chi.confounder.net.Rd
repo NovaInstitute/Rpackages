@@ -5,23 +5,24 @@
 \title{Confounder Chi-net}
 \usage{
 chi.confounder.net(df, outcome = "outcome", exposure = "exposure",
-  outdir = "graphs/", stoor = TRUE)
+  outdir = "graphs/", stoor = TRUE, remPiq = FALSE)
 }
 \arguments{
-\item{df}{Data frame}
+\item{df}{Data frame containing outcomes and exposures}
 
-\item{outcome}{Character vector}
+\item{outcome}{Character vector referring to the name of the outcome column}
 
-\item{exposure}{Character vector}
+\item{exposure}{Character vector referring to the name of the exposure column}
 
-\item{outdir}{Character vector referring to output directory}
+\item{outdir}{Character vector containing to output directory}
 
-\item{stoor}{Logical that stores the file as pdf}
+\item{stoor}{Logical that stores the file as pdf when TRUE}
+
+\item{Logical}{that removes "Piqola_" from outcomes and exposures when TRUE}
 }
 \description{
 Function to graphically display chi2 test results to 
 ID confounders. Requires a data frame with outcome and exposures 
-such as the one provided by the chi.2.eksp function. Receives a data frame 
-and returns a list of network objects
+such as the one provided by the chi.2.eksp function. Returns a list of network objects in pdf
 }
 

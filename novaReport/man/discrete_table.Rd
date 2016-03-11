@@ -2,9 +2,10 @@
 % Please edit documentation in R/discrete_table.R
 \name{discrete_table}
 \alias{discrete_table}
-\title{Discrete table variables}
+\title{Discrete Table}
 \usage{
-discrete_table(dvars, maxlevels = 20, ..., verbose = FALSE)
+discrete_table(dvars, maxlevels = 20, ..., verbose = FALSE,
+  forcegvar = FALSE, varSizeN = "0.15", levSizeN = "0.05")
 }
 \arguments{
 \item{dvars}{Data frame containing the variables to be tested}
@@ -16,6 +17,7 @@ discrete_table(dvars, maxlevels = 20, ..., verbose = FALSE)
 \item{verbose}{Logical to display function messages}
 }
 \description{
-This function uses the any_discrete and only_discrete functions
+This function uses the any_discrete and only_discrete functions to isolate discrete variables, 
+whereby it uses the custom tableNominal2 function to create a LaTeX table of descriptive statistics
 }
 

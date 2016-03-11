@@ -1,11 +1,11 @@
-#' Multi table
+#' Multi Table
 #' 
-#' This function is used to test for discrete variables using any_discrete and only_discrete,
-#' and also includes tests that identify if there are any multiple choice questions whereby it   
-#' generates a table
+#' This function is used to test for discrete variables using any_discrete and then isolates them using only_discrete.
+#' It includes tests that identify if there are any multiple choice questions whereby it   
+#' generates a table showing answer percentages for each variable
 #'
-#' @param vars Vector containing the variables
-#' @param qs Logical vector or array
+#' @param vars A data frame of nominal variables such as DES
+#' @param qs Data frame containing question data
 #' @param multicol Character vector containing the question type
 #' @param multiname Character vector containing the name of multiple choice questions
 #' @param question.name Character vector containing the name of the question
@@ -13,9 +13,6 @@
 #' @param verbose Logical to display messages
 #' @param ... Arguments passed down from the calling function
 #' @export
-
-
-# multi_table
 
 multi_table <- function(vars = vars, qs = NULL,
                         multicol = "question.type", multiname = "M",
@@ -70,6 +67,10 @@ multi_table <- function(vars = vars, qs = NULL,
         nie.leeg = lapply(varlist, ncol) != 0
         varlist = varlist[nie.leeg]
 
+        for (j in 1:length(varlist)) {
+                names(varlist[[j]]) = gsub("_", " ", names(varlist[[j]]))
+        }
+        
         if (!all(sapply(varlist, is.null))){ # Ons gaan die tabel maak. As varlist leeg is maak dit geen sin om aan te gaan nie
           require(reporttools)
           if (verbose == TRUE) message("Hier gaan discrete_table")
@@ -79,7 +80,7 @@ multi_table <- function(vars = vars, qs = NULL,
                          group = ifelse(levels(as.factor(groep)) == c("1"), NA, groep),
                          cap = ifelse(!is.na(match("cap", names(dots))), dots[["cap"]], ""),
                          lab = ifelse(!is.na(match("lab", names(dots))), dots[["lab"]], ""),
-                         caption.placement = "top", table.placement = "!")
+                         caption.placement = "top", table.placement = "!", comment = FALSE)
           }
           if (verbose == TRUE) message("Drukwerk is klaar")
         }

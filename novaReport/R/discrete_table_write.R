@@ -1,3 +1,16 @@
+#' Write Discrete Table
+#' 
+#' This function is used to write the discrete table to a file in the working directory. This
+#' file contains the source code for a LaTeX document
+#' 
+#' @param dvars Data frame containing the nominal variables
+#' @param group Optional grouping vector
+#' @param d.cap The caption of the resulting LaTeX table
+#' @param d.lab The lable of the resulting LaTeX table
+#' @param maxLevels Numerical containing the maximum amount of levels
+#' @param fn Character vector containing the desired name of the output file
+#' @export
+
 discrete_table_write <- function (dvars, group = 1, d.cap = "", d.lab = "", maxlevels=10, fn) {
   
         if(!require(reporttools)){
@@ -13,7 +26,7 @@ discrete_table_write <- function (dvars, group = 1, d.cap = "", d.lab = "", maxl
   if (length(dropzero) > 0) dvars <- dvars[ ,-dropzero, drop=FALSE]
   stopifnot(ncol(dvars) > 0)
   capture.output(
-    tableNominal(vars = dvars,
+    tableNominal2(vars = dvars,
                cumsum = FALSE,
                group = group,
                cap = ifelse(exists("d.cap"),d.cap, ""),

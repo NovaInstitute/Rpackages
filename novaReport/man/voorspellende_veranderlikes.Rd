@@ -3,17 +3,19 @@
 \docType{data}
 \name{voorspellende_veranderlikes}
 \alias{voorspellende_veranderlikes}
-\title{Subsection Report}
+\title{Subsection Report (Function: Single_report)}
 \format{An object of class \code{character} of length 56.}
 \usage{
 voorspellende_veranderlikes
 }
 \arguments{
-\item{x}{Data frame}
+\item{x}{Data frame typically DES data}
 
-\item{var}{Character vector containing the variables}
+\item{var}{Character vector containing the variable in x that you wish to plot}
 
-\item{groep}{}
+\item{groep}{Character vector containing variable in x that grouping should be done by}
+
+\item{groeplab}{Character vector containing a chosen lable for the graphs}
 
 \item{out}{Logical that generates the desired output}
 
@@ -45,7 +47,7 @@ use of the chi.2.eksp function}
 global environment}
 }
 \description{
-Report per individual variable with subsection heading
+Report per individual variable with subsection heading.
 }
 \note{
 The idea is to lapply a single report over the subsection and subsection_report lapply over the sections

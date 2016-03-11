@@ -1,6 +1,20 @@
 #' section report II
 #' 
+#' This function creates a report based on a specific section as well as a grouping variable. The numeric_table, 
+#' discrete_table and multi_table functions are used to generate the LaTeX output
 #' 
+#' @param x Data frame containing the survey results, typically the DES
+#' @param qss Data frame containing the questions and responses
+#' @param sec Character vector referring to the section under consideration
+#' @param sectionvarname Character vector containing the name of the section column
+#' @param question.text Character vector containing the name of the question text column
+#' @param groupvar Character vector containing the grouping variable under consideration
+#' @param multicol Character vector containing the name of the question type column
+#' @param multiname Character vector referring to the multiple choice questions
+#' @param debug Logical to display function steps
+#' @param forcegvar Logical that forces a large amount of grouping variables to be processed if TRUE. 
+#' This will cause an ugly and unrefined table output
+#' @export
 
 section_report2 <- function(x, 
                             qss = qs, 
@@ -11,7 +25,8 @@ section_report2 <- function(x,
                             groupvar = "", 
                             multicol = "question.type", 
                             multiname = "M", 
-                            debug = FALSE){
+                            debug = FALSE, 
+                            forcegvar = FALSE, varSizeN = "0.15", levSizeN = "0.05", varSizeC = "0.15", levSizeC = "0.15"){
   if (debug == TRUE) message("sec = ", sec)
   if (any(qss[,sectionvarname, drop = TRUE] == sec)){ # as dit nie hiedie seksie is nie gaan ons nie voort nie
     idx <- qss[,sectionvarname, drop = TRUE] == sec
@@ -28,7 +43,7 @@ section_report2 <- function(x,
     var.n <- c(as.character(qss[,qs.varname]), groupvar)
 
    if (all(!is.na(match(var.n, colnames(x))))) {
-     x = x[,var.n]
+    
    } else {
      if (any(qs[,multicol] == multiname)){
        mm.idx = lapply(as.character(qss[,qs.varname, drop = TRUE]), function(z) grep(z, colnames(x)))
@@ -38,18 +53,22 @@ section_report2 <- function(x,
      }
    }
    if (debug == TRUE) message(paste(dim(x), collapse = "  BY  "))
+    
       do.call("cat",
               list(
                 sprintf("\\section{%s} The variables and the associated questions were:", sec),
                 sprintf("%s", qs.text.string(qss, varname=qs.varname, question.text=question.text)),
                 discrete_table(x, lab = paste(sec, "_d"), groupvar = groupvar,
-                               cap = paste("Categorical variables in section ", sec), verbose = FALSE),
+                               cap = paste("Categorical variables in section ", sec), verbose = FALSE, 
+                               forcegvar = forcegvar, varSizeN = varSizeN, levSizeN = levSizeN),
                 numeric_table(x, lab = paste(sec, "_n"), groupvar = groupvar,
-                              cap = paste("Numeric variables in section ", sec), verbose = FALSE),
-                multi_table(x, qs, verbose = FALSE)
+                              cap = paste("Numeric variables in section ", sec), verbose = FALSE, 
+                              forcegvar = forcegvar, varSizeC = varSizeC, levSizeC = levSizeC),
+                multi_table(x, qs, verbose = FALSE, multiname = "Multiple")
 
                 )
               )
-    }
+  }
+        if (forcegvar){ message("You have forced a large amount of grouping variables causing unwanted table output")}
   }
 #}

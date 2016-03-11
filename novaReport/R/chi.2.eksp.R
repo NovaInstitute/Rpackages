@@ -1,6 +1,8 @@
-#' Chi.2.exploration
+#' Chi Squared Experiment
 #' 
-#' Chi.2.exploration with custom chi2 function
+#' Chi.2.eks with custom chi2 function that generates a chi2 statistic as well as a craemer's v
+#' for a given input. The output is displayed in terms of outputs and exposures in the form of the data frame p.df
+#' and list spdf
 #' 
 #' @param data  an R object (data set)
 #' @param out.idx Integer referring to the index of the name that matches "piqola"
@@ -24,8 +26,6 @@
 #' @param plot Logical whether to plot the data
 #' @param net.name Character vector containing the name of the gml network diagram
 #' @export
-
-## chi.2.eksplorasie met aangepaste chi2 funksie onderaan ###
 
 chi.2.eksp <- function(data = des,
                        out.idx = grep("piqola", names(data)),
@@ -93,7 +93,7 @@ chi.2.eksp <- function(data = des,
         x <- data[, oidx]
         apply(X = as.array(ver.idx), MARGIN = 1, FUN = function(vidx) {
           w <- data[, vidx]
-          if (debug == TRUE) message("x ", levels(as.factor(x)))
+          #if (debug == TRUE) message("x ", levels(as.factor(x)))
           #if (debug == TRUE) message("w ", levels(as.factor(w)))
           if (sum(margin.table(table(x, w), 2)[1]) != 0 &
               sum(margin.table(table(x, w), 2)[2]) != 0 &
@@ -180,7 +180,7 @@ chi.2.eksp <- function(data = des,
 }
   
   if (out.df == TRUE){
-    message("Ek skryf 'n dataframe uit want jy het gevra. Sy naam is ", out.df.name, "\nsy dimensies is", paste(dim(p.df), collapse = " by "))
+    message("Ek skryf 'n dataframe uit want jy het gevra. Sy naam is ", out.df.name, "\nsy dimensies is ", paste(dim(p.df), collapse = " by "))
     assign(out.df.name, p.df, envir=.GlobalEnv) 
   }
   
@@ -232,12 +232,15 @@ chi.2.eksp <- function(data = des,
   if (plot == TRUE){
     require(igraph)
     if (nrow(p.df) > 1){
-      g = graph.data.frame(p.df[,c("outcome",   "exposure")])
+            p.dfGraph = p.df
+         p.dfGraph[, "outcome"] = gsub("piqola_", "", p.dfGraph[, "outcome"])
+         p.dfGraph[, "exposure"] = gsub("piqola_", "", p.dfGraph[, "exposure"])
+      g = graph.data.frame(p.dfGraph[,c("outcome",   "exposure")])
       if (debug == TRUE) assign("p.df", p.df, envir = .GlobalEnv)
-      plot(g, vertex.size = 6, vertex.size2 = 1 , mark.border=0.25, edge.arrow.size=0.25)
+      plot(g, vertex.size = 6, vertex.size2 = 1 , mark.border=0.25, edge.arrow.size=0.25, vertex.label.dist = 0.47)
       if(!exists("naam")) naam = "g"
       assign(net.name, g, envir=.GlobalEnv)
-      write.graph(g, file = paste(datadir, net.name, ".graphml", sep=""), format = "graphml")
+      write.graph(g, file = paste(outdir, net.name, ".graphml", sep=""), format = "graphml")
       if (verbose == TRUE) message("Ek skryf 'n gml netwerk diagram uit\nSy naam is ", net.name, " en hy sit in \n", outdir)
     }
   }
@@ -252,26 +255,19 @@ chi.2.eksp <- function(data = des,
   return(p.df)
 }
 
-#' HELPER FUNCTION
+#' my.chisq.test
 #' 
-#' Helper function called my.chisq.test that also supplies n and craemer's v. Test this vs 
+#' Helper function called for chi.2.exp that also supplies n and craemer's v. Test this vs 
 #' assocstats in vcd package
 #' 
-#' @param x Either a data frame or a matrix
+#' @param x Data frame
 #' @param y R object that x will be compared to
 #' @param correct Logical that applies Yates continuity correction
 #' @param p Integer that applies the replicate function over the length of x
 #' @param rescale.p Logical to rescale the probability
 #' @param simulate.p.value Logical that simulates a probability value
-#' @param Numeric that describes the number of replicates the simulated p value is based on
+#' @param B Numeric that describes the number of replicates the simulated p value is based on
 #' @export
-
-###################################### HELPER FUNCTION: my.chisq.test
-
-
-#  my chi2 toets wat n en craemer se V ook gee. Teot hom teen assocstats in vcd pakket
-
-#  my chi2 toets wat n en craemer se V ook gee. Teot hom teen assocstats in vcd pakket
 
 my.chisq.test <- function (x, y = NULL, correct = TRUE, p = rep(1/length(x), length(x)), 
                            rescale.p = FALSE, simulate.p.value = FALSE, B = 2000) 

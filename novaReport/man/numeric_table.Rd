@@ -4,16 +4,21 @@
 \alias{numeric_table}
 \title{Numeric Table}
 \usage{
-numeric_table(nvars, verbose = FALSE, ...)
+numeric_table(nvars, verbose = FALSE, forcegvar = FALSE,
+  varSizeC = "0.15", levSizeC = "0.15", ...)
 }
 \arguments{
-\item{nvars}{Data frame}
+\item{nvars}{Data frame containing continuous variables}
 
-\item{verbose}{Logical to display messages}
+\item{verbose}{Logical to display function messages}
+
+\item{forcegvar}{Logical that forces a chosen grouping variable}
 
 \item{...}{Arguments passed down from the calling function}
 }
 \description{
-This function
+This function checks for any numeric values in a set data frame, isolates them and provides
+a LaTex table of descriptive statistics seperately per group and jointly for all observations, 
+per variable
 }
 

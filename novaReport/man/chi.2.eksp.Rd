@@ -2,7 +2,7 @@
 % Please edit documentation in R/chi.2.eksp.R
 \name{chi.2.eksp}
 \alias{chi.2.eksp}
-\title{Chi.2.exploration}
+\title{Chi Squared Experiment}
 \usage{
 chi.2.eksp(data = des, out.idx = grep("piqola", names(data)),
   min.length = 4 * 16, max.levels = 12, ver.idx = NULL, out.raw = FALSE,
@@ -56,6 +56,8 @@ chi.2.eksp(data = des, out.idx = grep("piqola", names(data)),
 \item{net.name}{Character vector containing the name of the gml network diagram}
 }
 \description{
-Chi.2.exploration with custom chi2 function
+Chi.2.eks with custom chi2 function that generates a chi2 statistic as well as a craemer's v
+for a given input. The output is displayed in terms of outputs and exposures in the form of the data frame p.df
+and list spdf
 }
 

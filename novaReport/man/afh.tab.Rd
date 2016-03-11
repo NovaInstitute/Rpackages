@@ -2,45 +2,39 @@
 % Please edit documentation in R/afh.tab.R
 \name{afh.tab}
 \alias{afh.tab}
-\title{Print out tables for report}
+\title{Dependancy tables}
 \usage{
-afh.tab(x, alpha = 0.05, outcome = "outcome", var.names = "var.names",
-  exposure = "exposure", p.value = "p.value", craemer = "craemer",
-  df = "df", n = "n", statistic = "statistic",
-  x.names = c("Related variable", "n", "p value", "df",
-  paste("$\\\\mathbf{\\\\chi^2}$", "statistic"), "Craemer's V"),
-  verkort = FALSE, warnings = "warnings", sonder.warnings = TRUE,
-  geen = "Geen", tp = "H", tabdir = NULL, verbose = FALSE,
-  bonferroni = TRUE)
+afh.tab(x, alpha = 0.05, outcome = "outcome", exposure = "exposure",
+  p.value = "p.value", craemer = "craemer", df = "df", n = "n",
+  statistic = "statistic", lateX = TRUE, markDown = FALSE,
+  warnings = "warnings", sonder.warnings = TRUE, geen = "None",
+  tp = "H", tabdir = NULL, verbose = FALSE, bonferroni = TRUE,
+  latSave = TRUE)
 }
 \arguments{
+\item{x}{Data frame, which is the outcome of chi.2.exp}
+
 \item{alpha}{Numeric to be used in Bonferroni}
 
-\item{outcome}{Character vector of the outcome to be tested}
+\item{outcome}{Character vector referring to the column containing outcomes}
 
-\item{var.names}{Character vector of the variable names}
+\item{exposure}{Character vector referring to the column containing exposures}
 
-\item{exposure}{Character vector used to specify replacement of points with " "}
+\item{p.value}{Character vector referring to the column containing the probability value}
 
-\item{p.value}{Character vector of the probability value}
+\item{craemer}{Character vector referring to the column containing creamer values}
 
-\item{craemer}{Character vector that is a measure of the association between two nominal variables}
+\item{df}{Character vector referring to the column containing degrees of freedom}
 
-\item{df}{Character vector}
+\item{n}{Character vector referring to the column containing the total number of observations}
 
-\item{n}{Character vector}
+\item{statistic}{Character vector referring to the column containing the calculated chi2 statistic}
 
-\item{statistic}{Character vector}
-
-\item{x.names}{Character vecor of the Related variable, n, p value, df, statistic and craemer's v}
-
-\item{verkort}{Logical that replaces substrings and shortens}
-
-\item{warnings}{Character string indicating a warning}
+\item{warnings}{Character referring to the column containing warnings}
 
 \item{sonder.warnings}{Logical referring to no warnings being present if TRUE}
 
-\item{geen}{Character vector that coincides with displaying that no warnings are present}
+\item{geen}{Character vector to indicating that no warnings are present}
 
 \item{tp}{Character vector for the table placement}
 
@@ -49,7 +43,7 @@ afh.tab(x, alpha = 0.05, outcome = "outcome", var.names = "var.names",
 \item{verbose}{Display function messages}
 }
 \description{
-Prints out tables for report out of list spdf, which is the result of the chi.2.exp function. Bonferroni's method is 
-used here, which is used to correct for multiple comparisons
+Prints out tables for report out of data frame p.df, which is the result of the chi.2.exp function. 
+Bonferroni's method is used here, which is used to correct for multiple comparisons
 }
 

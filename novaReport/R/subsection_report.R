@@ -1,11 +1,11 @@
-#' Subsection Report
+#' Subsection Report (Function: Single_report)
 #' 
-#' Report per individual variable with subsection heading
+#' Report per individual variable with subsection heading. 
 #' 
-#' @param x Data frame
-#' @param var Character vector containing the variables
-#' @param groep 
-#' @param groeplab
+#' @param x Data frame typically DES data
+#' @param var Character vector containing the variable in x that you wish to plot
+#' @param groep Character vector containing variable in x that grouping should be done by
+#' @param groeplab Character vector containing a chosen lable for the graphs
 #' @param out Logical that generates the desired output
 #' @param stats Character vector that decides whether the index of the variable that 
 #' needs to be 'predicted' should be determined
@@ -23,20 +23,6 @@
 #' @param debug Logical that assigns voorspellende_veranderlikes, x and idx_temp to their corresponding names in the
 #' global environment
 #' @note The idea is to lapply a single report over the subsection and subsection_report lapply over the sections
-#' @export
-
-##########################################################################################
-# subsection report
-# verslag per individuele veranderlikke met subseksie opskrif. Dit bevat:
-# teks wat vraag gee en aantal waarnemings (nobs en #NA)
-# teks met verwysing na
-# tabel met opsommende statistiek
-# gepaste grafiek
-# model seleksie vir gekose veranderlikes
-# Dit vereis 'n vraag data frame met die veranderlike naam, die seksie, die vraag teks en die tipe
-# Die vraag naam stem ooreen met die veranderlike naam
-# Die veronderstelling is dat jy single report lapply oor die subseksie en susbsection_report lapply oor die seksies
-##########################################################################################
 
 voorspellende_veranderlikes <-    c("respondent_address_town",
                                   "respondent_age",
@@ -98,6 +84,7 @@ voorspellende_veranderlikes <-    c("respondent_address_town",
 # hulpfunksie
 wrapper <- function(x, ...) {paste(strwrap(x, ...), collapse = "\n")}
 
+#' @export
 single_report <- function(x, 
                           var = c("een"), 
                           groep = NULL, 
@@ -112,14 +99,14 @@ single_report <- function(x,
                           webify = FALSE, 
                           verbose = FALSE, 
                           wd = 15, 
-                          md = TRUE, chi.digits = 4, debug = TRUE, ...){
+                          md = TRUE, chi.digits = 4, debug = TRUE, varSizeN = "0.25", ...){
   
-  if(require(R.utils) == FALSE){ install.packages("R.utils"); library(R.utils) }
-  if(require(reporttools) == FALSE){ install.packages("reporttools"); library(reporttools) }
-  if(require(ggplot2) == FALSE){ install.packages("ggplot2"); library(ggplot2) }
-  if(require(reshape2) == FALSE){ install.packages("reshape2"); library(reshape2) }
-  if(require(gridExtra) == FALSE){ install.packages("gridExtra"); library(gridExtra) }
-  if(require(pander) == FALSE){ install.packages("pander"); library(pander) }
+  if(require(R.utils, quietly = TRUE, warn.conflicts = FALSE) == FALSE){ install.packages("R.utils"); library(R.utils) }
+  if(require(reporttools, quietly = TRUE, warn.conflicts = FALSE) == FALSE){ install.packages("reporttools"); library(reporttools) }
+  if(require(ggplot2, quietly = TRUE, warn.conflicts = FALSE) == FALSE){ install.packages("ggplot2"); library(ggplot2) }
+  if(require(reshape2, quietly = TRUE, warn.conflicts = FALSE) == FALSE){ install.packages("reshape2"); library(reshape2) }
+  if(require(gridExtra, quietly = TRUE, warn.conflicts = FALSE) == FALSE){ install.packages("gridExtra"); library(gridExtra) }
+  if(require(pander, quietly = TRUE, warn.conflicts = FALSE) == FALSE){ install.packages("pander"); library(pander) }
 
   #z <- function() match("tableNominal2", ls(envir=.GlobalEnv))
   #if (is.na(z())) stop("Jy kort tableNominal2.R. Laai hom appart en probeer weer")
@@ -204,9 +191,9 @@ single_report <- function(x,
         
         if (var %in% names(x)) {
           vrs <- list(x[, var])
-          tab <- function() {tableNominal(vars = vrs, cap = paste(lb,"", sep=""), 
+          tab <- function() {tableNominal2(vars = vrs, cap = paste(lb,"", sep="",), 
           lab = paste("lb", vr,  sep = ""), 
-          cumsum = FALSE, longtable = FALSE, caption.placement="top", html = webify)}
+          cumsum = FALSE, longtable = FALSE, caption.placement="top", html = webify, varSizeN = varSizeN)}
         }
         
         if (stats == "all") {
@@ -276,7 +263,7 @@ single_report <- function(x,
         
         if (var %in% names(x)) {
           vrs <- list(x[, var])
-          tab <- function() {tableNominal(vars = vrs, group = gp, cap = paste(lb, "", sep=""), cumsum = FALSE, lab = paste("lb", vr,  sep = ""), html = webify, longtable = FALSE, caption.placement="top")}
+          tab <- function() {tableNominal2(vars = vrs, group = gp, cap = paste(lb, "", sep=""), cumsum = FALSE, lab = paste("lb", vr,  sep = ""), html = webify, longtable = FALSE, caption.placement="top", varSizeN = varSizeN)}
         }
         
         if (stats == "all") {
@@ -337,7 +324,7 @@ single_report <- function(x,
     if (exists("pp", mode = "function")) pp() 
     if (exists("tab", mode = "function")) tab() 
   }
-  message("That's all, folks!") 
+   
 }
 
 # maak funksie wat binne 'n seksie kyk of iets 'n Multi-opsie is.

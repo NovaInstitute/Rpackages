@@ -1,9 +1,46 @@
+#' TableNominal2
+#' 
+#' This function takes a data frame of nominal variables and possible grouping, weighting and subset
+#' variables and provides a LaTeX table of descriptive statistics seperately per group
+#' and jointly for all observations, per variable
+#' 
+#' @param vars A list of nominal variables
+#' @param weights Optional vector of weights of each observation
+#' @param subset Optional logical vector, indicates subset of observations to be used
+#' @param group Optional grouping vector
+#' @param miss.cat Vector specifying the factors in vars that 
+#' should have their NAs transformed to a separate category
+#' @param print.pvalAdd p-values of Fisher's exact or χ^2 test for a difference of distributions 
+#' between groups to the table, if there is more than one group
+#' @param pval.bound p-values below pval.bound are formatted as < pval.bound
+#' @param fisher.B Number of simulations to compute p-value for Fisher's exact test. Note that in the function fisher.test the option simulate.p.value 
+#' is set to TRUE, unless fisher.B == Inf which asks for the exact computation
+#' @param vertical If TRUE, add vertical lines to the table, separating labels and groups, if applicable
+#' @param cap The caption of the resulting LaTeX table
+#' @param lab The label of the resulting LaTeX table
+#' @param col.tit.font Choose the font for the column titles here (default: boldface)
+#' @param font.size Font size for the generated table in LaTeX
+#' @param longtable If TRUE, function makes use of package longtable in LaTex to generate tables that 
+#' span more than one page. If FALSE, generates a table in tabular environment
+#' @param nams A vector of strings, containing the names corresponding to the variables in vars, if vars is 
+#' not a data frame but a list of variables. These are then the names that 
+#' appear in the LaTeX table. This option is only kept for backward compatibility.
+#' @param cumsum f TRUE, the cumulative sums of the percentages are included for every level of the grouping variable
+#' @param varSizeN 
+#' @param ... Arguments pass through to print.xtable
+#' @export
+
 tableNominal2 <- function (vars, weights = NA, subset = NA, group = NA, miss.cat = NA,
     print.pval = c("none", "fisher", "chi2"), pval.bound = 10^-4,
     fisher.B = 2000, vertical = TRUE, cap = "", lab = "", col.tit.font = c("bf",
         "", "sf", "it", "rm"), font.size = "tiny", longtable = TRUE,
-    nams = NA, cumsum = TRUE, ...)
+    nams = NA, cumsum = FALSE, varSizeN = "0.15", levSizeN = "0.05", ...)
 {
+        if (!require(reporttools, quietly = TRUE, warn.conflicts = FALSE)) {
+                message("Loading reporttools")
+                install.packages("reporttools", dependencies = TRUE)
+                if (!require("reporttools")) stop("Load reporttools manually")
+        }
     print.pval <- match.arg(print.pval)
     if (is.data.frame(vars) == TRUE) {
         tmp <- vars
@@ -138,7 +175,7 @@ tableNominal2 <- function (vars, weights = NA, subset = NA, group = NA, miss.cat
         c(0, 1)
     }
     groupAlign <- paste(rep("r", nColPerGroup), collapse = "")
-    al <- paste("lll", vert.lin, groupAlign, sep = "")
+    al <- paste("lp{",varSizeN,"\\columnwidth}|p{",levSizeN,"\\columnwidth}", vert.lin, groupAlign, sep = "")
     tmp <- cumsum(ns.level + 1)
     hlines <- sort(c(0, tmp - 1, rep(tmp, each = 2)))
     tab.env <- "longtable"
@@ -161,7 +198,7 @@ tableNominal2 <- function (vars, weights = NA, subset = NA, group = NA, miss.cat
         xtab1 <- xtable::xtable(out, digits = c(rep(0, 3), rep(digits,
             n.group + 1)), align = al, caption = cap, label = lab)
         xtab2 <- print(xtab1, include.rownames = FALSE, floating = float,
-            type = "latex", hline.after = hlines, size = font.size,
+            type = "latex", hline.after = hlines, size = font.size, 
             sanitize.text.function = function(x) {
                 gsub("_", " ", x)
             }, tabular.environment = tab.env, ...)

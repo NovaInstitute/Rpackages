@@ -2,16 +2,16 @@
 % Please edit documentation in R/multi_table.R
 \name{multi_table}
 \alias{multi_table}
-\title{Multi table}
+\title{Multi Table}
 \usage{
 multi_table(vars = vars, qs = NULL, multicol = "question.type",
   multiname = "M", question.name = "question.name", maxlevels = 20,
   verbose = FALSE, ...)
 }
 \arguments{
-\item{vars}{Vector containing the variables}
+\item{vars}{A data frame of nominal variables such as DES}
 
-\item{qs}{Logical vector or array}
+\item{qs}{Data frame containing question data}
 
 \item{multicol}{Character vector containing the question type}
 
@@ -26,8 +26,8 @@ multi_table(vars = vars, qs = NULL, multicol = "question.type",
 \item{...}{Arguments passed down from the calling function}
 }
 \description{
-This function is used to test for discrete variables using any_discrete and only_discrete,
-and also includes tests that identify if there are any multiple choice questions whereby it   
-generates a table
+This function is used to test for discrete variables using any_discrete and then isolates them using only_discrete.
+It includes tests that identify if there are any multiple choice questions whereby it   
+generates a table showing answer percentages for each variable
 }
 

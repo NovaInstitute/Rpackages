@@ -2,21 +2,21 @@
 % Please edit documentation in R/chi.confounder.net.R
 \name{kry.uitkoms.df}
 \alias{kry.uitkoms.df}
-\title{HELPER FUNCTION}
+\title{Kry Uitkoms}
 \usage{
 kry.uitkoms.df(varname = "town", outname = "outcome",
-  expname = "exposure", df, verbose = TRUE)
+  expname = "exposure", df, remPiq = FALSE)
 }
 \arguments{
-\item{varname}{Character vector}
+\item{varname}{Character vector of the variable name}
 
-\item{expname}{Character vector}
+\item{expname}{Character vector referring to the name of the exposure column}
 
 \item{df}{Data frame as used in chi.confounder.net}
 
-\item{verbose}{**verbose not used}
+\item{remPiq}{Logical that removes "Piqola_" from outcomes and exposures when TRUE}
 
-\item{outcome}{Character vector}
+\item{outcome}{Character vector referring to the name of the outcome column}
 }
 \description{
 Helper function for chi.confounder.net

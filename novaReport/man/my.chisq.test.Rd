@@ -2,13 +2,13 @@
 % Please edit documentation in R/chi.2.eksp.R
 \name{my.chisq.test}
 \alias{my.chisq.test}
-\title{HELPER FUNCTION}
+\title{my.chisq.test}
 \usage{
 my.chisq.test(x, y = NULL, correct = TRUE, p = rep(1/length(x),
   length(x)), rescale.p = FALSE, simulate.p.value = FALSE, B = 2000)
 }
 \arguments{
-\item{x}{Either a data frame or a matrix}
+\item{x}{Data frame}
 
 \item{y}{R object that x will be compared to}
 
@@ -20,10 +20,10 @@ my.chisq.test(x, y = NULL, correct = TRUE, p = rep(1/length(x),
 
 \item{simulate.p.value}{Logical that simulates a probability value}
 
-\item{Numeric}{that describes the number of replicates the simulated p value is based on}
+\item{B}{Numeric that describes the number of replicates the simulated p value is based on}
 }
 \description{
-Helper function called my.chisq.test that also supplies n and craemer's v. Test this vs 
+Helper function called for chi.2.exp that also supplies n and craemer's v. Test this vs 
 assocstats in vcd package
 }
 

@@ -10,9 +10,9 @@ qs.text.string(qs, varname = "question.name",
 \arguments{
 \item{qs}{Questions data frame}
 
-\item{varname}{Character vector referring to the name of the question}
+\item{varname}{Character vector referring to the question name column}
 
-\item{question.text}{Character string referring to the text of the question}
+\item{question.text}{Character vector referring to the question text columnn}
 }
 \description{
 This function behaves the same as qs.text, but it manipulates a character vector of format strings
