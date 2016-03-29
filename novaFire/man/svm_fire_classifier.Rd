@@ -9,4 +9,7 @@ svm_fire_classifier()
 \description{
 Script for building and training the SVM ibutton fire classification model.
 }
+\details{
+Will require trainingHhs.Rda to create svm_fire_classifier.Rda
+}
 
