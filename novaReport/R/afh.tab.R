@@ -11,13 +11,18 @@
 #' @param craemer Character vector referring to the column containing creamer values
 #' @param df Character vector referring to the column containing degrees of freedom
 #' @param n Character vector referring to the column containing the total number of observations
-#' @param statistic Character vector referring to the column containing the calculated chi2 statistic
+#' @param statistic Character vector referring to the column containing the 
+#' calculated chi2 statistic
+#' @param lateX Logical that prints a LaTeX table if TRUE
+#' @param markDown Logical that creates a table for use in MarkDown
 #' @param warnings Character referring to the column containing warnings
 #' @param sonder.warnings Logical referring to no warnings being present if TRUE
 #' @param geen Character vector to indicating that no warnings are present
 #' @param tp Character vector for the table placement
 #' @param tabdir Directory of the table
 #' @param verbose Display function messages
+#' @param bonferroni Logical that makes a bonferroni adjustment when TRUE
+#' @param latSave Logical that saves the tables in the Tabelle folder in your working directory
 #' @export
 
 afh.tab <- function(x, 
@@ -29,25 +34,25 @@ afh.tab <- function(x,
                     df = "df", 
                     n = "n",
                     statistic = "statistic",
-                    lateX = TRUE,
-                    markDown = FALSE,
+                    lateX = FALSE,
+                    markDown = TRUE,
                     warnings = "warnings",
                     sonder.warnings = TRUE,
                     geen = "None", 
                     tp="H",
                     tabdir = NULL,
-                    verbose = FALSE, bonferroni = TRUE, latSave = TRUE){
+                    verbose = FALSE, bonferroni = TRUE, latSave = FALSE){
         
-        if (!require("Hmisc", quietly = TRUE, warn.conflicts = FALSE)) {
+        if (!require("Hmisc")) {
                 message("Loading Hmisc")
                 install.packages("Hmisc", dependencies = TRUE)
                 if (!require("Hmisc")) stop("Load Hmisc manually")
         }
         
-        if (!require("xtable", quietly = TRUE, warn.conflicts = FALSE)) {
+        if (!require("xtable")) {
                 message("Loading xtable")
                 install.packages("xtable", dependencies = TRUE)
-                if (!require("Hmisc")) stop("Load xtable manually")
+                if (!require("xtable")) stop("Load xtable manually")
         }
         
   # verkort

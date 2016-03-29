@@ -7,9 +7,21 @@
 #' @param maxlevels Numeric containing the maximum amount of levels
 #' @param ... Arguments passed down from the calling function
 #' @param verbose Logical to display function messages
+#' @param forcegvar Logical that forces the usage of a variable. This will result in
+#' tables being too large for display purposes
+#' @param varSizeN Character vector that contains the percentage column size to be
+#' attributed to the column containing variables. This is used to customize tables.
+#' @param levSizeN Character vector that contains the percentage column size to be
+#' attributed to the column containing levels. This is used to customize tables.
 #' @export
 
-discrete_table <- function (dvars, maxlevels=20, ..., verbose = FALSE, forcegvar = FALSE, varSizeN = "0.15", levSizeN = "0.05") {
+discrete_table <- function (dvars, 
+                            maxlevels=20, 
+                            ..., 
+                            verbose = FALSE, 
+                            forcegvar = FALSE, 
+                            varSizeN = "0.15", 
+                            levSizeN = "0.05") {
   dots <- list(...)
   
   if (!forcegvar){

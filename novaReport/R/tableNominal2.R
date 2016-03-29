@@ -1,4 +1,4 @@
-#' TableNominal2
+#' Table Nominal 2
 #' 
 #' This function takes a data frame of nominal variables and possible grouping, weighting and subset
 #' variables and provides a LaTeX table of descriptive statistics seperately per group
@@ -10,7 +10,7 @@
 #' @param group Optional grouping vector
 #' @param miss.cat Vector specifying the factors in vars that 
 #' should have their NAs transformed to a separate category
-#' @param print.pvalAdd p-values of Fisher's exact or χ^2 test for a difference of distributions 
+#' @param print.pval Add p-values of Fisher's exact or χ^2 test for a difference of distributions 
 #' between groups to the table, if there is more than one group
 #' @param pval.bound p-values below pval.bound are formatted as < pval.bound
 #' @param fisher.B Number of simulations to compute p-value for Fisher's exact test. Note that in the function fisher.test the option simulate.p.value 
@@ -26,7 +26,8 @@
 #' not a data frame but a list of variables. These are then the names that 
 #' appear in the LaTeX table. This option is only kept for backward compatibility.
 #' @param cumsum f TRUE, the cumulative sums of the percentages are included for every level of the grouping variable
-#' @param varSizeN 
+#' @param varSizeN Size of the column containing the variables
+#' @param levSizeN Size of the column containing the levels
 #' @param ... Arguments pass through to print.xtable
 #' @export
 
@@ -202,6 +203,7 @@ tableNominal2 <- function (vars, weights = NA, subset = NA, group = NA, miss.cat
             sanitize.text.function = function(x) {
                 gsub("_", " ", x)
             }, tabular.environment = tab.env, ...)
+        
     }
     if (n.group == 1) {
         out <- if (cumsum) {
@@ -220,5 +222,6 @@ tableNominal2 <- function (vars, weights = NA, subset = NA, group = NA, miss.cat
             sanitize.text.function = function(x) {
                 gsub("_", " ", x)
             }, tabular.environment = tab.env, ...)
+        
     }
 }

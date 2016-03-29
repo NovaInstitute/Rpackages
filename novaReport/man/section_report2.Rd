@@ -21,6 +21,8 @@ section_report2(x, qss = qs, sec = "A", sectionvarname = "section",
 
 \item{question.text}{Character vector containing the name of the question text column}
 
+\item{qs.varname}{Character vector containing the question name column reference}
+
 \item{groupvar}{Character vector containing the grouping variable under consideration}
 
 \item{multicol}{Character vector containing the name of the question type column}
@@ -31,6 +33,22 @@ section_report2(x, qss = qs, sec = "A", sectionvarname = "section",
 
 \item{forcegvar}{Logical that forces a large amount of grouping variables to be processed if TRUE. 
 This will cause an ugly and unrefined table output}
+
+\item{varSizeN}{Character vector that contains the percentage column size to be
+attributed to the column containing variables. This is used to customize tables. 
+Used in function discrete_table.}
+
+\item{levSizeN}{Character vector that contains the percentage column size to be
+attributed to the column containing levels. This is used to customize tables.
+Used in function discrete_table.}
+
+\item{varSizeC}{Character vector that contains the percentage column size to be
+attributed to the column containing variables. This is used to customize tables.
+Used in function numeric_table.}
+
+\item{levSizeC}{Character vector that contains the percentage column size to be
+attributed to the column containing levels. This is used to customize tables.
+Used in function numeric_table.}
 }
 \description{
 This function creates a report based on a specific section as well as a grouping variable. The numeric_table, 

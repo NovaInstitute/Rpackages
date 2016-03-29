@@ -10,13 +10,13 @@ kry.uitkoms.df(varname = "town", outname = "outcome",
 \arguments{
 \item{varname}{Character vector of the variable name}
 
+\item{outname}{Character vector referring to the name of the outcome column}
+
 \item{expname}{Character vector referring to the name of the exposure column}
 
 \item{df}{Data frame as used in chi.confounder.net}
 
 \item{remPiq}{Logical that removes "Piqola_" from outcomes and exposures when TRUE}
-
-\item{outcome}{Character vector referring to the name of the outcome column}
 }
 \description{
 Helper function for chi.confounder.net

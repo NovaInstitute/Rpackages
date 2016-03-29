@@ -69,11 +69,13 @@ multi_table <- function(vars = vars, qs = NULL,
 
         for (j in 1:length(varlist)) {
                 names(varlist[[j]]) = gsub("_", " ", names(varlist[[j]]))
+                names(varlist[[j]]) = gsub("\\.", " ", names(varlist[[j]]))
         }
         
         if (!all(sapply(varlist, is.null))){ # Ons gaan die tabel maak. As varlist leeg is maak dit geen sin om aan te gaan nie
           require(reporttools)
           if (verbose == TRUE) message("Hier gaan discrete_table")
+          
           for (i in 1:length(varlist)){
             tableNominal(vars = varlist[[i]],
                          cumsum = FALSE,

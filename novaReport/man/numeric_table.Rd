@@ -14,6 +14,12 @@ numeric_table(nvars, verbose = FALSE, forcegvar = FALSE,
 
 \item{forcegvar}{Logical that forces a chosen grouping variable}
 
+\item{varSizeC}{Character vector that contains the percentage column size to be
+attributed to the column containing variables. This is used to customize tables.}
+
+\item{levSizeC}{Character vector that contains the percentage column size to be
+attributed to the column containing levels. This is used to customize tables.}
+
 \item{...}{Arguments passed down from the calling function}
 }
 \description{

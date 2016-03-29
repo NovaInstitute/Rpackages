@@ -1,29 +1,3 @@
-#' Subsection Report (Function: Single_report)
-#' 
-#' Report per individual variable with subsection heading. 
-#' 
-#' @param x Data frame typically DES data
-#' @param var Character vector containing the variable in x that you wish to plot
-#' @param groep Character vector containing variable in x that grouping should be done by
-#' @param groeplab Character vector containing a chosen lable for the graphs
-#' @param out Logical that generates the desired output
-#' @param stats Character vector that decides whether the index of the variable that 
-#' needs to be 'predicted' should be determined
-#' @param qs Data frame that contains a variable name, section, the question text and type 
-#' @param qs_name Character vector referring to the question name
-#' @param qs_text Character vector referring to the question text
-#' @param drr Character vector containing the directory
-#' @param druk Logical that determines whether the output will genarate a pdf and save it to the given directory
-#' @param webify Logical whether to create an html document
-#' @param verbose Logical to display function messages
-#' @param wd Integer giving the target column for wrapping lines in the output
-#' @param md Logical that formats summary results
-#' @param chi.digits Numerical giving the number of decimal places or significant digits to be used after making 
-#' use of the chi.2.eksp function
-#' @param debug Logical that assigns voorspellende_veranderlikes, x and idx_temp to their corresponding names in the
-#' global environment
-#' @note The idea is to lapply a single report over the subsection and subsection_report lapply over the sections
-
 voorspellende_veranderlikes <-    c("respondent_address_town",
                                   "respondent_age",
                                   "respondent_sex",
@@ -84,7 +58,38 @@ voorspellende_veranderlikes <-    c("respondent_address_town",
 # hulpfunksie
 wrapper <- function(x, ...) {paste(strwrap(x, ...), collapse = "\n")}
 
+#' Single Report
+#' 
+#' Report per individual variable with subsection heading. 
+#' 
+#' @param x Data frame typically DES data
+#' @param var Character vector containing the variable in x that you wish to plot
+#' @param groep Character vector containing variable in x that grouping should be done by
+#' @param groeplab Character vector containing a chosen lable for the graphs
+#' @param out Logical that generates the desired output
+#' @param stats Character vector that decides whether the index of the variable that 
+#' needs to be 'predicted' should be determined
+#' @param qs Data frame that contains a variable name, section, the question text and type 
+#' @param qs_name Character vector referring to the question name
+#' @param qs_text Character vector referring to the question text
+#' @param drr Character vector containing the directory
+#' @param druk Logical that determines whether the output will genarate a pdf and save it to the given directory
+#' @param webify Logical whether to create an html document
+#' @param verbose Logical to display function messages
+#' @param wd Integer giving the target column for wrapping lines in the output
+#' @param md Logical that formats summary results
+#' @param chi.digits Numerical giving the number of decimal places or significant digits to be used after making 
+#' use of the chi.2.eksp function
+#' @param debug Logical that assigns voorspellende_veranderlikes, x and idx_temp to their corresponding names in the
+#' @param varSizeN Character vector that contains the percentage column size to be
+#' attributed to the column containing variables. This is used to customize tables.
+#' @param levSizeN Character vector that contains the percentage column size to be
+#' attributed to the column containing levels. This is used to customize tables.
+#' global environment
+#' @param ... Arguments to be passed to/from calling function
+#' @note The idea is to lapply a single report over the subsection and subsection_report lapply over the sections
 #' @export
+
 single_report <- function(x, 
                           var = c("een"), 
                           groep = NULL, 
@@ -99,7 +104,10 @@ single_report <- function(x,
                           webify = FALSE, 
                           verbose = FALSE, 
                           wd = 15, 
-                          md = TRUE, chi.digits = 4, debug = TRUE, varSizeN = "0.25", ...){
+                          md = TRUE, chi.digits = 4, debug = TRUE, 
+                          varSizeN = "0.25",
+                          levSizeN = "0.15",
+                          ...){
   
   if(require(R.utils, quietly = TRUE, warn.conflicts = FALSE) == FALSE){ install.packages("R.utils"); library(R.utils) }
   if(require(reporttools, quietly = TRUE, warn.conflicts = FALSE) == FALSE){ install.packages("reporttools"); library(reporttools) }
@@ -174,26 +182,29 @@ single_report <- function(x,
         
         if (var %in% names(x)) {
           vrs <- list(x[, var])
-          tab <- function() {tableContinuous(vars = vrs, cap = paste(lb, " "), lab = paste("lb",vr,  sep = ""), longtable = FALSE, caption.placement="top", html = webify)}
+          tab <- function() {tableContinuous2(vars = vrs, cap = paste(lb, " "), lab = paste("lb",vr,  sep = ""), 
+                                              longtable = FALSE, caption.placement="top", html = webify, comment = FALSE, 
+                                              nams = gsub("_", " ", var), print.results = TRUE, table.placement = "!h")}
         }
       }
 
       # kategoriese geen groep geval
       if (fc|ch){
         p <- ggplot(data.frame(vr = x[,var]), aes(x=vr, fill = 1), alpha = I(1/2)) + labs(x = lb, y = "count") +
-          geom_bar(position = "dodge") +
+          geom_bar(position = "dodge") + 
           theme(legend.position="none") +
           ggtitle(wrapper(paste("Frequency distrubution of", var), width =2*wd )) +
-          theme(axis.text.x=element_text(angle = 30, hjust = 0)) + theme(axis.text=element_text(size=9), axis.title=element_text(size=11,face="bold"))
+          theme(axis.text.x=element_text(angle = 45, hjust = 1, vjust = 1)) + theme(axis.text=element_text(size=9), axis.title=element_text(size=11,face="bold"))
         
         pp = function() grid.arrange(p, nrow = 1)
         if (druk == TRUE) ggsave(file = paste(drr,var,".pdf",sep=""), width = 12)
         
         if (var %in% names(x)) {
           vrs <- list(x[, var])
-          tab <- function() {tableNominal2(vars = vrs, cap = paste(lb,"", sep="",), 
+          tab <- function() {tableNominal2(vars = vrs, cap = paste(lb,"", sep=""), 
           lab = paste("lb", vr,  sep = ""), 
-          cumsum = FALSE, longtable = FALSE, caption.placement="top", html = webify, varSizeN = varSizeN)}
+          levSizeN = levSizeN, cumsum = FALSE, longtable = FALSE, caption.placement="top", html = webify, varSizeN = varSizeN, 
+          comment = FALSE, nams = gsub("_", " ", var), print.results = FALSE)}
         }
         
         if (stats == "all") {
@@ -223,7 +234,7 @@ single_report <- function(x,
                 dropidxx <- match(c("warnings", "outcome"), table = names(chi2), nomatch = NA)
                 dropidxx <- dropidxx[!is.na(dropidxx)]
                 if (length(dropidxx) > 0) chi2 <- chi2[, -dropidxx]
-                print(kable(chi2, format = "pandoc", digits = 5))
+                print(kable(chi2, format = "pandoc", digits = 5), comment = FALSE)
               }
             } 
           }
@@ -245,9 +256,10 @@ single_report <- function(x,
         
         if (var %in% names(x)) {
           vrs <- list(x[, var])
-          tab <- function() {tableContinuous(vars = vrs, group = gp, cap = paste(lb, "",sep=""), 
+          tab <- function() {tableContinuous2(vars = vrs, group = gp, cap = paste(lb, "",sep=""), 
                                              lab = paste("lb",vr,  sep = ""), 
-                                             longtable = FALSE, html = webify, caption.placement="top")}
+                                             longtable = FALSE, html = webify, caption.placement="top",comment = FALSE, 
+                                             nams = gsub("_", " ", var), print.results = FALSE)}
         }
       }
 
@@ -263,7 +275,10 @@ single_report <- function(x,
         
         if (var %in% names(x)) {
           vrs <- list(x[, var])
-          tab <- function() {tableNominal2(vars = vrs, group = gp, cap = paste(lb, "", sep=""), cumsum = FALSE, lab = paste("lb", vr,  sep = ""), html = webify, longtable = FALSE, caption.placement="top", varSizeN = varSizeN)}
+          tab <- function() {tableNominal2(vars = vrs, group = gp, cap = paste(lb, "", sep=""), cumsum = FALSE, 
+                                           lab = paste("lb", vr,  sep = ""), html = webify, longtable = FALSE, 
+                                           caption.placement="top", varSizeN = varSizeN, levSizeN = levSizeN, comment = FALSE, 
+                                           nams = gsub("_", " ", var), print.results = FALSE)}
         }
         
         if (stats == "all") {
@@ -300,7 +315,7 @@ single_report <- function(x,
                 dropidxx <- match(c("warnings", "outcome"), table = names(chi2), nomatch = NA)
                 dropidxx <- dropidxx[!is.na(dropidxx)]
                 if (length(dropidxx) > 0) chi2 <- chi2[, -dropidxx]
-                print(kable(x = chi2, format = "pandoc", digits = chi.digits))
+                print(kable(x = chi2, format = "pandoc", digits = chi.digits), comment = FALSE)
               }
             } 
           }
@@ -317,12 +332,12 @@ single_report <- function(x,
     do.call("cat", list(sprintf("%s", ifelse(md == TRUE, paste("\n## ", lb,"\n", sep=""), paste("\\subsection{",lb,"}", sep=""))),"\n",
                         ifelse(exists("vraagsin"), vraagsin, ""),"\n",
                         ifelse(exists("verwyssin"), verwyssin, ""), "\n",
-                        if (exists("tab", mode = "function")) tab() else "",
-                        "\\clearpage"
+                        if (exists("tab", mode = "function")) tab() else "", "\n"
                         )
             )
+    if (exists("tab", mode = "function")) tab()
     if (exists("pp", mode = "function")) pp() 
-    if (exists("tab", mode = "function")) tab() 
+    
   }
    
 }

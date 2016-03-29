@@ -5,9 +5,9 @@
 #' A list is returned of the value and the associated warning
 #' 
 #' @param expr expression to be evaluated
+#' @references Bill Dunlap
 #' @export
 
-# by Bill Dunlap
 
 withWarnings <- function (expr) 
 {

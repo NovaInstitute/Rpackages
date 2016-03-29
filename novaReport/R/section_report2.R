@@ -8,12 +8,25 @@
 #' @param sec Character vector referring to the section under consideration
 #' @param sectionvarname Character vector containing the name of the section column
 #' @param question.text Character vector containing the name of the question text column
+#' @param qs.varname Character vector containing the question name column reference
 #' @param groupvar Character vector containing the grouping variable under consideration
 #' @param multicol Character vector containing the name of the question type column
 #' @param multiname Character vector referring to the multiple choice questions
 #' @param debug Logical to display function steps
 #' @param forcegvar Logical that forces a large amount of grouping variables to be processed if TRUE. 
 #' This will cause an ugly and unrefined table output
+#' @param varSizeN Character vector that contains the percentage column size to be
+#' attributed to the column containing variables. This is used to customize tables. 
+#' Used in function discrete_table.
+#' @param levSizeN Character vector that contains the percentage column size to be
+#' attributed to the column containing levels. This is used to customize tables.
+#' Used in function discrete_table.
+#' @param varSizeC Character vector that contains the percentage column size to be
+#' attributed to the column containing variables. This is used to customize tables.
+#' Used in function numeric_table.
+#' @param levSizeC Character vector that contains the percentage column size to be
+#' attributed to the column containing levels. This is used to customize tables.
+#' Used in function numeric_table.
 #' @export
 
 section_report2 <- function(x, 
@@ -26,7 +39,8 @@ section_report2 <- function(x,
                             multicol = "question.type", 
                             multiname = "M", 
                             debug = FALSE, 
-                            forcegvar = FALSE, varSizeN = "0.15", levSizeN = "0.05", varSizeC = "0.15", levSizeC = "0.15"){
+                            forcegvar = FALSE, varSizeN = "0.15", levSizeN = "0.05", 
+                            varSizeC = "0.15", levSizeC = "0.15"){
   if (debug == TRUE) message("sec = ", sec)
   if (any(qss[,sectionvarname, drop = TRUE] == sec)){ # as dit nie hiedie seksie is nie gaan ons nie voort nie
     idx <- qss[,sectionvarname, drop = TRUE] == sec
@@ -64,7 +78,7 @@ section_report2 <- function(x,
                 numeric_table(x, lab = paste(sec, "_n"), groupvar = groupvar,
                               cap = paste("Numeric variables in section ", sec), verbose = FALSE, 
                               forcegvar = forcegvar, varSizeC = varSizeC, levSizeC = levSizeC),
-                multi_table(x, qs, verbose = FALSE, multiname = "Multiple")
+                multi_table(x, qs, verbose = FALSE, multiname = "Multiple", cap = paste("Multiple choice variables in section ", sec))
 
                 )
               )

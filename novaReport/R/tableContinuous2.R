@@ -1,4 +1,4 @@
-#' Generate a LaTeX table of descriptive statistics for continuous variables
+#' Table Continuous 2
 #' 
 #' This function takes a data frame of continuous variables and possible grouping, weighting, and subset 
 #' variables and provides a LaTeX table of descriptive statistics separately per group and jointly 
@@ -38,8 +38,12 @@
 #' @param nams A vector of strings, containing the names corresponding to the variables in vars, 
 #' if vars is not a data frame but a list of variables. These are then the names that appear in the 
 #' LaTeX table. This option is only kept for backward compatibility.
-#' @param varSizeC Character vector that can be used to specify the size of the column (as a %) that contain the variables. 
+#' @param varSizeC Character vector that can be used to specify the size 
+#' of the column (as a percentage) that contain the variables. 
+#' @param levSizeC Character vector that can be used to specify the size 
+#' of the column (as a percentage) that contain the levels.
 #' @param ... Arguments pass through to print.xtable.
+#' @return Generate a LaTeX table of descriptive statistics for continuous variables
 #' @export
 
 tableContinuous2 <- function (vars, weights = NA, subset = NA, group = NA, stats = c("n", 

@@ -4,7 +4,7 @@
 #' for a given input. The output is displayed in terms of outputs and exposures in the form of the data frame p.df
 #' and list spdf
 #' 
-#' @param data  an R object (data set)
+#' @param data an R object (data set)
 #' @param out.idx Integer referring to the index of the name that matches "piqola"
 #' @param min.length Numeric referring to the minimum length
 #' @param max.levels Numeric referring to the maximum amount of levels

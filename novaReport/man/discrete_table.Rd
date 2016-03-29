@@ -15,6 +15,15 @@ discrete_table(dvars, maxlevels = 20, ..., verbose = FALSE,
 \item{...}{Arguments passed down from the calling function}
 
 \item{verbose}{Logical to display function messages}
+
+\item{forcegvar}{Logical that forces the usage of a variable. This will result in
+tables being too large for display purposes}
+
+\item{varSizeN}{Character vector that contains the percentage column size to be
+attributed to the column containing variables. This is used to customize tables.}
+
+\item{levSizeN}{Character vector that contains the percentage column size to be
+attributed to the column containing levels. This is used to customize tables.}
 }
 \description{
 This function uses the any_discrete and only_discrete functions to isolate discrete variables, 

@@ -9,10 +9,15 @@
 #' @param exposure Character vector referring to the name of the exposure column
 #' @param outdir Character vector containing to output directory
 #' @param stoor Logical that stores the file as pdf when TRUE
-#' @param Logical that removes "Piqola_" from outcomes and exposures when TRUE
+#' @param remPiq Logical that removes "Piqola_" from outcomes and exposures when TRUE
 #' @export
 
-chi.confounder.net <- function(df, outcome = "outcome", exposure = "exposure", outdir = "graphs/", stoor = TRUE, remPiq = FALSE){
+chi.confounder.net <- function(df, 
+                               outcome = "outcome", 
+                               exposure = "exposure", 
+                               outdir = "graphs/", 
+                               stoor = TRUE, 
+                               remPiq = FALSE){
         
         if (!require("igraph")) {
                 message("Loading igraph")
@@ -49,7 +54,7 @@ chi.confounder.net <- function(df, outcome = "outcome", exposure = "exposure", o
 #' Helper function for chi.confounder.net
 #' 
 #' @param varname Character vector of the variable name
-#' @param outcome Character vector referring to the name of the outcome column
+#' @param outname Character vector referring to the name of the outcome column
 #' @param expname Character vector referring to the name of the exposure column
 #' @param df Data frame as used in chi.confounder.net
 #' @param remPiq Logical that removes "Piqola_" from outcomes and exposures when TRUE

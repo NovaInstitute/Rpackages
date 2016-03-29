@@ -16,9 +16,9 @@ discrete_table_write(dvars, group = 1, d.cap = "", d.lab = "",
 
 \item{d.lab}{The lable of the resulting LaTeX table}
 
-\item{fn}{Character vector containing the desired name of the output file}
+\item{maxlevels}{Numerical containing the maximum amount of levels}
 
-\item{maxLevels}{Numerical containing the maximum amount of levels}
+\item{fn}{Character vector containing the desired name of the output file}
 }
 \description{
 This function is used to write the discrete table to a file in the working directory. This

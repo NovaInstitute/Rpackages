@@ -18,7 +18,7 @@ chi.confounder.net(df, outcome = "outcome", exposure = "exposure",
 
 \item{stoor}{Logical that stores the file as pdf when TRUE}
 
-\item{Logical}{that removes "Piqola_" from outcomes and exposures when TRUE}
+\item{remPiq}{Logical that removes "Piqola_" from outcomes and exposures when TRUE}
 }
 \description{
 Function to graphically display chi2 test results to 

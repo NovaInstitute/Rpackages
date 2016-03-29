@@ -2,7 +2,7 @@
 % Please edit documentation in R/tableNominal2.R
 \name{tableNominal2}
 \alias{tableNominal2}
-\title{TableNominal2}
+\title{Table Nominal 2}
 \usage{
 tableNominal2(vars, weights = NA, subset = NA, group = NA,
   miss.cat = NA, print.pval = c("none", "fisher", "chi2"),
@@ -22,6 +22,9 @@ tableNominal2(vars, weights = NA, subset = NA, group = NA,
 
 \item{miss.cat}{Vector specifying the factors in vars that 
 should have their NAs transformed to a separate category}
+
+\item{print.pval}{Add p-values of Fisher's exact or χ^2 test for a difference of distributions 
+between groups to the table, if there is more than one group}
 
 \item{pval.bound}{p-values below pval.bound are formatted as < pval.bound}
 
@@ -47,12 +50,11 @@ appear in the LaTeX table. This option is only kept for backward compatibility.}
 
 \item{cumsum}{f TRUE, the cumulative sums of the percentages are included for every level of the grouping variable}
 
-\item{varSizeN}{}
+\item{varSizeN}{Size of the column containing the variables}
+
+\item{levSizeN}{Size of the column containing the levels}
 
 \item{...}{Arguments pass through to print.xtable}
-
-\item{print.pvalAdd}{p-values of Fisher's exact or χ^2 test for a difference of distributions 
-between groups to the table, if there is more than one group}
 }
 \description{
 This function takes a data frame of nominal variables and possible grouping, weighting and subset

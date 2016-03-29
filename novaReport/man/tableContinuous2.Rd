@@ -2,7 +2,7 @@
 % Please edit documentation in R/tableContinuous2.R
 \name{tableContinuous2}
 \alias{tableContinuous2}
-\title{Generate a LaTeX table of descriptive statistics for continuous variables}
+\title{Table Continuous 2}
 \usage{
 tableContinuous2(vars, weights = NA, subset = NA, group = NA,
   stats = c("n", "min", "q1", "median", "mean", "q3", "max", "s", "iqr",
@@ -64,9 +64,16 @@ stats is recommended.}
 if vars is not a data frame but a list of variables. These are then the names that appear in the 
 LaTeX table. This option is only kept for backward compatibility.}
 
-\item{varSizeC}{Character vector that can be used to specify the size of the column (as a %) that contain the variables.}
+\item{varSizeC}{Character vector that can be used to specify the size 
+of the column (as a percentage) that contain the variables.}
+
+\item{levSizeC}{Character vector that can be used to specify the size 
+of the column (as a percentage) that contain the levels.}
 
 \item{...}{Arguments pass through to print.xtable.}
+}
+\value{
+Generate a LaTeX table of descriptive statistics for continuous variables
 }
 \description{
 This function takes a data frame of continuous variables and possible grouping, weighting, and subset 

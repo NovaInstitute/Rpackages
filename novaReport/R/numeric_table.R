@@ -7,10 +7,19 @@
 #' @param nvars Data frame containing continuous variables
 #' @param verbose Logical to display function messages
 #' @param forcegvar Logical that forces a chosen grouping variable
+#' @param varSizeC Character vector that contains the percentage column size to be
+#' attributed to the column containing variables. This is used to customize tables.
+#' @param levSizeC Character vector that contains the percentage column size to be
+#' attributed to the column containing levels. This is used to customize tables.
 #' @param ... Arguments passed down from the calling function
 #' @export
 
-numeric_table <- function (nvars, verbose = FALSE, forcegvar = FALSE, varSizeC = "0.15", levSizeC = "0.15", ...){
+numeric_table <- function (nvars, 
+                           verbose = FALSE, 
+                           forcegvar = FALSE, 
+                           varSizeC = "0.15", 
+                           levSizeC = "0.15", 
+                           ...){
   dots <- list(...)
 
   if (!forcegvar){

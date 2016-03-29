@@ -7,11 +7,16 @@
 #' @param group Optional grouping vector
 #' @param d.cap The caption of the resulting LaTeX table
 #' @param d.lab The lable of the resulting LaTeX table
-#' @param maxLevels Numerical containing the maximum amount of levels
+#' @param maxlevels Numerical containing the maximum amount of levels
 #' @param fn Character vector containing the desired name of the output file
 #' @export
 
-discrete_table_write <- function (dvars, group = 1, d.cap = "", d.lab = "", maxlevels=10, fn) {
+discrete_table_write <- function (dvars, 
+                                  group = 1, 
+                                  d.cap = "", 
+                                  d.lab = "", 
+                                  maxlevels=10, 
+                                  fn) {
   
         if(!require(reporttools)){
                 message("Package reporttools not found, installing package")

@@ -14,4 +14,7 @@ This function is used by chi.2.eksp to ensure that the function works correctly.
 of functions that provide a mechanism for handling unusual conditions, including errors and warnings. 
 A list is returned of the value and the associated warning
 }
+\references{
+Bill Dunlap
+}
 
