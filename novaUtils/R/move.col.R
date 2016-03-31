@@ -79,6 +79,7 @@ move.col <- function(df = NULL, colName = NULL, colIdx = NULL) {
 #' @param df Data frame containing data to be manipulated
 #' @param colNames Vector containing the names of the columns to be moved
 #' @param colIdxx Vector that refers to the index that the column must be moved to
+#' @param verbose Logical that displays function messages when TRUE
 #' @return Returns the data frame with the columns moved to the specified indices
 #' @export
 

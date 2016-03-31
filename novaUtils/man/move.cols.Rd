@@ -12,6 +12,8 @@ move.cols(df = NULL, colNames = NULL, colIdxx = NULL, verbose = FALSE)
 \item{colNames}{Vector containing the names of the columns to be moved}
 
 \item{colIdxx}{Vector that refers to the index that the column must be moved to}
+
+\item{verbose}{Logical that displays function messages when TRUE}
 }
 \value{
 Returns the data frame with the columns moved to the specified indices

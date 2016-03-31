@@ -4,10 +4,13 @@
 \alias{fixname}
 \title{Make variable names lower case}
 \usage{
-fixname(data_names)
+fixname(data_names, replacementChar = c("_", ".")[1])
 }
 \arguments{
 \item{data_names}{Names to be converted (function converts data into an array)}
+
+\item{replacementChar}{The character that will be replacing either a punctuation mark, space or underscore. By 
+default this function replaces spaces and punctuation marks with underscores}
 }
 \value{
 Simplified variable names
@@ -15,6 +18,6 @@ Simplified variable names
 \description{
 Receives variable names and converts them to lower 
 case, without any spaces or punctuation marks - whether
-within the name, leading or trailing
+within the name, leading or trailing. The user may also specify a replacement character if so desired
 }
 
