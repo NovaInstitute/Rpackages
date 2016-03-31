@@ -1,0 +1,10 @@
+Package: novaQOLReport
+Type: Package
+Title: Quality of life survey processing
+Version: 0.1.0
+Author: Christiaan Pauw
+Maintainer: Christiaan Pauw <christiaan.pauw@nova.org.za>
+Description: This package is used to create numerous graphs and tables that describe general and personal information regarding different locations
+License: Copyright (c) 2016 Nova Institute (Reg# 1994/002614/08)
+LazyData: TRUE
+RoxygenNote: 5.0.1
