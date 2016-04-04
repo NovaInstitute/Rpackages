@@ -35,11 +35,18 @@ if (!require(caret)){
         }
 }
 
+if (!require(novaUtils)){
+        devtools::install_github("NovaInstitute/Rpackages/novaUtils")
+        if (!require(novaUtils)){
+                stop("Load package novaUtils manually")
+        }
+}
+
+
 # ---------------------------------------- #
 # source locally required code
 source(paste(novafunctdir, "EOPhhObj.R", sep = ""))
-source(paste(novafunctdir, "move.col.R", sep = ""))
-source(paste(novafunctdir, "archive.R", sep = ""))
+library(novaUtils)
 # ---------------------------------------- #
 # declare script constants
 VERBOSE <- TRUE
