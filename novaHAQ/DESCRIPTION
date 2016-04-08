@@ -1,0 +1,10 @@
+Package: novaHAQ
+Type: Package
+Title: Calculate coal savings
+Version: 0.1.0
+Author: Christiaan Pauw
+Maintainer: Christiaan Pauw <christiaan.pauw@nova.org.za>
+Description: Package calculates coal savings whilst generating various summary tables used for data analysis
+License: Copyright (c) 2016 Nova Institute (Reg# 1994/002614/08)
+LazyData: TRUE
+RoxygenNote: 5.0.1
