@@ -29,6 +29,7 @@ calculate.BM.manage <- function(x, verbose=FALSE, debug = FALSE,
   require(doBy)
   require(plyr)
   require(reshape2)
+  require(novaUtils)
 
   COEF = 2.3515
 
