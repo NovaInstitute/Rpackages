@@ -1,0 +1,6 @@
+The main function in this package is the haqWesselton function. 
+It is mainly used to create and manupulate BM data associated with 
+coal savings for the Wesselton region. This function has code called 
+calculateER.AI.R which requires use of the novaAI package. Another
+main function is called haqER and directly implements the calculateER.AI.R
+function and is used to calculate Emission response data.
