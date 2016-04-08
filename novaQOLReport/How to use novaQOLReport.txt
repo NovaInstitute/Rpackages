@@ -1,0 +1,5 @@
+The main function in this package is the novaQOL function contained in the
+4.QOL_report.R file inside the package. The rest of the functions work with this
+function but can also be used individually like any other package. The main function
+creates more than a thousand tables in total so the user can choose what output he 
+would like to recieve.
