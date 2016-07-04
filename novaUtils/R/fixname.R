@@ -1,15 +1,16 @@
 #' Make variable names lower case
 #' 
-#' Receives variable names and converts them to lower 
-#' case, without any spaces or punctuation marks - whether
-#' within the name, leading or trailing. The user may also specify a replacement character if so desired
+#' Receives variable names and converts them to lower case, without any spaces 
+#' or punctuation marks - whether within the name, leading or trailing. 
+#' The user may specify the replacement character to use as replacement for the
+#' punctuation marks and spaces (defaults to underscore ['_']).
 #' 
-#' @param data_names Names to be converted (function converts data into an array)
-#' @param replacementChar The character that will be replacing either a punctuation mark, space or underscore. By 
-#' default this function replaces spaces and punctuation marks with underscores
+#' @param data_names Names to be converted (function converts data into an array).
+#' @param replacementChar The character that will be replacing either a 
+#' punctuation mark, space or underscore. By default this function replaces 
+#' spaces and punctuation marks with underscores.
 #' @return Simplified variable names
 #' @export
-
 fixname <- function(data_names, 
                     replacementChar = c("_", ".", " ")[1]) {
 
