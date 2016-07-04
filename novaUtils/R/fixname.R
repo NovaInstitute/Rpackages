@@ -10,7 +10,8 @@
 #' @return Simplified variable names
 #' @export
 
-fixname <- function(data_names, replacementChar = c("_", ".")[1]) {
+fixname <- function(data_names, 
+                    replacementChar = c("_", ".", " ")[1]) {
 
   if (!(replacementChar %in% c("_", "."))) {
     stop("Invalid replacement character specified. Must be either '_' or '.' .")
