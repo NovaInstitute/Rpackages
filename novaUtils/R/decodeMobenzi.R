@@ -1,4 +1,12 @@
 
+#' Decodes Mobenzi questionnaire data using the data's codebook.
+#' @author A. Howard
+#' @param dfSurvey The questionnaire data as a data frame.
+#' @param dfCodebook The questionnaire's code book as a data frame.
+#' @param fldnmVariable The name of the 'Variable' field in the code book.
+#' @param fldnmValue The name of the 'Value' field in the code book.
+#' @param fldnmLabel The name of the 'Label' field in the code book.
+#' @param replacementChar The replacement character to be used by function 'fixname'.
 decodeMobenzi <- function(dfSurvey = NULL, 
                           dfCodeBook = NULL,
                           fldnmVariable = "Variable", 
