@@ -7,6 +7,8 @@
 #' @param fldnmValue The name of the 'Value' field in the code book.
 #' @param fldnmLabel The name of the 'Label' field in the code book.
 #' @param replacementChar The replacement character to be used by function 'fixname'.
+#' @export
+#' 
 decodeMobenzi <- function(dfSurvey = NULL, 
                           dfCodeBook = NULL,
                           fldnmVariable = "Variable", 
