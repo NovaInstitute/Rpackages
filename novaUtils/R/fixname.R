@@ -14,8 +14,8 @@
 fixname <- function(data_names, 
                     replacementChar = c("_", ".", " ")[1]) {
 
-  if (!(replacementChar %in% c("_", "."))) {
-    stop("Invalid replacement character specified. Must be either '_' or '.' .")
+  if (!(replacementChar %in% c("_", ".", " "))) {
+    stop("Invalid replacement character specified. Must be either '_', '.' or ' '.")
   }
   
   data_names <- tolower(data_names)

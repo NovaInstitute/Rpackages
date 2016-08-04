@@ -38,7 +38,6 @@ decodeMobenzi <- function(dfSurvey = NULL,
     dfCodeBook[idxx, fldnmLabel] <- "no"
   }
 
-  oldNames <- names(dfSurvey)
   names(dfSurvey) <- fixname(names(dfSurvey), replacementChar)
 
   varsplits <- split(x = dfCodeBook, f = dfCodeBook[[fldnmVariable]])
@@ -69,6 +68,6 @@ decodeMobenzi <- function(dfSurvey = NULL,
     return(0)
   }) ; rm(ctch)
 
-  names(dfSurvey) <- oldNames ; rm(oldNames)
+
   return(dfSurvey)
 }
