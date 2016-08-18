@@ -15,21 +15,21 @@ code.bm <- function(haq=haq,
                     coal.use = "coal.use",
                     contact = "contact",
                     verbose = FALSE){
-# Recode multi.firemaker..coal.ignition
-haq$multi.firemaker..coal.ignition=as.character(haq$multi.firemaker..coal.ignition)
-haq$multi.firemaker..coal.ignition[which(haq$multi.firemaker..coal.ignition=="Everyone uses BM")] = "BM"
-haq$multi.firemaker..coal.ignition[which(haq$multi.firemaker..coal.ignition=="Everyone uses Hybrid BM")] = "BM"
-haq$multi.firemaker..coal.ignition[which(haq$multi.firemaker..coal.ignition=="Some use BM and others Bottom up")] = "BM"
-haq$multi.firemaker..coal.ignition[which(haq$multi.firemaker..coal.ignition=="Everyone uses Bottom up")] = "Bottom Up"
-haq$multi.firemaker..coal.ignition=as.factor(haq$multi.firemaker..coal.ignition)
+# Recode multi.firemaker.coal.ignition
+haq$multi.firemaker.coal.ignition=as.character(haq$multi.firemaker.coal.ignition)
+haq$multi.firemaker.coal.ignition[which(haq$multi.firemaker.coal.ignition=="Everyone uses BM")] = "BM"
+haq$multi.firemaker.coal.ignition[which(haq$multi.firemaker.coal.ignition=="Everyone uses Hybrid BM")] = "BM"
+haq$multi.firemaker.coal.ignition[which(haq$multi.firemaker.coal.ignition=="Some use BM and others Bottom up")] = "BM"
+haq$multi.firemaker.coal.ignition[which(haq$multi.firemaker.coal.ignition=="Everyone uses Bottom up")] = "Bottom Up"
+haq$multi.firemaker.coal.ignition=as.factor(haq$multi.firemaker.coal.ignition)
 
 if(verbose==TRUE) message("Multi firemakers formated")
 
 # Create households BM use variable that combines all firemakers. If one uses BM the household is considered a BM using household  BM
 bm.idx = which(haq$hh.coal.ignition=="BM" |
   haq$hh.coal.ignition=="Hybrid BM" |
-  haq$multi.firemaker..coal.ignition=="BM" |
-  haq$multi.firemaker..coal.ignition=="Hybrid BM")
+  haq$multi.firemaker.coal.ignition=="BM" |
+  haq$multi.firemaker.coal.ignition=="Hybrid BM")
 
 haq[bm.idx, "hh.BM.use"] = "BM"
 
@@ -43,10 +43,10 @@ haq[which(haq$hh.firemaker.id=="Myself only" & haq$hh.coal.ignition=="Bottom Up"
 # set to "Bottom Up" if they say no one uses BM
 haq[which(haq$hh.firemaker.id=="Different people" & haq$bm.saved.coal.winter=="Nobody in this house uses BM"),"hh.BM.use"] = "Bottom Up"
 # If some use BM and some don't, it is still a BM using household
-haq[which(haq$hh.firemaker.id=="Different people" & haq$multi.firemaker..coal.ignition=="Some use BM and others Bottom up"),"hh.BM.use"] = "BM"
+haq[which(haq$hh.firemaker.id=="Different people" & haq$multi.firemaker.coal.ignition=="Some use BM and others Bottom up"),"hh.BM.use"] = "BM"
 # Same applies if some use BM Hybrid
-haq[which(haq$hh.firemaker.id=="Different people" & haq$multi.firemaker..coal.ignition=="BM Hybrid"),"hh.BM.use"] = "BM"
-haq[which(haq$hh.firemaker.id=="Different people" & haq$multi.firemaker..coal.ignition=="Everyone uses Hybrid BM"),"hh.BM.use"] = "BM"
+haq[which(haq$hh.firemaker.id=="Different people" & haq$multi.firemaker.coal.ignition=="BM Hybrid"),"hh.BM.use"] = "BM"
+haq[which(haq$hh.firemaker.id=="Different people" & haq$multi.firemaker.coal.ignition=="Everyone uses Hybrid BM"),"hh.BM.use"] = "BM"
 
 
 if(verbose==TRUE) message("Multi firemakers coded")
@@ -79,7 +79,7 @@ haq$bm.saved.coal.winter = as.factor(haq$bm.saved.coal.winter)
 if(verbose==TRUE) message("bm.saved.coal.winter coded")
 
 ### If someone uses Hybrid BM and they do not save, then bm.saved.coal.summer is not "Nobody in this house uses BM" but "No"
-haq[which(haq$coal.use.in.summer=="Yes" & (haq$multi.firemaker..coal.ignition=="Hybrid BM") & haq$bm.saved.coal.winter=="No"),"bm.saved.coal.summer"] = "No"
+haq[which(haq$coal.use.in.summer=="Yes" & (haq$multi.firemaker.coal.ignition=="Hybrid BM") & haq$bm.saved.coal.winter=="No"),"bm.saved.coal.summer"] = "No"
 ### If no-one used BM the ignition method is "Bottom up"
 haq[which(haq$bm.saved.coal.summer=="Nobody in this house uses BM"),"hh.BM.use"] = "Bottom Up"
 
@@ -101,7 +101,7 @@ haq[which(haq[,"introduction.to.bm"]=="Radio"|
 
 haq[which(haq$year.of.initiation < project.startyear), "hh.BM.use"] = "BM old"
 
-bu.idx = which(is.na(haq$hh.coal.ignition) & haq$multi.firemaker..coal.ignition == "Bottom Up")
+bu.idx = which(is.na(haq$hh.coal.ignition) & haq$multi.firemaker.coal.ignition == "Bottom Up")
 if (length(bu.idx) > 0 ) haq[bu.idx, "hh.BM.use"] <- "Bottom Up"
 
 if(verbose==TRUE) message("Nou gaan ons almal wat nie tuis was nie uitsnoei" )
