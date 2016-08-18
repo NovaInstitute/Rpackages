@@ -17,11 +17,6 @@
 #' res = lapply(suburb.lst, allocate.weights, formaat = haq$coal.buying.format)
 #' @details Make use of coalm.tables if you want the answer per suburb
 #' @export
-
-
-
-
-
 allocate.weights <- function(x,
                              formaat = get("format", pos=1),
                              loc = "area",

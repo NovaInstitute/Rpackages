@@ -15,6 +15,7 @@ code.bm <- function(haq=haq,
                     coal.use = "coal.use",
                     contact = "contact",
                     verbose = FALSE){
+
 # Recode multi.firemaker.coal.ignition
 haq$multi.firemaker.coal.ignition=as.character(haq$multi.firemaker.coal.ignition)
 haq$multi.firemaker.coal.ignition[which(haq$multi.firemaker.coal.ignition=="Everyone uses BM")] = "BM"
