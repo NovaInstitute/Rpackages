@@ -40,6 +40,10 @@ nada <- function(x) {
 
 is.nada <- function(x) {
   res <- apply(X = as.array(x), MARGIN = 1, FUN = function(e) {
+    if (is.na(e)) {
+            warning("Actual NA detected.")
+            return(FALSE)
+    }
     if (toupper(as.character(e)) == "NADA") { return(TRUE) } else {return(FALSE)}
   })
 }
