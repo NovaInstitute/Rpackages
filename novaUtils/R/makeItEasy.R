@@ -55,8 +55,11 @@ is.nada <- function(x) {
 #' @export
 
 unnada <- function(x) {
-  if (is.null(x)) {return(x)}
-  if (is.nada(x)) {return(NA)} else {return(x)}
+        if (is.null(x)) {return(x)}
+        x <- sapply(X = x, FUN = function(e) {
+                if (is.nada(e)) {return(NA)} else {return(e)}
+        })
+        
 }
 
 #' Get file extension
