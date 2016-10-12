@@ -39,7 +39,7 @@ nada <- function(x) {
 #' @export
 
 is.nada <- function(x) {
-  res <- apply(X = as.array(x), MARGIN = 1, FUN = function(e) {
+  res <- sapply(X = x, FUN = function(e) {
     if (is.na(e)) {
             warning("Actual NA detected.")
             return(FALSE)
