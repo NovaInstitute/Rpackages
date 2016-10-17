@@ -40,7 +40,7 @@ format_int_char <- function(field = NULL) {
     return(field)
   }
   
-  field <- format.int(field)
+  field <- format_int(field)
   field <- as.character(field)
   
   return(field)
@@ -97,7 +97,7 @@ format_yesno <- function(field = NULL, yes = 1,
   
   yes <- as.character(yes)
   no <- as.character(no)
-  field <- format.char(field)
+  field <- format_char(field)
   field <- gsub(pattern = yes, replacement = "yes", x = field, fixed = TRUE)
   field <- gsub(pattern = no, replacement = "no", x = field, fixed = TRUE)
   
