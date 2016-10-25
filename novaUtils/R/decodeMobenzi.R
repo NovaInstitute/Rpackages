@@ -68,6 +68,12 @@ decodeMobenzi <- function(dfSurvey = NULL,
     return(0)
   }) ; rm(ctch)
 
-
+  # refactorise again according to the code book
+  for (f in 1:ncol(dfSurvey)) {
+    if (!(names(dfSurvey)[f] %in% dfCodeBook[[fldnmVariable]])) {next()}
+    options <- unique(dfCodeBook[which(dfCodeBook[[fldnmVariable]] == names(dfSurvey)[f]), fldnmLabel])
+    dfSurvey[[f]] <- factor(x = dfSurvey[[f]], levels = options)
+  }
+  
   return(dfSurvey)
 }
