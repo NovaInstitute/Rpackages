@@ -1,0 +1,10 @@
+Package: novaAI
+Type: Package
+Title: Nova alternative ignition methodology
+Version: 0.1.0
+Author: Christiaan Pauw
+Maintainer: Christiaan Pauw <christiaan.pauw@nova.org.za>
+Description: This package is used to calculate Emission Response information
+License: Copyright (c) 2016 Nova Institute (Reg# 1994/002614/08)
+LazyData: TRUE
+RoxygenNote: 5.0.1

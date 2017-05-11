@@ -1,0 +1,12 @@
+Package: novaSurvey
+Type: Package
+Title: Projects a sample population onto population
+Version: 1.0
+Date: 2016-03-01
+Author: Christiaan Pauw
+Maintainer: Christiaan Pauw <christiaan.pauw@nova.org.za>
+Description: This function is supplied with a dataframe and projects the data in terms 
+             of the specified variable.
+License: Copyright (c) 2016 Nova Institute (Reg# 1994/002614/08)
+RoxygenNote: 5.0.1
+Suggests: testthat
