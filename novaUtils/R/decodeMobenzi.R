@@ -1,20 +1,18 @@
 
-#' Decodes Mobenzi questionnaire data using the data's codebook.
-#' @author A. Howard
-#' @param dfSurvey The questionnaire data as a data frame.
-#' @param dfCodebook The questionnaire's code book as a data frame.
-#' @param fldnmVariable The name of the 'Variable' field in the code book.
-#' @param fldnmValue The name of the 'Value' field in the code book.
-#' @param fldnmLabel The name of the 'Label' field in the code book.
-#' @param replacementChar The replacement character to be used by function 'fixname'.
-#' @export
+#' Decodes data from mobenzi.
 #' 
+#' @param dfSurvey data.frame containing the data to be decoded.
+#' @param dfCodeBook data.frame containing the codebook.
+#' @param formatOpsies if true, the labels containing the options will be fixnamed.
+#' @return a decoded dataframe
+#' @export
 decodeMobenzi <- function(dfSurvey = NULL, 
                           dfCodeBook = NULL,
                           fldnmVariable = "Variable", 
                           fldnmValue = "Value", 
                           fldnmLabel = "Label",
-                          replacementChar = "_") {
+                          replacementChar = "_",
+                          formatOpsies = FALSE) {
   
   # doen al die toetse hier
   ## is.null
@@ -23,22 +21,27 @@ decodeMobenzi <- function(dfSurvey = NULL,
   ## fldnms not found in names(dfCodebook)
   ## variable names not found in dfSurvey
 
-  # format the fields of dfCodeBook
-  dfCodeBook[[fldnmVariable]] <- fixname(dfCodeBook[[fldnmVariable]], replacementChar)
-  dfCodeBook[[fldnmValue]] <- format_char(dfCodeBook[[fldnmValue]])
-  dfCodeBook[[fldnmLabel]] <- format_char(dfCodeBook[[fldnmLabel]])
-
-  # fix the problematic "Y - we use animal dung" or "N - we use animal dung" format in the code book
-  idxx <- grep(pattern = "^y_", x = dfCodeBook[[fldnmLabel]])
+  oldNames <- names(dfSurvey)
+  names(dfSurvey) <- fixname(names(dfSurvey))
+  
+  dfCodeBook[[fldnmVariable]] <- fixname(data_names = dfCodeBook[[fldnmVariable]], 
+                                         replacementChar = replacementChar)
+  
+  #fix the problematic "Y - we use animal dung" or "N - we use animal dung" format in the code book
+  idxx <- grep(pattern = "^[Yy]{1}[ |_|-]{1}|Yes, [[:print:]]+", x = dfCodeBook[[fldnmLabel]])
   if (length(idxx) > 0) {
-    dfCodeBook[idxx, fldnmLabel] <- "yes"
+    dfCodeBook[idxx, fldnmLabel] <- "Yes"
   }
-  idxx <- grep(pattern = "^n_", x = dfCodeBook[[fldnmLabel]])
+  idxx <- grep(pattern = "^[Nn]{1}[ |_|-]{1}|No, [[:print:]]+", x = dfCodeBook[[fldnmLabel]])
   if (length(idxx) > 0) {
-    dfCodeBook[idxx, fldnmLabel] <- "no"
+    dfCodeBook[idxx, fldnmLabel] <- "No"
   }
 
-  names(dfSurvey) <- fixname(names(dfSurvey), replacementChar)
+  # format the fields of dfCodeBook, if the user so requests
+    if (formatOpsies){
+      dfCodeBook[[fldnmLabel]] <- format_char(dfCodeBook[[fldnmLabel]])
+      dfCodeBook[[fldnmValue]] <- format_char(dfCodeBook[[fldnmValue]])
+    }
 
   varsplits <- split(x = dfCodeBook, f = dfCodeBook[[fldnmVariable]])
   if (length(varsplits) < 1) {
@@ -52,8 +55,15 @@ decodeMobenzi <- function(dfSurvey = NULL,
       return(1)
     }
 
+    isFactor <- FALSE
+    factorLevels <- c()
+    if(is.factor(dfSurvey[[varnm]])) {
+      isFactor <- TRUE
+      factorLevels <- levels(dfSurvey[[varnm]])
+    }
+    
     vardf <- varsplits[[varnm]]
-    dfSurvey[[varnm]] <<- format_char(dfSurvey[[varnm]])
+    #dfSurvey[[varnm]] <<- format_char(dfSurvey[[varnm]])
 
     for (r in 1:nrow(vardf)) {
       if (is.na(vardf[r, fldnmValue])) {
@@ -65,15 +75,17 @@ decodeMobenzi <- function(dfSurvey = NULL,
         dfSurvey[idxx, varnm] <<- vardf[r, fldnmLabel]
       }
     } ; rm(r, idxx)
+    
+    if (isFactor) {
+      dfSurvey[[varnm]] <<- factor(x = dfSurvey[[varnm]], levels = factorLevels)
+    }
     return(0)
   }) ; rm(ctch)
-
-  # refactorise again according to the code book
-  for (f in 1:ncol(dfSurvey)) {
-    if (!(names(dfSurvey)[f] %in% dfCodeBook[[fldnmVariable]])) {next()}
-    options <- unique(dfCodeBook[which(dfCodeBook[[fldnmVariable]] == names(dfSurvey)[f]), fldnmLabel])
-    dfSurvey[[f]] <- factor(x = dfSurvey[[f]], levels = options)
-  }
   
+  if (!formatOpsies) {
+    names(dfSurvey) <- oldNames ; rm(oldNames)
+  }
+
   return(dfSurvey)
+  
 }
