@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 #' Helper Function Yapply
 #'
 #' A function provided by Romain Francois based on something by Thomas Lumley, used in the creation of
@@ -44,7 +44,8 @@ merchant.tables <- function(df = haq,
                             datadir=datadir,
                             limit =5,
                             n=5,
-                            append = FALSE, xlsx = TRUE){
+                            append = FALSE,
+                            xlsx = TRUE){
 require(xtable)
 require(Hmisc)
 
@@ -58,35 +59,35 @@ merch.sub = tapply(df[which(haq$coal.use=="YES" | haq$coal.use=="Yes"), merchant
 
 ##  This function was provided by Romain Francois based on something by Thomas Lumley:
 
-yapply=function(X,FUN, ...) { 
-  index <- seq(length.out=length(X)) 
-  namesX <- names(X) 
+yapply=function(X,FUN, ...) {
+  index <- seq(length.out=length(X))
+  namesX <- names(X)
   if(is.null(namesX)) namesX <- rep(NA,length(X))
-  
-  FUN <- match.fun(FUN) 
-  fnames <- names(formals(FUN)) 
-  if( ! "INDEX" %in% fnames ){ 
-    formals(FUN) <- append( formals(FUN), alist(INDEX=) )   } 
-  if( ! "NAMES" %in% fnames ){ 
-    formals(FUN) <- append( formals(FUN), alist(NAMES=) )   } 
+
+  FUN <- match.fun(FUN)
+  fnames <- names(formals(FUN))
+  if( ! "INDEX" %in% fnames ){
+    formals(FUN) <- append( formals(FUN), alist(INDEX=) )   }
+  if( ! "NAMES" %in% fnames ){
+    formals(FUN) <- append( formals(FUN), alist(NAMES=) )   }
   mapply(FUN, X, INDEX=index, NAMES=namesX, MoreArgs=list(...)) }
 
-################################################################################################ 
+################################################################################################
 
 ##  Now the merchant tables
 
-merchant.tables <- function(df = haq, 
-                            coal.var = "coal.use", 
+merchant.tables <- function(df = haq,
+                            coal.var = "coal.use",
                             yesoption = "yes",
-                            town.var = "town", 
-                            merchant.var = "coal.merchant.r", 
+                            town.var = "town",
+                            merchant.var = "coal.merchant.r",
                             datadir=datadir,
-                            limit =5, 
-                            n=5, 
+                            limit =5,
+                            n=5,
                             append = FALSE, xlsx = TRUE, debug = FALSE){
 require(xtable)
-require(Hmisc) 
-  
+require(Hmisc)
+
 merch.sub = tapply(df[which(df[ ,coal.var]== yesoption), merchant.var],
                  df[which(df[ , coal.var] ==yesoption), town.var],
 >>>>>>> f1b6196e61886065df90ab6a085fc1a54862e0ea
@@ -110,10 +111,10 @@ merch.sub.perc = yapply(merch.sub,function(x)print(xtable
                                                   caption = paste("Coal merchants in",NAMES),
                                                   label =   paste("CoalMerchants",NAMES,sep="")
 =======
-                                                  align ="lrr",        
-                                                  title =   paste("Coal merchants in",NAMES),        
+                                                  align ="lrr",
+                                                  title =   paste("Coal merchants in",NAMES),
                                                   caption = paste("Coal merchants in",NAMES),
-                                                  label =   paste("CoalMerchants",NAMES,sep="")     
+                                                  label =   paste("CoalMerchants",NAMES,sep="")
 >>>>>>> f1b6196e61886065df90ab6a085fc1a54862e0ea
                                                   ),file=paste(datadir,NAMES,".tex",sep="")
                                                  )
@@ -143,10 +144,10 @@ merch.sub.short.perc = yapply(merch.sub.short,function(x)print(xtable
                                                   caption = paste("Abbreviated coal merchants in",NAMES),
                                                   label =   paste("Abbreviated Coal Merchants",NAMES,sep="")
 =======
-                                                  align ="lrr",        
-                                                  title =   paste("Abbreviated coal merchants in",NAMES),        
+                                                  align ="lrr",
+                                                  title =   paste("Abbreviated coal merchants in",NAMES),
                                                   caption = paste("Abbreviated coal merchants in",NAMES),
-                                                  label =   paste("Abbreviated Coal Merchants",NAMES,sep="")     
+                                                  label =   paste("Abbreviated Coal Merchants",NAMES,sep="")
 >>>>>>> f1b6196e61886065df90ab6a085fc1a54862e0ea
                                                  ),file=paste(datadir,NAMES,"Abbr.tex",sep="")
                                                 )
@@ -189,12 +190,12 @@ if (debug) assign("merch.sub.short", merch.sub.short, envir = .GlobalEnv)
 
 merch.sub.perc = yapply(top5,function(x)print(xtable
                                                  (x,
-                                                  align ="lrr",        
-                                                  title =   paste("Top five coal merchants in",NAMES),         
+                                                  align ="lrr",
+                                                  title =   paste("Top five coal merchants in",NAMES),
                                                   caption = paste("Top five coal merchants in",NAMES),
-                                                  label =   paste("Top5CoalMerchants",NAMES,sep="")     
+                                                  label =   paste("Top5CoalMerchants",NAMES,sep="")
                                                  ),
-                                            append = append, 
+                                            append = append,
 >>>>>>> f1b6196e61886065df90ab6a085fc1a54862e0ea
                                             file = ifelse(append==FALSE, paste(datadir,NAMES,".top5.tex",sep=""), paste(datadir,"saam.top5.tex", sep=""))
 )
