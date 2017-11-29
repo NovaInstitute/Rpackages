@@ -17,4 +17,3 @@ Function that receives an integer-like character field and removes leading zeros
 punctuation marks, alphabetic characters and blanks using the format.int function, but 
 returns a character value
 }
-

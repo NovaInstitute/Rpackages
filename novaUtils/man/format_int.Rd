@@ -16,4 +16,3 @@ Formatted field returned as a integer vector
 Function that receives an integer-like character field and removes leading zeros,
 punctuation marks, alphabetic characters and blanks
 }
-

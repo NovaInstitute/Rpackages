@@ -15,4 +15,3 @@ Logical specifying whether "NADA" values were found
 \description{
 Search for "NADA" values
 }
-

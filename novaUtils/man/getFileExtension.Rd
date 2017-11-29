@@ -15,4 +15,3 @@ File extension
 \description{
 Get file extension
 }
-

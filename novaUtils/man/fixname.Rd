@@ -22,4 +22,3 @@ or punctuation marks - whether within the name, leading or trailing.
 The user may specify the replacement character to use as replacement for the
 punctuation marks and spaces (defaults to underscore ['_']).
 }
-

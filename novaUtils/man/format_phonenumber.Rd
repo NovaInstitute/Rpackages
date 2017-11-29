@@ -17,4 +17,3 @@ Function that receives an integer-like character field referring to a phone numb
 formats the field to remove leading zeros, punctuation marks, alphabetic characters and blanks 
 as well as the 'plus sign' and extra numbers
 }
-

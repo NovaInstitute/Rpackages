@@ -15,4 +15,3 @@ Vector with NA values replaced with "NADA
 \description{
 Convert NA into "NADA"
 }
-
