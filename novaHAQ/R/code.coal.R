@@ -82,10 +82,6 @@ code.coal <- function(haq,
       haq[nowintersaveidx,units[4]] = haq[nowintersaveidx, current.var]
     }
 
-    # if someone has winter eef but no summer but they use coal in summer the summer eef is the same as winter eef
-    fxdx =  which(is.na(haq$eef.s)  & !is.na(haq$eef) & haq$hh.summer.BM.use == "BM")
-    if (length(fxdx) > 0) haq[fxdx, "eef.s"] <- haq[fxdx, "eef"]
-
         # Calculate average winter eef to use to give the average proportional saving to the users who are not confident to give
     # their savings
     eef.raw = with(haq[which(haq$hh.BM.use == "BM"), ], unfactor(haq$coal.units.winter.before.bm)/unfactor(haq$coal.units.winter.after.bm))
@@ -99,10 +95,10 @@ code.coal <- function(haq,
     eef.s = mean(eef.s.raw[which(eef.s.raw < 2)], na.rm = TRUE)
     if (verbose == TRUE)
         message("eef.s ", round(eef.s,2) )
-    if (is.na(eef.s)) {
-            eef.s <- eef
-            if (verbose == TRUE) message("eef.s ", round(eef.s,2) )
-            }
+
+    # if someone has winter eef but no summer but they use coal in summer the summer eef is the same as winter eef
+    fxdx =  which(is.na(haq$eef.s)  & !is.na(haq$eef) & haq$hh.summer.BM.use == "BM")
+    if (length(fxdx) > 0) haq[fxdx, "eef.s"] <- haq[fxdx, "eef"]
 
     # energy efficiency factor
 
