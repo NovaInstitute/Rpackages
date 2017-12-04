@@ -66,7 +66,7 @@ code.coal <- function(haq,
     if (verbose == TRUE)
         message("nonbmidx=  ", length(nonbmidx))
     if (verbose == TRUE)
-        message("unit names ", paste(names(haq)[match(units, names(haq))]), " ")
+        message("unit names: ", paste(names(haq)[match(units, names(haq))], sep = " "), " ")
     haq[nonbmidx, match(units, names(haq))] = NA
 
     # If someone say they did not save it means that the use before and after BM is the same and the savings is zero and eff = 1
@@ -99,6 +99,10 @@ code.coal <- function(haq,
     eef.s = mean(eef.s.raw[which(eef.s.raw < 2)], na.rm = TRUE)
     if (verbose == TRUE)
         message("eef.s ", round(eef.s,2) )
+    if (is.na(eef.s)) {
+            eef.s <- eef
+            if (verbose == TRUE) message("eef.s ", round(eef.s,2) )
+            }
 
     # energy efficiency factor
 
