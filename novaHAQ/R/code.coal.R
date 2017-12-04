@@ -101,7 +101,6 @@ code.coal <- function(haq,
     if (length(fxdx) > 0) haq[fxdx, "eef.s"] <- haq[fxdx, "eef"]
 
     # energy efficiency factor
-
     haq$eef = unfactor(haq$coal.units.winter.before.bm)/unfactor(haq$coal.units.winter.after.bm)
     haq$eef.s = unfactor(haq$coal.units.summer.before.bm)/unfactor(haq$coal.units.summer.after.bm)
     # make sure there are no Inf (i.e. x/0) responses
@@ -242,9 +241,13 @@ code.coal <- function(haq,
               table(is.na(haq$winter.before.bm.kg), haq$hh.BM.use)[1], " use BM")
 
     haq$totalwinter.before.bm.kg <- 4 * haq$winter.before.bm.kg
+
     haq$summer.before.bm.kg <- unfactor(haq$coal.units.summer.before.bm) * haq$kg
     if (verbose == TRUE)
-      message("summer.before.bm.kg mean = ", summary(haq$summer.before.bm.kg)[4], " nobs = ", nobs(haq$summer.before.bm.kg) , " of whom " ,
+      message("kg", mean(haq$kg, na.rm = TRUE),
+              "\ncoal.units.summer.before.bm", mean(haq$coal.units.summer.before.bm, na.rm = TRUE),
+              "\nsummer.before.bm.kg mean = ", summary(haq$summer.before.bm.kg)[4],
+              " nobs = ", nobs(haq$summer.before.bm.kg) , " of whom " ,
               table(is.na(haq$summer.before.bm.kg), haq$hh.BM.use)[1], " use BM")
 
     haq$summer.before.bm.kg[which(haq$hh.BM.use != "BM")] = NA
@@ -284,6 +287,7 @@ code.coal <- function(haq,
     ### summer
 
     haq$summerdays.prop <- haq$summerdays.used/fullsummer
+    if (verbose) message("mean summerdays.prop: ", mean(haq$summerdays.prop, na.rm = TRUE))
     haq$summer.current.kg <- ifelse(haq$hh.summer.BM.use == "BM" | haq$hh.summer.BM.use == "Historic BM",
                                     unfactor(haq [ , grep("current.coal.units.sum", names(haq))[1]]) *  haq$kg,
                                     NA)
