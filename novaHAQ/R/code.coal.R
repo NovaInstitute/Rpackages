@@ -23,7 +23,7 @@ unfactor <- function(x) {
 #' @param verbose Logical to display function messages
 #' @param units Character vector referring to the variables that contain coal units used in
 #' winter and summer before and after BM
-#' @param current.var Character vector referring to the variable of current coal used in summer
+#' @param summer.current.var Character vector referring to the variable of current coal used in summer
 #' @param summercoal.var The coal used in summer as character vector
 #' @param summersavevar The variable containing data relating to coal and BM use during summer as
 #' character vector
@@ -47,10 +47,13 @@ code.coal <- function(haq,
                                 "coal.units.summer.before.bm",
                                 "coal.units.winter.after.bm",
                                 "coal.units.summer.after.bm"),
-                      current.var = "current.coal.units.summer",
+                      summer.current.var = "current.coal.units.summer",
+                      winter.current.var = "current.coal.units.winter",
                       summercoal.var = "coal.use.in.summer",
-                      summersavevar = "bm.saved.coal.summer", wintersavevar = "bm.saved.coal.winter",
-                      summersaveval = "No", wintersaveval = "No",
+                      summersavevar = "bm.saved.coal.summer",
+                      wintersavevar = "bm.saved.coal.winter",
+                      summersaveval = "No",
+                      wintersaveval = "No",
                       estimate.summer = FALSE,
                       summer.est.var = "bm.saved.coal.summer",
                       summer.est.value = "It is not yet summer, or I only started recently and cannot tell exactly",
@@ -58,37 +61,37 @@ code.coal <- function(haq,
                       summer.no.value = "No",
                       estimate.winter = FALSE,
                       winter.est.var = "bm.saved.coal.winter",
-                      winter.est.value = "I have only started recently and cannot tell exactly") {
+                      winter.est.value = "I have only started recently and cannot tell exactly",
+                      wintermemvar = "memory.coal.units.winter.before.bm",
+                      wintermem.value = "no",
+                      summermemvar = "memory.coal.units.summer.before.bm",
+                      summermem.value = "no") {
 
     suppressMessages(require(gdata))
     # Non BM user cannot have a use before and afterBM
     nonbmidx = which(haq$hh.BM.use != "BM" & haq$hh.BM.use != "BM other" & haq$hh.BM.use != "BM old")
     if (verbose == TRUE)
-        message("nonbmidx=  ", length(nonbmidx))
+        message("nonbmidx =  ", length(nonbmidx))
     if (verbose == TRUE)
-        message("unit names ", paste(names(haq)[match(units, names(haq))]), " ")
+        message("unit names: \n", paste(names(haq)[match(units, names(haq))], collapse = "\n"), " ")
     haq[nonbmidx, match(units, names(haq))] = NA
 
     # If someone say they did not save it means that the use before and after BM is the same and the savings is zero and eff = 1
     nosummersaveidx = which(haq[,summersavevar] == summersaveval)
     if (length(nosummersaveidx) > 0){
-      haq[nosummersaveidx,units[2]] = haq[nosummersaveidx, current.var]
-      haq[nosummersaveidx,units[4]] = haq[nosummersaveidx, current.var]
+      haq[nosummersaveidx,units[2]] = haq[nosummersaveidx, summer.current.var]
+      haq[nosummersaveidx,units[4]] = haq[nosummersaveidx, summer.current.var]
     }
 
     nowintersaveidx = which(haq[,wintersavevar] == wintersaveval)
     if (length(nowintersaveidx) > 0){
-      haq[nowintersaveidx,units[2]] = haq[nowintersaveidx, current.var]
-      haq[nowintersaveidx,units[4]] = haq[nowintersaveidx, current.var]
+      haq[nowintersaveidx,units[2]] = haq[nowintersaveidx, winter.current.var]
+      haq[nowintersaveidx,units[4]] = haq[nowintersaveidx, winter.current.var]
     }
-
-    # if someone has winter eef but no summer but they use coal in summer the summer eef is the same as winter eef
-    fxdx =  which(is.na(haq$eef.s)  & !is.na(haq$eef) & haq$hh.summer.BM.use == "BM")
-    if (length(fxdx) > 0) haq[fxdx, "eef.s"] <- haq[fxdx, "eef"]
 
         # Calculate average winter eef to use to give the average proportional saving to the users who are not confident to give
     # their savings
-    eef.raw = with(haq[which(haq$hh.BM.use == "BM"), ], unfactor(haq$coal.units.winter.before.bm)/unfactor(haq$coal.units.winter.after.bm))
+    eef.raw = with(haq[which(haq$hh.BM.use == "BM"), ], unfactor(haq$coal.units.winter.before.bm) / unfactor(haq$coal.units.winter.after.bm))
     eef = mean(eef.raw[which(eef.raw < 2)], na.rm = TRUE)
     if (verbose == TRUE)
         message("eef ", eef)
@@ -96,16 +99,23 @@ code.coal <- function(haq,
     # Calculate average summer eef to use to give the average proportional saving to the users who are not confident to give
     # their savings
     eef.s.raw = with(haq[which(haq$hh.summer.BM.use == "BM"), ], unfactor(haq$coal.units.summer.before.bm)/unfactor(haq$coal.units.summer.after.bm))
-    eef.s = mean(eef.s.raw[which(eef.s.raw < 2)], na.rm = TRUE)
+    eef.s = mean(eef.s.raw[which(eef.s.raw < 2.01)], na.rm = TRUE)
     if (verbose == TRUE)
-        message("eef.s ", round(eef.s,2) )
+        message("eef.s ", round(eef.s,4) )
 
     # energy efficiency factor
-
-    haq$eef = unfactor(haq$coal.units.winter.before.bm)/unfactor(haq$coal.units.winter.after.bm)
-    haq$eef.s = unfactor(haq$coal.units.summer.before.bm)/unfactor(haq$coal.units.summer.after.bm)
+    haq$eef = unfactor(haq$coal.units.winter.before.bm) / unfactor(haq$coal.units.winter.after.bm)
+    haq$eef.s = unfactor(haq$coal.units.summer.before.bm) / unfactor(haq$coal.units.summer.after.bm)
     # make sure there are no Inf (i.e. x/0) responses
     haq[which(haq$eef.s == Inf), c("eef.s")] = NA
+
+    # if someone has winter eef but no summer but they use coal in summer the summer eef is the same as winter eef
+    fxdx =  which(is.na(haq$eef.s)  & !is.na(haq$eef) & haq$hh.summer.BM.use == "BM")
+    if (length(fxdx) > 0) haq[fxdx, "eef.s"] <- haq[fxdx, "eef"]
+    if (verbose){
+            message("mean haq$eef: ", mean(haq$eef, na.rm = TRUE), "\n nobs = ", nobs(haq$eef))
+            message("mean haq$eef.s: ", mean(haq$eef, na.rm = TRUE), "\n nobs = ", nobs(haq$eef.s))
+    }
 
     # There are cases where the user could not yet estimate summer use
     if (estimate.summer == TRUE) {
@@ -114,7 +124,7 @@ code.coal <- function(haq,
         # index of applicable records: Their summer before and after and current
         # is NA. This only goes for BM.summer.users. The others have to get zeros
         s.e.idx = which((haq[, summer.est.var] == summer.est.value | is.na(haq[, summer.est.var])) &
-          is.na(haq[ ,current.var]) == TRUE &
+          is.na(haq[ ,summer.current.var]) == TRUE &
           is.na(haq[ ,units[2]]) ==  TRUE &
           is.na(haq[ ,units[4]]) ==  TRUE &
           haq$hh.summer.BM.use == "BM")
@@ -122,16 +132,16 @@ code.coal <- function(haq,
         if (length(s.e.idx) > 0) {
           if (verbose == TRUE)
             message("Estimating summer use form means for ", length(s.e.idx), " cases")
-            haq[s.e.idx, current.var] = mean(haq[which(haq$hh.summer.BM.use == "BM"), current.var],
+            haq[s.e.idx, summer.current.var] = mean(haq[which(haq$hh.summer.BM.use == "BM"), summer.current.var],
                 na.rm = TRUE)
-            haq[s.e.idx, units[4]] = mean(haq[which(haq$hh.summer.BM.use == "BM"), current.var], na.rm = TRUE)
+            haq[s.e.idx, units[4]] = mean(haq[which(haq$hh.summer.BM.use == "BM"), summer.current.var], na.rm = TRUE)
             haq[s.e.idx, units[4]] = haq[s.e.idx, units[4]] * eef.s
             haq[s.e.idx, "estimate"] = TRUE
         }
 
         # index of those who have a summer current and only need to apply eef to get a before
         s.c.ok.idx = which((haq[, summer.est.var] == summer.est.value | is.na(haq[, summer.est.var]))&
-          is.na(haq[ ,current.var]) == FALSE &
+          is.na(haq[ ,summer.current.var]) == FALSE &
           is.na(haq[, units[2]]) == TRUE &
           is.na(haq[, units[4]]) == TRUE &
           haq$hh.summer.BM.use == "BM")
@@ -139,20 +149,20 @@ code.coal <- function(haq,
 
         if (length(s.c.ok.idx) > 0) {
           message("Estimating ", length(s.c.ok.idx), " records using mean eef for summer")
-            haq[s.c.ok.idx, units[4]] = haq[s.c.ok.idx, current.var]  # assume a flat baseline
+            haq[s.c.ok.idx, units[4]] = haq[s.c.ok.idx, summer.current.var]  # assume a flat baseline
             haq[s.c.ok.idx, units[2]] = haq[s.c.ok.idx, units[4]] * eef.s  # assume average summer eef
             haq[s.c.ok.idx, "estimate"] = TRUE
           message("Summer estimation applied to ",length(s.c.ok.idx), " records")
           message(units[4], " has " , nobs(haq[, units[4]]), " observations")
           message(units[2], " has " , nobs(haq[, units[2]]), " observations")
-          message(current.var, " has " , nobs(haq[ ,current.var]), " observations\n")
+          message(summer.current.var, " has " , nobs(haq[ ,summer.current.var]), " observations\n")
         }
 
         # For those who have before and after but not current: apply a flat baseline
 
         # For those who have everything except coal.units.summer.before.bm.0
         s.one.ok.idx = which((haq[, summer.est.var] == summer.est.value | is.na(haq[, summer.est.var]))&
-          is.na(haq[ ,current.var]) == FALSE &
+          is.na(haq[ ,summer.current.var]) == FALSE &
           is.na(haq[ ,units[2]]) == TRUE &
           is.na(haq[ ,units[4]]) == FALSE &
           haq$hh.summer.BM.use == "BM")
@@ -165,14 +175,15 @@ code.coal <- function(haq,
           message("Summer estimation applied to ",length(s.one.ok.idx), " records")
           message(units[4], " has " , nobs(haq[, units[4]]), " observations")
           message(units[2], " has " , nobs(haq[, units[2]]), " observations")
-          message(current.var, " has " , nobs(haq[ ,current.var]), " observations\n")
+          message(summer.current.var, " has " , nobs(haq[ ,summer.current.var]), " observations\n")
         }
 
-        # for those who only miss summer: fix it outside the function with which(haq$hh.summer.BM.use=="BM" & is.na(haq$bm.saved.coal.summer))
+        # for those who only miss summer:
+        # fix it outside the function with which(haq$hh.summer.BM.use=="BM" & is.na(haq$bm.saved.coal.summer))
 
         # as summervar = "No" is voor en na en huidig dieselfde en eef.s = 1
         s.c.no.idx = which(haq[, summer.est.var] == summer.no.value &
-          is.na(haq[ ,current.var]) == FALSE &
+          is.na(haq[ ,summer.current.var]) == FALSE &
           is.na(haq[ ,units[2]]) == TRUE &
           is.na(haq[ ,units[4]]) == TRUE &
           haq$hh.summer.BM.use == "BM")
@@ -180,14 +191,23 @@ code.coal <- function(haq,
 
         if (length(s.c.no.idx) > 0) {
           if (verbose==TRUE) message("Estimating ", length(s.c.no.idx), " records using flat baseline approach on current use")
-          haq[s.c.no.idx, units[4]] = haq[s.c.no.idx, current.var]  # assume a flat baseline
+          haq[s.c.no.idx, units[4]] = haq[s.c.no.idx, summer.current.var]  # assume a flat baseline
           haq[s.c.no.idx, units[2]] = unfactor(haq[s.c.no.idx, units[4]]) * 1  # assume average summer eef
           haq[s.c.no.idx, 'eef.s'] = 1
           haq[s.c.no.idx, "estimate"] = TRUE
           message("Summer estimation applied to ",length(s.c.no.idx), " records")
           message(units[4], " has " , nobs(unfactor(haq[, units[4]])), " observations")
           message(units[2], " has " , nobs(unfactor(haq[, units[2]])), " observations")
-          message(current.var, " has " , nobs(unfactor(haq[ ,current.var])), " observations\n")
+          message(summer.current.var, " has " , nobs(unfactor(haq[ ,summer.current.var])), " observations\n")
+        }
+
+        # for those who cannot remember: use average eff
+        s.mem.idx <- which(haq[,summermemvar] == summermem.value &
+                                   haq$hh.summer.BM.use == "BM" &
+                                   !is.na(haq[,summer.current.var]))
+        if (length(s.mem.idx) > 0){
+                haq[s.mem.idx, units[2]] <- haq[s.mem.idx, summer.current.var] * eef.s
+                haq[s.mem.idx, units[4]] <- haq[s.mem.idx, summer.current.var]
         }
 
       message("leaving summer estimation \n")
@@ -198,7 +218,7 @@ code.coal <- function(haq,
             message("Making use of winter estimation")
         # index of applicable records: Their winter before and after BM is currently NA
         w.e.idx = which(haq[, winter.est.var] == winter.est.value &
-          haq$hh.BM.use == "BM" & is.na(haq$current.coal.units.winter) == TRUE &
+          haq$hh.BM.use == "BM" & is.na(haq[,winter.current.var]) == TRUE &
           is.na(haq[, units[1]]) == TRUE &
           is.na(haq[, units[3]]) == TRUE)
 
@@ -211,7 +231,7 @@ code.coal <- function(haq,
           }
          # Hier moet ons nou die w.c.ok.idx maak
         w.c.ok.idx = which(haq[, winter.est.var] == winter.est.value &
-          is.na(haq$current.coal.units.winter) == FALSE &
+          is.na(haq[winter.current.var]) == FALSE &
           is.na(haq[, units[1]]) == TRUE &
           is.na(haq[, units[3]]) == TRUE &
           haq$hh.BM.use == "BM")
@@ -223,14 +243,30 @@ code.coal <- function(haq,
           haq[w.c.ok.idx, "estimate"] = TRUE
           message("Winter estimation applied to ",length(w.c.ok.idx), " records \n")
         }
+
+        # for those who cannot remember: use average eff
+        w.mem.idx <- which(haq[,wintermemvar] == wintermem.value &
+                                   haq$hh.BM.use == "BM" &
+                                   !is.na(haq[,winter.current.var]))
+        if (length(w.mem.idx) > 0){
+                haq[w.mem.idx, units[1]] <- haq[w.mem.idx, winter.current.var] * eef
+                haq[w.mem.idx, units[3]] <- haq[w.mem.idx, winter.current.var]
+        }
+
+        if (verbose) message("nobs ", units[1], " ",nobs(haq[ ,units[1]]),
+                             "\nnobs ", units[2], " ",nobs(haq[ ,units[2]]),
+                             "\nnobs ", units[3], " ",nobs(haq[ ,units[3]]),
+                             "\nnobs ", units[4], " ",nobs(haq[ ,units[4]]))
+
       message("Leaving winter estimation \n")
     }
 
-    # In rare cases where no current use exist but use after BM is given. Conservatively assume flat baseline
+    #£ In rare cases where no current use exist but use after BM is given. Conservatively assume flat baseline
 
     haq[which(haq$current.coal.units.winter == 0 & haq$hh.BM.use == "BM"), "current.coal.units.winter"] = haq[which(haq$current.coal.units.winter ==
         0 & haq$hh.BM.use == "BM"), "coal.units.winter.after.bm"]
     ### winter Convert to to kg - only for legitimate BM users
+    if (verbose) message("nobs haq$kg vir BM ", nobs(haq[which(haq$hh.BM.use == "BM"), "kg"]))
     haq$winter.before.bm.kg <- unfactor(haq$coal.units.winter.before.bm) * haq$kg
     if (verbose == TRUE)
       message("winter.before.bm.kg mean = ", summary(haq$winter.before.bm.kg)[4], " nobs= ", nobs(haq$winter.before.bm.kg) , " of whom " ,
@@ -242,9 +278,13 @@ code.coal <- function(haq,
               table(is.na(haq$winter.before.bm.kg), haq$hh.BM.use)[1], " use BM")
 
     haq$totalwinter.before.bm.kg <- 4 * haq$winter.before.bm.kg
+
     haq$summer.before.bm.kg <- unfactor(haq$coal.units.summer.before.bm) * haq$kg
     if (verbose == TRUE)
-      message("summer.before.bm.kg mean = ", summary(haq$summer.before.bm.kg)[4], " nobs = ", nobs(haq$summer.before.bm.kg) , " of whom " ,
+      message("kg :", round(mean(haq$kg, na.rm = TRUE),2),
+              "\ncoal.units.summer.before.bm ", mean(haq$coal.units.summer.before.bm, na.rm = TRUE),
+              "\nsummer.before.bm.kg mean = ", summary(haq$summer.before.bm.kg)[4],
+              " nobs = ", nobs(haq$summer.before.bm.kg) , " of whom " ,
               table(is.na(haq$summer.before.bm.kg), haq$hh.BM.use)[1], " use BM")
 
     haq$summer.before.bm.kg[which(haq$hh.BM.use != "BM")] = NA
@@ -267,7 +307,7 @@ code.coal <- function(haq,
         message("summer.save.initial.kg ", summary(haq$summer.save.initial.kg)[4], " ", nobs(haq$summer.save.initial.kg))
 
     # define proportion of winter days - only for legitimate BM users
-    haq$winterdays.prop <- haq$winterdays.used/fullwinter
+    haq$winterdays.prop <- haq$winterdays.used / fullwinter
     if (verbose == TRUE)
         message("haq$winterdays.prop ", summary(haq$winterdays.prop)[4], " ", nobs(haq$winterdays.prop) , "\n")
 
@@ -284,6 +324,7 @@ code.coal <- function(haq,
     ### summer
 
     haq$summerdays.prop <- haq$summerdays.used/fullsummer
+    if (verbose) message("mean summerdays.prop: ", mean(haq$summerdays.prop, na.rm = TRUE))
     haq$summer.current.kg <- ifelse(haq$hh.summer.BM.use == "BM" | haq$hh.summer.BM.use == "Historic BM",
                                     unfactor(haq [ , grep("current.coal.units.sum", names(haq))[1]]) *  haq$kg,
                                     NA)
@@ -313,12 +354,14 @@ code.coal <- function(haq,
         message("summer.after.bm.kg ", summary(haq$summer.after.bm.kg)[4], " ", nobs(haq$summer.after.bm.kg), "\n")
 
     ### WINTERBASELINE - only for legitimate BM users
-    haq$winterbase <- haq$winter.before.bm.kg/haq$winter.after.bm.kg * haq$winter.current.kg
+    haq$winterbase <- haq$winter.before.bm.kg / haq$winter.after.bm.kg * haq$winter.current.kg
     haq$winterbase[which(haq$bm.saved.coal.winter == "Nobody in this house uses BM")] <- NA
     haq$total.winterbase <- 4 * haq$winterbase
     haq$winter.save = haq$winterbase - haq$winter.current.kg
     if (verbose == TRUE)
-        message("winterbase mean = ", summary(haq$winterbase)[4], " nobs= ", nobs(haq$winterbase), " and ", table(is.na(haq$winterbase), haq$hh.BM.use)[1,1] , " use BM" )
+        message("winterbase mean = ", summary(haq$winterbase)[4],
+                " nobs= ", nobs(haq$winterbase),
+                " of whom ", table(is.na(haq$winterbase), haq$hh.BM.use)[1,1] , " use BM" )
 
     # Comparison of reported initial winter savings and calculated winter savings
     haq$calculated.winter.save <- haq$winter.before.bm.kg - haq$winter.after.bm.kg
@@ -425,14 +468,21 @@ code.coal <- function(haq,
     if (verbose == TRUE)
       message("summerconbase.year mean = ", summary(haq$summerconbase.year)[4], " nobs = ", nobs(haq$summerconbase.year))
 
+    # As daar 'n winterconbase is en daar is nie 'n summerconbase nie is summerconbase 0
+    haq[which(!is.na(haq$winterconbase.year) & is.na(haq$summerconbase.year)), "summerconbase.year"] <- 0
+
     haq$annual.base = haq$winterconbase.year + haq$summerconbase.year
     if (verbose == TRUE)
-      message("annual.base mean = ", summary(haq$annual.base)[4], " nobs = ", nobs(haq$annual.base))
+      message("\nannual.base mean = ", summary(haq$annual.base)[4], " nobs = ", nobs(haq$annual.base))
 
     # define anual project coal use
     haq$summer.current.year[which(is.na(haq$winter.current.year) == TRUE & haq$hh.BM.use == "BM")] <- NA
     if (verbose == TRUE)
       message("summer.current mean set to NA where winter.current.year is missing: nobs = ", nobs(haq$summer.current.year))
+
+    # If there is a winter current but no summer current then summer current is zero
+    haq[which(!is.na(haq$winter.current.year) & is.na(haq$summer.current.year)), "summer.current.year"] <- 0
+
     haq$annual.current = haq$winter.current.year + haq$summer.current.year
     if (verbose == TRUE)
       message("annual.current mean = ", summary(haq$annual.current)[4], " nobs = ", nobs(haq$annual.current))

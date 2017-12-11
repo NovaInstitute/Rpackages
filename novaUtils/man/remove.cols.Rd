@@ -19,4 +19,3 @@ Returns the data frame with the specified columns removed
 \description{
 This function removes any number of culumns in a given data frame
 }
-

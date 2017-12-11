@@ -16,4 +16,3 @@ Formatted field returned with replaced values
 Function that receives an integer-like character field that converts it to lower case and matches 
 various patterns whereby it replaces them with chosen values
 }
-

@@ -22,4 +22,3 @@ Formatted field returned either as a character vector or a vector encoded as a f
 Function that receives an integer-like character field and replaces character strings 
 containing "1" and "0" with "yes" and "no" whilst also removing duplicate values
 }
-

@@ -12,7 +12,7 @@
 #'capwords(c("andy", "sandy")) returns c("Andy", "Sandy")
 #'capwords(c("andy and tommy", "sandy")) returns c("Andy And Tommy", "Sandy")
 #'capwords("respondent_name", removePunct = TRUE)  returns "Respondent Name"
-#'
+
 capwords <- function(x, strict = TRUE, removePunct = FALSE) {
         if(removePunct){
          x <-  gsub("[^[:alnum:]]", " ", x)    

@@ -28,4 +28,3 @@ also returning the fields that match
 \description{
 This function calculates which fields of two given objects are similar
 }
-

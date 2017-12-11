@@ -17,4 +17,3 @@ Vector, data frame or array with duplicate values removed
 \description{
 Added 'na.rm' option to standard unique function
 }
-

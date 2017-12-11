@@ -19,4 +19,3 @@ archive(fileName = NULL, currentDir = NULL, archiveDir = NULL,
 \description{
 This function receives a file and is able to archive it to a given directory
 }
-
