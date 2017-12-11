@@ -1,0 +1,15 @@
+Package: resolveStandNums
+Title: Verfies Stand Numbers from Batches
+Version: 0.0.0.9000
+Authors@R: person("First", "Last", email = "first.last@example.com", role = c("aut", "cre"))
+Description: The pakage takes a batch as parameter, then uses the data it contains to identify the most probable stand number per entry, and with how much certainty it can be assumed to be correct.
+Depends: R (>= 3.4.1)
+License: Nova
+Encoding: UTF-8
+LazyData: true
+Imports:
+  geosphere,
+  ggmap,
+  sp,
+  stringi,
+RoxygenNote: 6.0.1
