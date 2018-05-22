@@ -29,15 +29,34 @@ decodeMobenzi <- function(dfSurvey = NULL,
                                          replacementChar = replacementChar)
   dfCodeBook[[fldnmValue]] <- format_char(dfCodeBook[[fldnmValue]]) # this does not format the options, so don't hash this out! This only makes matching easier and will not cause the question options to be formatted if the user does not wish to have it formatted.
   
-  # fix the problematic "Y - we use animal dung" or "N - we use animal dung" format in the code book
-  idxx <- grep(pattern = "^[Yy]{1}[ |_|-]{1}|Yes, [[:print:]]+", x = dfCodeBook[[fldnmLabel]])
-  if (length(idxx) > 0) {
-    dfCodeBook[idxx, fldnmLabel] <- "Yes"
-  }
-  idxx <- grep(pattern = "^[Nn]{1}[ |_|-]{1}|No, [[:print:]]+", x = dfCodeBook[[fldnmLabel]])
-  if (length(idxx) > 0) {
-    dfCodeBook[idxx, fldnmLabel] <- "No"
-  }
+  
+  
+  lsdfCodeBook <- by.data.frame(dfCodebook, INDICES = dfCodebook$Question, FUN = function(df){
+          
+          values <- unique(df[[fldnmLabel]])
+          
+          if(length(values) < 3){
+
+          # fix the problematic "Y - we use animal dung" or "N - we use animal dung" format in the code book
+          idxx <- grep(pattern = "^[Yy]{1}[ |_|-]{1}|Yes, [[:print:]]+", x = df[[fldnmLabel]])
+          if (length(idxx) > 0) {
+                  df[idxx, fldnmLabel] <- "Yes"
+          }
+          idxx <- grep(pattern = "^[Nn]{1}[ |_|-]{1}|No, [[:print:]]+", x = df[[fldnmLabel]])
+          if (length(idxx) > 0) {
+                  df[idxx, fldnmLabel] <- "No"
+          }
+          
+          }
+         return(df) 
+  })
+  
+  
+  
+  dfCodeBook <- do.call("rbind", lsdfCodeBook)
+  
+  rownames(dfCodeBook) <- NULL
+
 
   # format the fields of dfCodeBook, if the user so requests
   if (formatOpsies){
