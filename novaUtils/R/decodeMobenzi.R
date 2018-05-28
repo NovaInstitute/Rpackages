@@ -31,7 +31,7 @@ decodeMobenzi <- function(dfSurvey = NULL,
   
   
   
-  lsdfCodeBook <- by.data.frame(dfCodebook, INDICES = dfCodebook$Question, FUN = function(df){
+  lsdfCodeBook <- by.data.frame(dfCodeBook, INDICES = dfCodeBook$Question, FUN = function(df){
           
           values <- unique(df[[fldnmLabel]])
           
