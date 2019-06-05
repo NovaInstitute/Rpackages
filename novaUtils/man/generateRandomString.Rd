@@ -4,7 +4,8 @@
 \alias{generateRandomString}
 \title{Generate random string}
 \usage{
-generateRandomString(charSet = NULL, stringLength = 7, replace = TRUE)
+generateRandomString(charSet = NULL, stringLength = 7,
+  replace = TRUE)
 }
 \arguments{
 \item{charSet}{Character vector}

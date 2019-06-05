@@ -24,5 +24,4 @@ capwords("andy and sandy") returns "Andy And Sandy"
 capwords(c("andy", "sandy")) returns c("Andy", "Sandy")
 capwords(c("andy and tommy", "sandy")) returns c("Andy And Tommy", "Sandy")
 capwords("respondent_name", removePunct = TRUE)  returns "Respondent Name"
-
 }
