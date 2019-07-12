@@ -2,6 +2,7 @@
 
 export(archive)
 export(decodeMobenzi)
+export(duplicates)
 export(fixname)
 export(format_char)
 export(format_int)
@@ -21,4 +22,3 @@ export(remove.cols)
 export(splitMobenzi2)
 export(uniqueS)
 export(unnada)
-export(splitSurnameAndInitials)
