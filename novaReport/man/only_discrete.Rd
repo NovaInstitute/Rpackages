@@ -12,4 +12,3 @@ only_discrete(x)
 \description{
 Function isolates only the discrete variables (use x <- only_discrete(x))
 }
-

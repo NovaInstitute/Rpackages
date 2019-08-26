@@ -54,4 +54,3 @@ Used in function numeric_table.}
 This function creates a report based on a specific section as well as a grouping variable. The numeric_table, 
 discrete_table and multi_table functions are used to generate the LaTeX output
 }
-

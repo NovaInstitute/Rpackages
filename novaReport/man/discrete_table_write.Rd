@@ -24,4 +24,3 @@ discrete_table_write(dvars, group = 1, d.cap = "", d.lab = "",
 This function is used to write the discrete table to a file in the working directory. This
 file contains the source code for a LaTeX document
 }
-

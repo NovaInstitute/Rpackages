@@ -27,4 +27,3 @@ This function checks for any numeric values in a set data frame, isolates them a
 a LaTex table of descriptive statistics seperately per group and jointly for all observations, 
 per variable
 }
-

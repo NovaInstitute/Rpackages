@@ -1,9 +1,7 @@
-#' Confounder Chi-net
-#' 
-#' Function to graphically display chi2 test results to 
+#' @title chi.confounder.net
+#' @description Function to graphically display chi2 test results to 
 #' ID confounders. Requires a data frame with outcome and exposures 
 #' such as the one provided by the chi.2.eksp function. Returns a list of network objects in pdf
-#' 
 #' @param df Data frame containing outcomes and exposures
 #' @param outcome Character vector referring to the name of the outcome column
 #' @param exposure Character vector referring to the name of the exposure column
@@ -25,7 +23,6 @@ chi.confounder.net <- function(df,
                 if (!require("igraph")) stop("Load igraph manually")
         }
         
-  # Maak 'n lys van dataframes doen vir elke uitkoms waar die uitkoms óf in die outcome of die exposure is
         if (remPiq){
         p.dfG = df
         p.dfG[, "outcome"] = gsub("piqola_", "", p.dfG[, "outcome"])
@@ -49,10 +46,8 @@ chi.confounder.net <- function(df,
   )
 }
 
-#' Kry Uitkoms
-#' 
-#' Helper function for chi.confounder.net
-#' 
+#' @title kry.uitkoms.df
+#' @description Helper function for chi.confounder.net
 #' @param varname Character vector of the variable name
 #' @param outname Character vector referring to the name of the outcome column
 #' @param expname Character vector referring to the name of the exposure column

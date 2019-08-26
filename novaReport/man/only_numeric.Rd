@@ -12,4 +12,3 @@ only_numeric(x)
 \description{
 Function isolates only the numeric variables (use x <- only_numeric(x))
 }
-

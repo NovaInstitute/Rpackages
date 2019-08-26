@@ -2,7 +2,7 @@
 % Please edit documentation in R/chi.confounder.net.R
 \name{chi.confounder.net}
 \alias{chi.confounder.net}
-\title{Confounder Chi-net}
+\title{chi.confounder.net}
 \usage{
 chi.confounder.net(df, outcome = "outcome", exposure = "exposure",
   outdir = "graphs/", stoor = TRUE, remPiq = FALSE)
@@ -25,4 +25,3 @@ Function to graphically display chi2 test results to
 ID confounders. Requires a data frame with outcome and exposures 
 such as the one provided by the chi.2.eksp function. Returns a list of network objects in pdf
 }
-

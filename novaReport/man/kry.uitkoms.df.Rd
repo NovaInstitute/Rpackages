@@ -2,7 +2,7 @@
 % Please edit documentation in R/chi.confounder.net.R
 \name{kry.uitkoms.df}
 \alias{kry.uitkoms.df}
-\title{Kry Uitkoms}
+\title{kry.uitkoms.df}
 \usage{
 kry.uitkoms.df(varname = "town", outname = "outcome",
   expname = "exposure", df, remPiq = FALSE)
@@ -21,4 +21,3 @@ kry.uitkoms.df(varname = "town", outname = "outcome",
 \description{
 Helper function for chi.confounder.net
 }
-

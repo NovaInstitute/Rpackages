@@ -16,4 +16,3 @@ numeric_table_write(nvarss, fn, ...)
 \description{
 Writes the numeric table to a file in the chosen directory
 }
-

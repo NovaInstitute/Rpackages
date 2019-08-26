@@ -2,7 +2,7 @@
 % Please edit documentation in R/qs.text.R
 \name{qs.text.string}
 \alias{qs.text.string}
-\title{String Output}
+\title{qs.text.string}
 \usage{
 qs.text.string(qs, varname = "question.name",
   question.text = "question.text")
@@ -17,4 +17,3 @@ qs.text.string(qs, varname = "question.name",
 \description{
 This function behaves the same as qs.text, but it manipulates a character vector of format strings
 }
-

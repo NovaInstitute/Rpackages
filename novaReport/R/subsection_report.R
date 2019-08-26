@@ -335,7 +335,7 @@ single_report <- function(x,
                         if (exists("tab", mode = "function")) tab() else "", "\n"
                         )
             )
-    if (exists("tab", mode = "function")) tab()
+    #if (exists("tab", mode = "function")) tab()
     if (exists("pp", mode = "function")) pp() 
     
   }

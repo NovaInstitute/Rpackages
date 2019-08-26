@@ -17,4 +17,3 @@ A list is returned of the value and the associated warning
 \references{
 Bill Dunlap
 }
-

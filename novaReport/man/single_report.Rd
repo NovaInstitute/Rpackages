@@ -5,10 +5,11 @@
 \title{Single Report}
 \usage{
 single_report(x, var = c("een"), groep = NULL, groeplab = NULL,
-  out = TRUE, stats = c("all", "basic")[1], qs, qs_name = "question.name",
-  qs_text = "question.text", drr = "~/tmp/", druk = FALSE,
-  webify = FALSE, verbose = FALSE, wd = 15, md = TRUE, chi.digits = 4,
-  debug = TRUE, varSizeN = "0.25", levSizeN = "0.15", ...)
+  out = TRUE, stats = c("all", "basic")[1], qs,
+  qs_name = "question.name", qs_text = "question.text",
+  drr = "~/tmp/", druk = FALSE, webify = FALSE, verbose = FALSE,
+  wd = 15, md = TRUE, chi.digits = 4, debug = TRUE,
+  varSizeN = "0.25", levSizeN = "0.15", ...)
 }
 \arguments{
 \item{x}{Data frame typically DES data}
@@ -62,4 +63,3 @@ Report per individual variable with subsection heading.
 \note{
 The idea is to lapply a single report over the subsection and subsection_report lapply over the sections
 }
-

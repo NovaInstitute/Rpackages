@@ -4,12 +4,14 @@
 \alias{afh.tab}
 \title{Dependancy tables}
 \usage{
-afh.tab(x, alpha = 0.05, outcome = "outcome", exposure = "exposure",
+afh.tab(x, alpha = 0.05, outcome = "outcome",
+  var.names = "var.names", exposure = "exposure",
   p.value = "p.value", craemer = "craemer", df = "df", n = "n",
-  statistic = "statistic", lateX = FALSE, markDown = TRUE,
-  warnings = "warnings", sonder.warnings = TRUE, geen = "None",
-  tp = "H", tabdir = NULL, verbose = FALSE, bonferroni = TRUE,
-  latSave = FALSE)
+  statistic = "statistic", x.names = c("Related variable", "n",
+  "p value", "df", paste("$\\\\mathbf{\\\\chi^2}$", "statistic"),
+  "Craemer's V"), verkort = FALSE, warnings = "warnings",
+  sonder.warnings = TRUE, geen = "Geen", tp = "H", tabdir = NULL,
+  verbose = FALSE, bonferroni = TRUE)
 }
 \arguments{
 \item{x}{Data frame, which is the outcome of chi.2.exp}
@@ -28,12 +30,8 @@ afh.tab(x, alpha = 0.05, outcome = "outcome", exposure = "exposure",
 
 \item{n}{Character vector referring to the column containing the total number of observations}
 
-\item{statistic}{Character vector referring to the column containing the 
+\item{statistic}{Character vector referring to the column containing the
 calculated chi2 statistic}
-
-\item{lateX}{Logical that prints a LaTeX table if TRUE}
-
-\item{markDown}{Logical that creates a table for use in MarkDown}
 
 \item{warnings}{Character referring to the column containing warnings}
 
@@ -49,10 +47,13 @@ calculated chi2 statistic}
 
 \item{bonferroni}{Logical that makes a bonferroni adjustment when TRUE}
 
+\item{lateX}{Logical that prints a LaTeX table if TRUE}
+
+\item{markDown}{Logical that creates a table for use in MarkDown}
+
 \item{latSave}{Logical that saves the tables in the Tabelle folder in your working directory}
 }
 \description{
-Prints out tables for report out of data frame p.df, which is the result of the chi.2.exp function. 
+Prints out tables for report out of data frame p.df, which is the result of the chi.2.exp function.
 Bonferroni's method is used here, which is used to correct for multiple comparisons
 }
-
