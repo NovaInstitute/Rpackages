@@ -1,5 +1,5 @@
 #' Multi-report
-#' @export
+#'@export
 
 multi_report <- function (x, 
                           single = TRUE,

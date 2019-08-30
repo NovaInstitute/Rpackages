@@ -1,7 +1,7 @@
 #' t_test_woorde
 #' @description Performs and reports on a T-test
-#' @para df Dataframe
-#' @vr numeric Variable in terms of which T-test is performed 
+#' @param df Dataframe
+#' @param vr numeric Variable in terms of which T-test is performed 
 #' @param gp character or factor Name of grouping variable. Will be coerced to a factor with two levels
 
 t_test_woorde <- function(df, vr, gp, alpha = 0.05, short = TRUE){
