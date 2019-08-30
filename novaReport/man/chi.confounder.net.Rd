@@ -25,4 +25,3 @@ Function to graphically display chi2 test results to
 ID confounders. Requires a data frame with outcome and exposures 
 such as the one provided by the chi.2.eksp function. Returns a list of network objects in pdf
 }
-

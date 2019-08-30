@@ -26,4 +26,3 @@ my.chisq.test(x, y = NULL, correct = TRUE, p = rep(1/length(x),
 Helper function called for chi.2.exp that also supplies n and craemer's v. Test this vs 
 assocstats in vcd package
 }
-

@@ -12,4 +12,3 @@ any_discrete(x)
 \description{
 Function checks if there are any discrete variables in a set datafame with op
 }
-

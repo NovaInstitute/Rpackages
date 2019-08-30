@@ -12,4 +12,3 @@ any_numeric(x)
 \description{
 Function checks if there are any numeric variables in a set datafame with op
 }
-

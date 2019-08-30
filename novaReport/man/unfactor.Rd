@@ -12,4 +12,3 @@ unfactor(x)
 \description{
 Help function that converts a factor to a numeric
 }
-

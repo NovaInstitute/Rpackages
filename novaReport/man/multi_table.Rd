@@ -30,4 +30,3 @@ This function is used to test for discrete variables using any_discrete and then
 It includes tests that identify if there are any multiple choice questions whereby it   
 generates a table showing answer percentages for each variable
 }
-

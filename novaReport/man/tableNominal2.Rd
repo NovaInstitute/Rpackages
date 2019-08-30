@@ -8,8 +8,8 @@ tableNominal2(vars, weights = NA, subset = NA, group = NA,
   miss.cat = NA, print.pval = c("none", "fisher", "chi2"),
   pval.bound = 10^-4, fisher.B = 2000, vertical = TRUE, cap = "",
   lab = "", col.tit.font = c("bf", "", "sf", "it", "rm"),
-  font.size = "tiny", longtable = TRUE, nams = NA, cumsum = FALSE,
-  varSizeN = "0.15", levSizeN = "0.05", ...)
+  font.size = "footnotesize", longtable = TRUE, nams = NA,
+  cumsum = FALSE, debug = FALSE, ...)
 }
 \arguments{
 \item{vars}{A list of nominal variables}
@@ -50,15 +50,14 @@ appear in the LaTeX table. This option is only kept for backward compatibility.}
 
 \item{cumsum}{f TRUE, the cumulative sums of the percentages are included for every level of the grouping variable}
 
+\item{...}{Arguments pass through to print.xtable}
+
 \item{varSizeN}{Size of the column containing the variables}
 
 \item{levSizeN}{Size of the column containing the levels}
-
-\item{...}{Arguments pass through to print.xtable}
 }
 \description{
 This function takes a data frame of nominal variables and possible grouping, weighting and subset
 variables and provides a LaTeX table of descriptive statistics seperately per group
 and jointly for all observations, per variable
 }
-

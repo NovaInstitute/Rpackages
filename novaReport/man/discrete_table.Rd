@@ -29,4 +29,3 @@ attributed to the column containing levels. This is used to customize tables.}
 This function uses the any_discrete and only_discrete functions to isolate discrete variables, 
 whereby it uses the custom tableNominal2 function to create a LaTeX table of descriptive statistics
 }
-

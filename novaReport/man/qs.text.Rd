@@ -2,9 +2,9 @@
 % Please edit documentation in R/qs.text.R
 \name{qs.text}
 \alias{qs.text}
-\title{Text Output}
+\title{qs.text}
 \usage{
-qs.text(qs, varname = "question.name", question.text = "question.text")
+qs.text(qs, varname = "question_name", question.text = "question_text")
 }
 \arguments{
 \item{qs}{Questions data frame}
@@ -17,4 +17,3 @@ qs.text(qs, varname = "question.name", question.text = "question.text")
 This function creates a text output from questions and returns 
 a vector containing the question name and its text grouped together
 }
-

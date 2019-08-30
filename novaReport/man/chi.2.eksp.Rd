@@ -5,11 +5,12 @@
 \title{Chi Squared Experiment}
 \usage{
 chi.2.eksp(data = des, out.idx = grep("piqola", names(data)),
-  min.length = 4 * 16, max.levels = 12, ver.idx = NULL, out.raw = FALSE,
-  out.raw.name = "out.raw", out.df = TRUE, out.df.name = "p.df",
-  out.list = TRUE, out.list.name = "spdf", p.cutoff = 0.05, dig = 3,
-  suiwer = TRUE, verbose = TRUE, debug = TRUE, xlsx = TRUE,
-  outdir = datadir, xlsx.name = "PIQOLA_chi2_uitkomste.xlsx", plot = TRUE,
+  min.length = 4 * 16, max.levels = 12, ver.idx = NULL,
+  out.raw = FALSE, out.raw.name = "out.raw", out.df = TRUE,
+  out.df.name = "p.df", out.list = TRUE, out.list.name = "spdf",
+  p.cutoff = 0.05, dig = 3, suiwer = TRUE, verbose = TRUE,
+  debug = TRUE, xlsx = TRUE, outdir = datadir,
+  xlsx.name = "PIQOLA_chi2_uitkomste.xlsx", plot = TRUE,
   net.name = paste(naam, "chinet"))
 }
 \arguments{
@@ -60,4 +61,3 @@ Chi.2.eks with custom chi2 function that generates a chi2 statistic as well as a
 for a given input. The output is displayed in terms of outputs and exposures in the form of the data frame p.df
 and list spdf
 }
-

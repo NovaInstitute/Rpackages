@@ -21,4 +21,3 @@ kry.uitkoms.df(varname = "town", outname = "outcome",
 \description{
 Helper function for chi.confounder.net
 }
-

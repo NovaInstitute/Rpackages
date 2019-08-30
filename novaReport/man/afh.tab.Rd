@@ -55,4 +55,3 @@ calculated chi2 statistic}
 Prints out tables for report out of data frame p.df, which is the result of the chi.2.exp function. 
 Bonferroni's method is used here, which is used to correct for multiple comparisons
 }
-
