@@ -281,7 +281,7 @@ single_report <- function (x, var = c("een"),
                                                                  html = webify, 
                                                                  comment = FALSE, 
                                                                  nams = gsub("_", " ", var), 
-                                                                 print.results = FALSE, 
+                                                                 print.results = TRUE, 
                                                                  table.placement = "!h")
                                         }
                                 }
@@ -360,6 +360,7 @@ single_report <- function (x, var = c("een"),
                 if (groep != 1) {
                         # Die numeriese groep geval -----------------------------------------------
                         if (num) {
+                                if (verbose) message("die numeriese groep geval")
                                 if (length(unique(x[, var])) > nnum){
                                         p1 <- qplot(data = melt(data.frame(var = x[ ,var], group = gp)), 
                                                     geom = "boxplot", 
@@ -390,6 +391,7 @@ single_report <- function (x, var = c("een"),
                                         if (druk == TRUE) dev.off()
                                         
                                 } else {
+                                        if (verbose) message("Ons gaan x[, var] 'n factor maak!")
                                         x[, var] <- as.factor(x[, var])
                                         fc <- is.factor(x[, var])
                                         gp = x[,var]
@@ -408,7 +410,7 @@ single_report <- function (x, var = c("een"),
                                                                          caption.placement = "top", 
                                                                          comment = FALSE, 
                                                                          nams = gsub("_", " ", var), 
-                                                                         print.results = FALSE)
+                                                                         print.results = TRUE)
                                                 }
                                         }
                                 }
