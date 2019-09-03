@@ -3,6 +3,7 @@
 export(afh.tab)
 export(any_discrete)
 export(any_numeric)
+export(capwords)
 export(chi.2.eksp)
 export(chi.confounder.net)
 export(discrete_table)
