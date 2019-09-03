@@ -1,5 +1,5 @@
 #' @title chi.2.eksp
-#' @descriptin Chi.2.eks with custom chi2 function that generates a chi2 statistic as well as a craemer's v
+#' @description Chi.2.eks with custom chi2 function that generates a chi2 statistic as well as a craemer's v
 #' for a given input. The output is displayed in terms of outputs and exposures in the form of the data frame p.df
 #' and list spdf
 #' @param data an R object (data set)

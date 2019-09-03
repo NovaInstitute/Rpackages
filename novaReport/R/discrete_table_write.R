@@ -1,8 +1,6 @@
-#' Write Discrete Table
-#' 
-#' This function is used to write the discrete table to a file in the working directory. This
-#' file contains the source code for a LaTeX document
-#' 
+#' @title discrete_table_write
+#' @description This function is used to write the discrete table to a file in the working directory. 
+#' @description This file contains the source code for a LaTeX document.
 #' @param dvars Data frame containing the nominal variables
 #' @param group Optional grouping vector
 #' @param d.cap The caption of the resulting LaTeX table
