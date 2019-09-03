@@ -2,7 +2,7 @@
 % Please edit documentation in R/tableNominal2.R
 \name{tableNominal2}
 \alias{tableNominal2}
-\title{Table Nominal 2}
+\title{tableNominal2}
 \usage{
 tableNominal2(vars, weights = NA, subset = NA, group = NA,
   miss.cat = NA, print.pval = c("none", "fisher", "chi2"),
@@ -20,15 +20,15 @@ tableNominal2(vars, weights = NA, subset = NA, group = NA,
 
 \item{group}{Optional grouping vector}
 
-\item{miss.cat}{Vector specifying the factors in vars that 
+\item{miss.cat}{Vector specifying the factors in vars that
 should have their NAs transformed to a separate category}
 
-\item{print.pval}{Add p-values of Fisher's exact or χ^2 test for a difference of distributions 
+\item{print.pval}{Add p-values of Fisher's exact or χ^2 test for a difference of distributions
 between groups to the table, if there is more than one group}
 
 \item{pval.bound}{p-values below pval.bound are formatted as < pval.bound}
 
-\item{fisher.B}{Number of simulations to compute p-value for Fisher's exact test. Note that in the function fisher.test the option simulate.p.value 
+\item{fisher.B}{Number of simulations to compute p-value for Fisher's exact test. Note that in the function fisher.test the option simulate.p.value
 is set to TRUE, unless fisher.B == Inf which asks for the exact computation}
 
 \item{vertical}{If TRUE, add vertical lines to the table, separating labels and groups, if applicable}
@@ -41,11 +41,11 @@ is set to TRUE, unless fisher.B == Inf which asks for the exact computation}
 
 \item{font.size}{Font size for the generated table in LaTeX}
 
-\item{longtable}{If TRUE, function makes use of package longtable in LaTex to generate tables that 
+\item{longtable}{If TRUE, function makes use of package longtable in LaTex to generate tables that
 span more than one page. If FALSE, generates a table in tabular environment}
 
-\item{nams}{A vector of strings, containing the names corresponding to the variables in vars, if vars is 
-not a data frame but a list of variables. These are then the names that 
+\item{nams}{A vector of strings, containing the names corresponding to the variables in vars, if vars is
+not a data frame but a list of variables. These are then the names that
 appear in the LaTeX table. This option is only kept for backward compatibility.}
 
 \item{cumsum}{f TRUE, the cumulative sums of the percentages are included for every level of the grouping variable}
