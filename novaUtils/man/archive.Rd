@@ -4,8 +4,7 @@
 \alias{archive}
 \title{File archiving}
 \usage{
-archive(fileName = NULL, currentDir = NULL, archiveDir = NULL,
-  verbose = FALSE)
+archive(fileName = NULL, currentDir = NULL, archiveDir = NULL, verbose = FALSE)
 }
 \arguments{
 \item{fileName}{Character string containing the name of the file to be archived}

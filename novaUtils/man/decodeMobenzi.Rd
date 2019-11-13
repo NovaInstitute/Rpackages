@@ -4,10 +4,16 @@
 \alias{decodeMobenzi}
 \title{Decodes data from mobenzi.}
 \usage{
-decodeMobenzi(dfSurvey = NULL, dfCodeBook = NULL,
-  fldnmVariable = "Variable", fldnmValue = "Value",
-  fldnmLabel = "Label", replacementChar = "_", formatOpsies = FALSE,
-  fixnames = TRUE)
+decodeMobenzi(
+  dfSurvey = NULL,
+  dfCodeBook = NULL,
+  fldnmVariable = "Variable",
+  fldnmValue = "Value",
+  fldnmLabel = "Label",
+  replacementChar = "_",
+  formatOpsies = FALSE,
+  fixnames = TRUE
+)
 }
 \arguments{
 \item{dfSurvey}{data.frame containing the data to be decoded.}

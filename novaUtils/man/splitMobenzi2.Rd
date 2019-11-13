@@ -4,8 +4,7 @@
 \alias{splitMobenzi2}
 \title{Decodes Mobenzi data with extraction of repeating sections}
 \usage{
-splitMobenzi2(filePaths, tidy = FALSE, twoLists = FALSE,
-  formatOptions = FALSE)
+splitMobenzi2(filePaths, tidy = FALSE, twoLists = FALSE, formatOptions = FALSE)
 }
 \arguments{
 \item{filePaths}{A character argument containing the paths to .csv files (one per 
