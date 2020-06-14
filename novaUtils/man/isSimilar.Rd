@@ -4,8 +4,13 @@
 \alias{isSimilar}
 \title{Match fields}
 \usage{
-isSimilar(record1 = NULL, record2 = NULL, fieldsToMatch = NULL,
-  numRequiredMatches = NULL, verbose = FALSE)
+isSimilar(
+  record1 = NULL,
+  record2 = NULL,
+  fieldsToMatch = NULL,
+  numRequiredMatches = NULL,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{record1}{Array containing data related to the first record}

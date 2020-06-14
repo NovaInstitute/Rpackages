@@ -4,8 +4,7 @@
 \alias{move.cols}
 \title{Move columns}
 \usage{
-move.cols(df = NULL, colNames = NULL, colIdxx = NULL,
-  verbose = FALSE)
+move.cols(df = NULL, colNames = NULL, colIdxx = NULL, verbose = FALSE)
 }
 \arguments{
 \item{df}{Data frame containing data to be manipulated}
