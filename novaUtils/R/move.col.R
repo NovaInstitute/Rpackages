@@ -98,9 +98,13 @@ move.cols <- function(df = NULL, colNames = NULL, colIdxx = NULL, verbose = FALS
     stop("colNames and colIdxx must have the same length.")
   }
   
-  for (c in 1:length(colNames)) {
-    cnm <- colNames[[c]]
-    cidx <- colIdxx[[c]]
+  mvs <- colIdxx
+  names(mvs) <- colNames
+  mvs <- mvs[order(mvs, decreasing = TRUE)]
+  
+  for (c in 1:length(mvs)) {
+    cnm <- names(mvs)[c]
+    cidx <- mvs[[c]]
     df <- move.col(df = df, colName = cnm, colIdx = cidx)
     if (verbose) {message("Now: "); print(names(df))}
   }
