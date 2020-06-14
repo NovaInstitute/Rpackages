@@ -9,4 +9,4 @@ Maintainer: Alex Ivan Howard <alexhoward@nova.org.za>
 Description: This package contains various code used in order to archive files, make variable names lower case, format integer-like character fields, generate data to make file testing easier and manipulating columns in data frames. 
 License: Copyright (c) 2016 Nova Institute (Reg# 1994/002614/08)
 LazyData: true
-RoxygenNote: 7.0.0
+RoxygenNote: 7.1.0
