@@ -64,14 +64,16 @@ praat <- function(vr = "id_household", d = dt, plak = TRUE, digits = 6, verbose 
 #' @title getalnaam
 #' @description funksie om getalle een tot tien in woorde om te sit
 #' @param x forseerbaar tot heelgetal
+#' @param upperc Logies. Indien waar, sal woordresultaat se eerste letter 'n hoofletter gemaak word.
 #' @export
 
-getalnaam <- function(x){
+getalnaam <- function(x, upperc = FALSE){
         x <- unique(x)
         if (!is.integer(x)) x <- as.integer(x)
         if (x > -1 & x < 11){
                 getalname = c("no", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten")
                 x <- unique(getalname[x+1])
+                if (upperc) { x <- Hmisc::capitalize(x) }
         }
         x
 }
@@ -83,13 +85,15 @@ getalnaam <- function(x){
 #' @param meer Logical 
 #' @param df Dataframe
 #' @param ia Logical
+#' @param upperc Logical. Passed on to 'getalnaam'.
 #' @export
 
 getalenkelmeer <- function(vr = "stand_structures_number_formal", 
                            enkel = "structure", 
                            meer = NULL, 
                            df = dt, 
-                           ia = FALSE){
+                           ia = FALSE,
+                           upperc = FALSE){
         if (is.null(enkel)) enkel = vr
         if (is.character(vr)) x <- unique(df[,vr])  else x <- unique(vr)
         if (is.null(meer)) meer <- paste(enkel, "s", sep = "")
@@ -99,5 +103,5 @@ getalenkelmeer <- function(vr = "stand_structures_number_formal",
                 a <- ""
         }
         #message("\n\n\n\n\n\n ", vr, x)
-        gsub(" $", "", sprintf("%s %s%s", getalnaam(x), ifelse(x==1, enkel, meer), paste(" ", a, sep = "")))
+        gsub(" $", "", sprintf("%s %s%s", getalnaam(x, upperc), ifelse(x==1, enkel, meer), paste(" ", a, sep = "")))
 }
