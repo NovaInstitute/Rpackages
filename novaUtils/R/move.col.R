@@ -74,7 +74,7 @@ move.col <- function(df = NULL, colName = NULL, colIdx = NULL) {
 
 #' Move columns
 #' 
-#' This function moves any number of culumns in a given data frame to any desired indices at once
+#' This function moves any number of columns in a given data frame to any desired indices at once
 #' 
 #' @param df Data frame containing data to be manipulated
 #' @param colNames Vector containing the names of the columns to be moved
@@ -84,6 +84,7 @@ move.col <- function(df = NULL, colName = NULL, colIdx = NULL) {
 #' @export
 
 move.cols <- function(df = NULL, colNames = NULL, colIdxx = NULL, verbose = FALSE) {
+  
   # strawberries and cheese cake
   if (is.null(df)) {
     stop("No argument received for parameter 'df'.")
@@ -100,7 +101,7 @@ move.cols <- function(df = NULL, colNames = NULL, colIdxx = NULL, verbose = FALS
   
   mvs <- colIdxx
   names(mvs) <- colNames
-  mvs <- mvs[order(mvs, decreasing = TRUE)]
+  mvs <- mvs[order(mvs, decreasing = FALSE)]
   
   for (c in 1:length(mvs)) {
     cnm <- names(mvs)[c]
