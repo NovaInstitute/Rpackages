@@ -4,9 +4,16 @@
 \alias{multi_table}
 \title{Multi Table}
 \usage{
-multi_table(vars = vars, qs = NULL, multicol = "question.type",
-  multiname = "M", question.name = "question.name", maxlevels = 20,
-  verbose = FALSE, ...)
+multi_table(
+  vars = vars,
+  qs = NULL,
+  multicol = "question.type",
+  multiname = "M",
+  question.name = "question.name",
+  maxlevels = 20,
+  verbose = FALSE,
+  ...
+)
 }
 \arguments{
 \item{vars}{A data frame of nominal variables such as DES}

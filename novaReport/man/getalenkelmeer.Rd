@@ -4,8 +4,14 @@
 \alias{getalenkelmeer}
 \title{getalenkelmeer}
 \usage{
-getalenkelmeer(vr = "stand_structures_number_formal",
-  enkel = "structure", meer = NULL, df = dt, ia = FALSE)
+getalenkelmeer(
+  vr = "stand_structures_number_formal",
+  enkel = "structure",
+  meer = NULL,
+  df = dt,
+  ia = FALSE,
+  upperc = FALSE
+)
 }
 \arguments{
 \item{vr}{Charackter}
@@ -17,6 +23,8 @@ getalenkelmeer(vr = "stand_structures_number_formal",
 \item{df}{Dataframe}
 
 \item{ia}{Logical}
+
+\item{upperc}{Logical. Passed on to 'getalnaam'.}
 }
 \description{
 funksie wat getalnaam, en enkel/meervoude kombineer

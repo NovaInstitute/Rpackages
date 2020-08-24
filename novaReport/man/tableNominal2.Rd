@@ -4,12 +4,26 @@
 \alias{tableNominal2}
 \title{tableNominal2}
 \usage{
-tableNominal2(vars, weights = NA, subset = NA, group = NA,
-  miss.cat = NA, print.pval = c("none", "fisher", "chi2"),
-  pval.bound = 10^-4, fisher.B = 2000, vertical = TRUE, cap = "",
-  lab = "", col.tit.font = c("bf", "", "sf", "it", "rm"),
-  font.size = "footnotesize", longtable = TRUE, nams = NA,
-  cumsum = FALSE, debug = FALSE, ...)
+tableNominal2(
+  vars,
+  weights = NA,
+  subset = NA,
+  group = NA,
+  miss.cat = NA,
+  print.pval = c("none", "fisher", "chi2"),
+  pval.bound = 10^-4,
+  fisher.B = 2000,
+  vertical = TRUE,
+  cap = "",
+  lab = "",
+  col.tit.font = c("bf", "", "sf", "it", "rm"),
+  font.size = "footnotesize",
+  longtable = TRUE,
+  nams = NA,
+  cumsum = FALSE,
+  debug = FALSE,
+  ...
+)
 }
 \arguments{
 \item{vars}{A list of nominal variables}

@@ -5,10 +5,20 @@
 \title{Turn data into a multi option table
 Finds the data related to yes and no categories}
 \usage{
-multi.opsie.tabel(df = des, x = "body_disease_diagnosed_month",
-  yescat = "Yes", nocat = "No", tabeleer = TRUE, abs.perc = FALSE,
-  tex = TRUE, tabdir = "~/", graphdir = "~/", fn = paste(x,
-  "h.bar.", sep = ""), verbose = FALSE, fplace = "!ht")
+multi.opsie.tabel(
+  df = des,
+  x = "body_disease_diagnosed_month",
+  yescat = "Yes",
+  nocat = "No",
+  tabeleer = TRUE,
+  abs.perc = FALSE,
+  tex = TRUE,
+  tabdir = "~/",
+  graphdir = "~/",
+  fn = paste(x, "h.bar.", sep = ""),
+  verbose = FALSE,
+  fplace = "!ht"
+)
 }
 \arguments{
 \item{df}{The data frame that is used by the fuction e.g EIS dataset}

@@ -4,10 +4,12 @@
 \alias{getalnaam}
 \title{getalnaam}
 \usage{
-getalnaam(x)
+getalnaam(x, upperc = FALSE)
 }
 \arguments{
 \item{x}{forseerbaar tot heelgetal}
+
+\item{upperc}{Logies. Indien waar, sal woordresultaat se eerste letter 'n hoofletter gemaak word.}
 }
 \description{
 funksie om getalle een tot tien in woorde om te sit

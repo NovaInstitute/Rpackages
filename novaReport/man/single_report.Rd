@@ -4,14 +4,35 @@
 \alias{single_report}
 \title{Single Report}
 \usage{
-single_report(x, var = c("een"), groep = NULL, groeplab = NULL,
-  out = TRUE, stats = c("all", "basic")[1], longt = FALSE, qs,
-  font.size = 10, qs_name = "question.name",
-  qs_text = "question.text", drr = "~/tmp/", ncat = 4, nnum = 10,
-  druk = FALSE, webify = FALSE, verbose = FALSE, wd = 15,
-  md = TRUE, chi.digits = 4, debug = TRUE, varSizeN = "0.5",
-  levSizeN = "0.5", voorspellende_veranderlikes = NULL,
-  plotOok = TRUE, clearpage = FALSE, ...)
+single_report(
+  x,
+  var = c("een"),
+  groep = NULL,
+  groeplab = NULL,
+  out = TRUE,
+  stats = c("all", "basic")[1],
+  longt = FALSE,
+  qs,
+  font.size = 10,
+  qs_name = "question.name",
+  qs_text = "question.text",
+  drr = "~/tmp/",
+  ncat = 4,
+  nnum = 10,
+  druk = FALSE,
+  webify = FALSE,
+  verbose = FALSE,
+  wd = 15,
+  md = TRUE,
+  chi.digits = 4,
+  debug = TRUE,
+  varSizeN = "0.5",
+  levSizeN = "0.5",
+  voorspellende_veranderlikes = NULL,
+  plotOok = TRUE,
+  clearpage = FALSE,
+  ...
+)
 }
 \arguments{
 \item{x}{Data frame typically DES data}

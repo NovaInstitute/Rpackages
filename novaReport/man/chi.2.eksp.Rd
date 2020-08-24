@@ -4,14 +4,32 @@
 \alias{chi.2.eksp}
 \title{chi.2.eksp}
 \usage{
-chi.2.eksp(data = qol2, out.fields = c(), ver.fields = c(),
-  out.idx = "body_", ver.idx = "sol_", min.length = 4 * 16,
-  max.levels = 12, out.raw = FALSE, out.raw.name = "out.raw",
-  out.df = TRUE, out.df.name = "p.df", out.list = TRUE,
-  out.list.name = "spdf", p.cutoff = 0.05, dig = 3, suiwer = TRUE,
-  verbose = TRUE, debug = F, xlsx = TRUE, outdir = datadir,
-  xlsx.name = "PIQOLA_chi2_uitkomste.xlsx", plot = TRUE,
-  write.igraph = FALSE, net.name = paste(naam, "chinet"))
+chi.2.eksp(
+  data = qol2,
+  out.fields = c(),
+  ver.fields = c(),
+  out.idx = "body_",
+  ver.idx = "sol_",
+  min.length = 4 * 16,
+  max.levels = 12,
+  out.raw = FALSE,
+  out.raw.name = "out.raw",
+  out.df = TRUE,
+  out.df.name = "p.df",
+  out.list = TRUE,
+  out.list.name = "spdf",
+  p.cutoff = 0.05,
+  dig = 3,
+  suiwer = TRUE,
+  verbose = TRUE,
+  debug = F,
+  xlsx = TRUE,
+  outdir = datadir,
+  xlsx.name = "PIQOLA_chi2_uitkomste.xlsx",
+  plot = TRUE,
+  write.igraph = FALSE,
+  net.name = paste(naam, "chinet")
+)
 }
 \arguments{
 \item{data}{an R object (data set)}

@@ -4,8 +4,7 @@
 \alias{prepQsText}
 \title{prepQsText}
 \usage{
-prepQsText(df, nm, vars = c("question_name", "question_text",
-  "section_name"))
+prepQsText(df, nm, vars = c("question_name", "question_text", "section_name"))
 }
 \arguments{
 \item{df}{tibble from tbl_questions}

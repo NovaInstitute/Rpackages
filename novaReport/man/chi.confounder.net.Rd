@@ -4,8 +4,14 @@
 \alias{chi.confounder.net}
 \title{chi.confounder.net}
 \usage{
-chi.confounder.net(df, outcome = "outcome", exposure = "exposure",
-  outdir = "graphs/", stoor = TRUE, remPiq = FALSE)
+chi.confounder.net(
+  df,
+  outcome = "outcome",
+  exposure = "exposure",
+  outdir = "graphs/",
+  stoor = TRUE,
+  remPiq = FALSE
+)
 }
 \arguments{
 \item{df}{Data frame containing outcomes and exposures}

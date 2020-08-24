@@ -4,8 +4,13 @@
 \alias{kry.uitkoms.df}
 \title{kry.uitkoms.df}
 \usage{
-kry.uitkoms.df(varname = "town", outname = "outcome",
-  expname = "exposure", df, remPiq = FALSE)
+kry.uitkoms.df(
+  varname = "town",
+  outname = "outcome",
+  expname = "exposure",
+  df,
+  remPiq = FALSE
+)
 }
 \arguments{
 \item{varname}{Character vector of the variable name}

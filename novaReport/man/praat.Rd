@@ -4,8 +4,15 @@
 \alias{praat}
 \title{praat}
 \usage{
-praat(vr = "id_household", d = dt, plak = TRUE, digits = 6,
-  verbose = FALSE, hoofklein = TRUE, klein = FALSE)
+praat(
+  vr = "id_household",
+  d = dt,
+  plak = TRUE,
+  digits = 6,
+  verbose = FALSE,
+  hoofklein = TRUE,
+  klein = FALSE
+)
 }
 \arguments{
 \item{vr}{karakter. naam van 'n kolom in d}

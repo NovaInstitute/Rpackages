@@ -4,11 +4,23 @@
 \alias{section_report2}
 \title{section report II}
 \usage{
-section_report2(x, qss = qs, sec = "A", sectionvarname = "section",
-  question.text = "question.text", qs.varname = "question.name",
-  groupvar = "", multicol = "question.type", multiname = "M",
-  debug = FALSE, forcegvar = FALSE, varSizeN = "0.15",
-  levSizeN = "0.05", varSizeC = "0.15", levSizeC = "0.15")
+section_report2(
+  x,
+  qss = qs,
+  sec = "A",
+  sectionvarname = "section",
+  question.text = "question.text",
+  qs.varname = "question.name",
+  groupvar = "",
+  multicol = "question.type",
+  multiname = "M",
+  debug = FALSE,
+  forcegvar = FALSE,
+  varSizeN = "0.15",
+  levSizeN = "0.05",
+  varSizeC = "0.15",
+  levSizeC = "0.15"
+)
 }
 \arguments{
 \item{x}{Data frame containing the survey results, typically the DES}

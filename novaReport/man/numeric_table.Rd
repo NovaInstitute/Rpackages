@@ -4,8 +4,14 @@
 \alias{numeric_table}
 \title{Numeric Table}
 \usage{
-numeric_table(nvars, verbose = FALSE, forcegvar = FALSE,
-  varSizeC = "0.15", levSizeC = "0.15", ...)
+numeric_table(
+  nvars,
+  verbose = FALSE,
+  forcegvar = FALSE,
+  varSizeC = "0.15",
+  levSizeC = "0.15",
+  ...
+)
 }
 \arguments{
 \item{nvars}{Data frame containing continuous variables}

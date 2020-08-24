@@ -4,8 +4,12 @@
 \alias{woodcoal}
 \title{woodcoal}
 \usage{
-woodcoal(df = dt, coal = "solid_fuel_use_coal",
-  wood = "solid_fuel_use_wood", yesval = "yes")
+woodcoal(
+  df = dt,
+  coal = "solid_fuel_use_coal",
+  wood = "solid_fuel_use_wood",
+  yesval = "yes"
+)
 }
 \arguments{
 \item{df}{dataframe}

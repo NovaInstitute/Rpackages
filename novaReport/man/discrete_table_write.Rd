@@ -4,8 +4,14 @@
 \alias{discrete_table_write}
 \title{discrete_table_write}
 \usage{
-discrete_table_write(dvars, group = 1, d.cap = "", d.lab = "",
-  maxlevels = 10, fn)
+discrete_table_write(
+  dvars,
+  group = 1,
+  d.cap = "",
+  d.lab = "",
+  maxlevels = 10,
+  fn
+)
 }
 \arguments{
 \item{dvars}{Data frame containing the nominal variables}

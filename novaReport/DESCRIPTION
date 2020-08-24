@@ -1,4 +1,3 @@
-
 Package: novaReport
 Type: Package
 Title: Nova reporting functions
@@ -9,4 +8,4 @@ Maintainer: Christiaan Pauw <christiaan.pauw@nova.org.za>
 Description: This program is used to generate the necessary output to be used in
     the making of reports. (Still to be edited)
 License: Copyright (c) 2016 Nova Institute (Reg# 1994/002614/08)
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.1

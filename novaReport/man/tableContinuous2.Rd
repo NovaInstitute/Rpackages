@@ -4,13 +4,28 @@
 \alias{tableContinuous2}
 \title{Table Continuous 2}
 \usage{
-tableContinuous2(vars, weights = NA, subset = NA, group = NA,
-  stats = c("n", "min", "q1", "median", "mean", "q3", "max", "s", "iqr",
-  "na"), prec = 1, col.tit = NA, col.tit.font = c("bf", "", "sf",
-  "it", "rm"), print.pval = c("none", "anova", "kruskal"),
-  pval.bound = 10^-4, declare.zero = 10^-10, cap = "", lab = "",
-  font.size = "footnotesize", longtable = TRUE, disp.cols = NA,
-  nams = NA, varSizeC = "0.15", levSizeC = "0.15", ...)
+tableContinuous2(
+  vars,
+  weights = NA,
+  subset = NA,
+  group = NA,
+  stats = c("n", "min", "q1", "median", "mean", "q3", "max", "s", "iqr", "na"),
+  prec = 1,
+  col.tit = NA,
+  col.tit.font = c("bf", "", "sf", "it", "rm"),
+  print.pval = c("none", "anova", "kruskal"),
+  pval.bound = 10^-4,
+  declare.zero = 10^-10,
+  cap = "",
+  lab = "",
+  font.size = "footnotesize",
+  longtable = TRUE,
+  disp.cols = NA,
+  nams = NA,
+  varSizeC = "0.15",
+  levSizeC = "0.15",
+  ...
+)
 }
 \arguments{
 \item{vars}{A data frame containing continuous variables. 

@@ -4,14 +4,28 @@
 \alias{afh.tab}
 \title{Dependancy tables}
 \usage{
-afh.tab(x, alpha = 0.05, outcome = "outcome",
-  var.names = "var.names", exposure = "exposure",
-  p.value = "p.value", craemer = "craemer", df = "df", n = "n",
-  statistic = "statistic", x.names = c("Related variable", "n",
-  "p value", "df", paste("$\\\\mathbf{\\\\chi^2}$", "statistic"),
-  "Craemer's V"), verkort = FALSE, warnings = "warnings",
-  sonder.warnings = TRUE, geen = "Geen", tp = "H", tabdir = NULL,
-  verbose = FALSE, bonferroni = TRUE)
+afh.tab(
+  x,
+  alpha = 0.05,
+  outcome = "outcome",
+  var.names = "var.names",
+  exposure = "exposure",
+  p.value = "p.value",
+  craemer = "craemer",
+  df = "df",
+  n = "n",
+  statistic = "statistic",
+  x.names = c("Related variable", "n", "p value", "df",
+    paste("$\\\\mathbf{\\\\chi^2}$", "statistic"), "Craemer's V"),
+  verkort = FALSE,
+  warnings = "warnings",
+  sonder.warnings = TRUE,
+  geen = "Geen",
+  tp = "H",
+  tabdir = NULL,
+  verbose = FALSE,
+  bonferroni = TRUE
+)
 }
 \arguments{
 \item{x}{Data frame, which is the outcome of chi.2.exp}

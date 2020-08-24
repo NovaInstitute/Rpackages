@@ -4,8 +4,7 @@
 \alias{qs.text.string}
 \title{qs.text.string}
 \usage{
-qs.text.string(qs, varname = "question.name",
-  question.text = "question.text")
+qs.text.string(qs, varname = "question.name", question.text = "question.text")
 }
 \arguments{
 \item{qs}{Questions data frame}

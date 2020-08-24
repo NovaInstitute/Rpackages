@@ -4,8 +4,15 @@
 \alias{discrete_table}
 \title{Discrete Table}
 \usage{
-discrete_table(dvars, maxlevels = 20, ..., verbose = FALSE,
-  forcegvar = FALSE, varSizeN = "0.15", levSizeN = "0.05")
+discrete_table(
+  dvars,
+  maxlevels = 20,
+  ...,
+  verbose = FALSE,
+  forcegvar = FALSE,
+  varSizeN = "0.15",
+  levSizeN = "0.05"
+)
 }
 \arguments{
 \item{dvars}{Data frame containing the variables to be tested}
