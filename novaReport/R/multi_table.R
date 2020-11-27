@@ -14,17 +14,22 @@
 #' @param ... Arguments passed down from the calling function
 #' @export
 
-multi_table <- function(vars = vars, qs = NULL,
-                        multicol = "question.type", multiname = "M",
-                        question.name = "question.name", maxlevels = 20,
-                        verbose = FALSE, ...){
+multi_table <- function(vars = vars, 
+                        qs = NULL,
+                        multicol = "question.type", 
+                        multiname = "M",
+                        question.name = "question.name", 
+                        maxlevels = 20,
+                        verbose = FALSE, 
+                        ...){
+        
   if (verbose == TRUE) message("\n\nJy is nou in multi_table")
   if (is.null(qs)) stop("qs missing")
   dots <- list(...)
   # Multi - opsie is per definisie diskreet
   # maak numeriese items met twee vlakke diskreet (tipies 0,1 vir ja nee)
   if (verbose == TRUE) message("names vars ", paste(names(vars), " "))
-  to.factor.idx = which(sapply(vars, function(x) nlevels(as.factor(x))) == 2)
+  to.factor.idx = which(sapply(vars, function(x) nlevels(as.factor(x))) <= 2)
   if (verbose == TRUE) message("to.factor.idx ", paste(to.factor.idx, " "), "\n en sy lengte is ", length(to.factor.idx))
   if (length(to.factor.idx > 0)) for (i in 1:length(to.factor.idx)){
     if (verbose == TRUE) message("iterasie ", i, " met ", names(vars)[to.factor.idx[i]])
@@ -34,8 +39,9 @@ multi_table <- function(vars = vars, qs = NULL,
   if (verbose == TRUE) message("str(vars) is ",paste(str(vars), " "))
   # if there are no categorical variables there is no sense in continuing
   if(verbose == TRUE) message("Kom ons toets of daar diskrete veranderlikes is ")
-  if (any_discrete(vars)){ if(verbose == TRUE) message("daar is diskrete veranderlikes ") # exit silently when there is discrete variables
-    ## kies die veraderlikkes uit wat multi-keuse is
+  if (any_discrete(vars)){ 
+          if(verbose == TRUE) message("daar is diskrete veranderlikes ") # exit silently when there is discrete variables
+    ## kies die veranderlikes uit wat multi-keuse is
     # eers die vrae
     m.idx <- which(qs[, multicol] == multiname)
     #if (verbose == TRUE) message("qs is ", paste(str(qs), " "))
@@ -90,3 +96,11 @@ multi_table <- function(vars = vars, qs = NULL,
     }
   }
 
+# debugging aid
+# vars = vars
+# qs = NULL
+# multicol = "question.type"
+# multiname = "M"
+# question.name = "question.name"
+# maxlevels = 20
+# verbose = TRUE
