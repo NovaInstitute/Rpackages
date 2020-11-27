@@ -319,7 +319,7 @@ single_report <- function (x, var = c("een"),
                                                               font.size = font.size,
                                                               comment = FALSE, 
                                                               nams = gsub("_", " ", var), 
-                                                              print.results = FALSE)
+                                                              print.results = TRUE)
                                         }
                                 }
                                 if (stats == "all") {
@@ -500,12 +500,49 @@ single_report <- function (x, var = c("een"),
                                 ifelse(exists("verwyssin"),  verwyssin, ""), "\n"#, if (exists("tab", mode = "function")) tab() else "", "\n"
                         )
                 )
-                assign("tab", tab, envir = .GlobalEnv)
+                # assign("tab", tab, envir = .GlobalEnv)
                 if (exists("tab", mode = "function")) tab()
                 if (exists("pp", mode = "function") & plotOok) pp()
                 if (clearpage) cat("\n\\clearpage\n")
         }
 }
+
+# debugging
+# var = c("een")
+# groep = NULL
+# groeplab = NULL
+# out = TRUE
+# stats = c("all", "basic")[1]
+# longt = FALSE
+# font.size=10
+# qs_name = "question.name"
+# qs_text = "question.text"
+# drr = "~/tmp/"
+# ncat = 4
+# nnum = 10
+# druk = FALSE
+# webify = FALSE
+# verbose = FALSE
+# wd = 15
+# md = TRUE
+# chi.digits = 4
+# debug = TRUE
+# varSizeN = "0.5"
+# levSizeN = "0.5"
+# voorspellende_veranderlikes = NULL
+# plotOok = TRUE
+# clearpage = FALSE
+
+
+
+
+
+
+
+
+
+
+
 
 
 
