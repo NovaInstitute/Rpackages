@@ -27,12 +27,14 @@ multi.opsie.tabel <- function(df = des,
                               tabdir = "~/",
                               graphdir = "~/",
                               fn = paste(x, "h.bar.", sep=""),
-                              verbose=FALSE, fplace = "!ht"){
+                              verbose=FALSE, 
+                              fplace = "!ht",
+                              plotToPDF = FALSE){
   require(gdata) 
   if (verbose == TRUE) message("x is ", x)
   d.f = df[,grep(x, names(df))]
   
-  idx <-  grep("other$", names(d.f), value = T)
+  idx <-  grep("other_explain$", names(d.f), value = T)
   if (length(idx) > 0){
     d.f = d.f[names(d.f)!=idx]
   }
@@ -72,7 +74,7 @@ multi.opsie.tabel <- function(df = des,
       tab[,ncol(tab)-1] <-  as.integer(tab[,ncol(tab)-1])
       
       
-      assign(paste(x, ".tab", sep=""), tab, envir=.GlobalEnv)
+      #assign(paste(x, ".tab", sep=""), tab, envir=.GlobalEnv)
       ttl = capwords(gsub("\\.|_", " ", x))
       if (tex == FALSE) {
         ttl = capwords(gsub("\\.|_", " ", x))
@@ -99,16 +101,18 @@ multi.opsie.tabel <- function(df = des,
     names(z) = sapply(names(z), initCap)
     if (verbose == TRUE) message(sapply(names(z[which(z==1)]), function(x) paste(x, "\n")))
     
-    pdf(paper = "a4", file=paste(graphdir, fn,".pdf",sep=""))
-    par(mai =  c(1.360, 3.5, 1.093, 0.1))
-    barplot(c(z/length(df[,1])), 
-            horiz=TRUE, names.arg=c(names(z)),
-            las=1 ,
-            main = paste("Multiple choice results for:\n", ttl), 
-            sub = paste("n = ", n, "; n.obs = ",n.obs, "; #NA = ", na),
-            cex.lab=0.5, xlim=c(0,1))
-    par(mai =  c(1.360, 1.093, 1.093, 0.560))
-    dev.off()
+    if (plotToPDF) {
+            pdf(paper = "a4", file=paste(graphdir, fn,".pdf",sep=""))
+            par(mai =  c(1.360, 3.5, 1.093, 0.1))
+            barplot(c(z/length(df[,1])), 
+                    horiz=TRUE, names.arg=c(names(z)),
+                    las=1 ,
+                    main = paste("Multiple choice results for:\n", ttl), 
+                    sub = paste("n = ", n, "; n.obs = ",n.obs, "; #NA = ", na),
+                    cex.lab=0.5, xlim=c(0,1))
+            par(mai =  c(1.360, 1.093, 1.093, 0.560))
+            dev.off()
+    }
   }
   
   if(tex == FALSE){
@@ -128,6 +132,26 @@ multi.opsie.tabel <- function(df = des,
   
   
 }
+
+# debugging aid
+# x = "body_disease_diagnosed_month"
+# yescat = "yes"
+# nocat = "no"
+# tabeleer = TRUE
+# abs.perc = FALSE
+# tex = TRUE
+# tabdir = "~/"
+# graphdir = "~/"
+# fn = paste(x, "h.bar.", sep="")
+# verbose=FALSE
+# fplace = "!ht"
+# plotToPDF = FALSE
+
+
+
+
+
+
 
 ########################## Hulp funksies ##########################
 
