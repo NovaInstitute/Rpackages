@@ -13,13 +13,13 @@ prepareIndicPops <- function(dfIndicDefs, dfData, nHhs) {
   # add 'popnm' var to dfIndicDefs to make it easier for us to generate the 'N_HHS...' indicators
   dfIndicDefs$popnm <- NA_character_
   
-  idxx <- grep(pattern = "^N_[[:alpha:]]{0,7}HHS", x = dfIndicDefs$name)
+  idxx <- grep(pattern = "^N_[[:alpha:]]{0,7}HHS_", x = dfIndicDefs$name)
   for (idx in idxx) {
     popNm <- paste(
       as.character(
-        na.omit(c(ifelse(is.na(dfIndicDefs$groupVar[idx]), 
+        na.omit(c(ifelse(is.na(dfIndicDefs$group_var[idx]), 
                          NA_character_, 
-                         sprintf("GRP_%s", dfIndicDefs$groupVar[idx])),
+                         sprintf("GRP_%s", dfIndicDefs$group_var[idx])),
                   ifelse(is.na(dfIndicDefs$filters[idx]), 
                          NA_character_, 
                          sprintf("FLTRNM_%s", dfIndicDefs$filters[idx]))))), 
@@ -46,16 +46,16 @@ prepareIndicPops <- function(dfIndicDefs, dfData, nHhs) {
     
     if (!is.na(dfTemp$filters[[ridx]])) {
       filterSplts <- strsplit(x = dfTemp$filters[[ridx]], split = "==", fixed = TRUE)[[1]]
-      nmFilterVar <- gsub(pattern = "^[[:blank:]]{0,}|[[:blank:]]{0,}$", replacement = "", x = filterSplts[1])
-      filterVal <- gsub(pattern = "^[[:blank:]]{0,}|[[:blank:]]{0,}$|'", replacement = "", x = filterSplts[2])
+      nmFilterVar <- format_char(filterSplts[1])
+      filterVal <- format_char(filterSplts[2])
       dfSelection <- dfSelection[which(dfSelection[[nmFilterVar]] == filterVal),]
       bigPopSize <- (nrow(dfSelection) / nrow(dfData)) * nHhs
     }
     
-    nmGrpVar <- dfTemp$groupVar[[ridx]]
+    nmGrpVar <- dfTemp$group_var[[ridx]]
     
-    if ((is.na(nmGrpVar) | is.na(dfTemp$indicVar[ridx]))) { 
-      # if either 'groupVar' or'indicVar', all records in dfSelection were 
+    if ((is.na(nmGrpVar) | is.na(dfTemp$indic_var[ridx]))) { 
+      # if either 'group_var' or'indic_var', all records in dfSelection were 
       # included in the calculation, so popSize will be the total (filtered) population
       popSize <- bigPopSize
     } else {
@@ -107,9 +107,9 @@ indicsFrmTbl_tp1 <- function(dfIndicDefs, dfData, srcpth, nHhs) {
       
       # calculate the percentages
       res <- indicatorMaker2(dfData = {if (!is.null(dfSelection)) {dfSelection} else {dfData}},
-                             indicVar = dfIndicDefs$indicVar[ridx], 
-                             indicOption = dfIndicDefs$indicOpt[ridx], 
-                             groupVar = dfIndicDefs$groupVar[[ridx]], 
+                             indicVar = dfIndicDefs$indic_var[ridx], 
+                             indicOption = dfIndicDefs$indic_opt[ridx], 
+                             groupVar = dfIndicDefs$group_var[[ridx]], 
                              popSize = {if (is.na(dfIndicDefs$popnm[ridx])) {
                                NA_integer_} else {lsPops[[dfIndicDefs$popnm[ridx]]]}},
                              allowNegCIL = FALSE)
@@ -179,18 +179,18 @@ indicsFrmTbl_tp2 <- function(dfIndicDefs, dfData, srcpth) {
       
       if (opt == 1) {
         res <- summaryXby(dfData = dfData, 
-                          sumVar = dfIndicDefs$indicVar[ridx], 
-                          groupVar = dfIndicDefs$groupVar[ridx], 
+                          sumVar = dfIndicDefs$indic_var[ridx], 
+                          group_var = dfIndicDefs$group_var[ridx], 
                           includeAll = TRUE, 
                           allowNegCIL = FALSE)    
-        res[,setdiff(names(res), as.character(na.omit(c(dfIndicDefs$groupVar[ridx], "n"))))] <- NA_real_
+        res[,setdiff(names(res), as.character(na.omit(c(dfIndicDefs$group_var[ridx], "n"))))] <- NA_real_
         res[["n"]] <- 0    
       } 
       
       if (opt == 2) {
         res <- summaryXby(dfData = {if (is.null(dfSelection)) {dfData} else {dfSelection}}, 
-                          sumVar = dfIndicDefs$indicVar[ridx], 
-                          groupVar = dfIndicDefs$groupVar[ridx], 
+                          sumVar = dfIndicDefs$indic_var[ridx], 
+                          group_var = dfIndicDefs$group_var[ridx], 
                           includeAll = TRUE, 
                           allowNegCIL = FALSE)    
       }
@@ -300,7 +300,7 @@ indicsFrmTbl_tp3 <- function(dfIndicDefs, indicators) {
 # DOODLES
 # ---------------------------------------- #
 
-# res <- purrrlyr::invoke_rows(.d = dfIndicDefs[, c("indicVar","indicOption","groupVar")], 
+# res <- purrrlyr::invoke_rows(.d = dfIndicDefs[, c("indic_var","indicOption","group_var")], 
 #                              .f = indicatorMaker2, 
 #                              dfData = dfHousehold, 
 #                              .to = "indic", 
