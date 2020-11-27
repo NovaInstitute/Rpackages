@@ -1,6 +1,6 @@
 #' @title tableNominal2
 #' @description This function takes a data frame of nominal variables and possible grouping, weighting and subset
-#' variables and provides a LaTeX table of descriptive statistics seperately per group
+#' variables and provides a LaTeX table of descriptive statistics separately per group
 #' and jointly for all observations, per variable
 #' @param vars A list of nominal variables
 #' @param weights Optional vector of weights of each observation
@@ -29,13 +29,27 @@
 #' @param ... Arguments pass through to print.xtable
 #' @export
 
-tableNominal2 <- function(vars, weights = NA, subset = NA, group = NA, miss.cat = NA,
-                           print.pval = c("none", "fisher", "chi2"), pval.bound = 10^-4,
-                           fisher.B = 2000, vertical = TRUE, cap = "", lab = "", 
+tableNominal2 <- function(vars, 
+                          weights = NA, 
+                          subset = NA, 
+                          group = NA, 
+                          miss.cat = NA,
+                          print.pval = c("none", "fisher", "chi2"), 
+                          pval.bound = 10^-4,
+                          fisher.B = 2000, 
+                          vertical = TRUE, 
+                          cap = "", 
+                          lab = "", 
                           col.tit.font = c("bf", "", "sf", "it", "rm"), 
-                          font.size = "footnotesize", longtable = TRUE,
-                           nams = NA, cumsum = FALSE, debug=FALSE, ...)
-{
+                          font.size = "footnotesize", 
+                          longtable = TRUE,
+                          nams = NA, 
+                          cumsum = FALSE, 
+                          debug=FALSE, 
+                          n.max.rows = 50, 
+                          n.max.char = 90, 
+                          ...) {
+        
   print.pval <- match.arg(print.pval)
   if (is.data.frame(vars) == TRUE) {
     tmp <- vars
@@ -155,18 +169,40 @@ tableNominal2 <- function(vars, weights = NA, subset = NA, group = NA, miss.cat 
                                 sep = "")
     }
   }
+  
   col.tit <- if (cumsum) {
     c("n", "\\%", "\\sum \\%")
-  }
-  else {
+  } else {
     c("n", "\\%")
   }
+  
+  # shorten the table if it has too many rows
+  if (nrow(out) > n.max.rows) {
+          out <- out[order(out[[3]], decreasing = TRUE),]
+          rownames(out) <- 1:nrow(out)
+          out[1,1] <- na.omit(unique(out[[1]]))
+          out[2:nrow(out),1] <- NA_character_
+          idxx <- (n.max.rows):nrow(out)
+          idxxCnum <- which(sapply(X = out, FUN = is.numeric))
+          out[n.max.rows,2] <- sprintf("...%d more rows...", length(idxx))
+          for (idxc in idxxCnum) {
+                  out[n.max.rows,idxc] <- sum(out[[idxc]][idxx], na.rm = TRUE)
+          }
+          out <- out[1:(n.max.rows),]
+  }
+  
+  # shorten labels that are too long
+  nChars <- nchar(out[[2]])
+  idxx <- which(nChars > n.max.char)
+  if (length(idxx) > 0) {
+          out[idxx,2] <- sprintf("%s...", substr(x = out[idxx,2], start = 1, stop = (n.max.char-3)))
+  }
+  
   col.tit.font <- match.arg(col.tit.font)
   fonts <- getFonts(col.tit.font)
   digits <- if (cumsum) {
     c(0, 1, 1)
-  }
-  else {
+  } else {
     c(0, 1)
   }
   groupAlign <- paste(rep("r", nColPerGroup), collapse = "")
@@ -175,7 +211,7 @@ tableNominal2 <- function(vars, weights = NA, subset = NA, group = NA, miss.cat 
   hlines <- sort(c(0, tmp - 1, rep(tmp, each = 2)))
   tab.env <- "longtable"
   float <- FALSE
-  if (identical(longtable, FALSE)) {
+  if (!longtable) {
     tab.env <- "tabular"
     float <- TRUE
   }
@@ -192,7 +228,7 @@ tableNominal2 <- function(vars, weights = NA, subset = NA, group = NA, miss.cat 
 
     out[length(out[,1]),2] <- out[length(out[,1]),1] # skuif die p waarde regs
 
-    #if (debug==TRUE)
+    #if (debug==TRUE) 
     {
       assign("zz", zz, envir=.GlobalEnv)
       assign("n.group", n.group, envir=.GlobalEnv)
@@ -225,14 +261,21 @@ tableNominal2 <- function(vars, weights = NA, subset = NA, group = NA, miss.cat 
   if (n.group == 1) {
     out <- if (cumsum) {
       out[, 1:5]
-    }
-    else {
+    } else {
       out[, 1:4]
     }
     dimnames(out)[[2]] <- outdimnames <- c(fonts$text("Variable"), fonts$text("Levels"),
                                            fonts$math(col.tit))
     if (debug == TRUE) assign("outdimnames", outdimnames, envir=.GlobalEnv)
     out[length(out[,1]),2] <- out[length(out[,1]),1]
+    
+    if (nrow(out) > n.max.rows) { 
+            out <- out[order(out[[ncol(out)]], decreasing = TRUE),]
+            rownames(out) <- 1:nrow(out)
+            out <- out[1:n.max.rows]
+            out[n.max.rows]
+    }
+    
     xtab1 <- xtable::xtable(out[-1],
                             digits = c(rep(0, 3), digits)[-1],
                             align = substring(al, 2, nchar(al)), caption = cap, label = lab)
@@ -243,3 +286,23 @@ tableNominal2 <- function(vars, weights = NA, subset = NA, group = NA, miss.cat 
                    }, tabular.environment = tab.env, ...)
   }
 }
+
+# debugging aid
+# weights = NA
+# subset = NA
+# group = NA
+# miss.cat = NA
+# print.pval = c("none", "fisher", "chi2")[1]
+# pval.bound = 10^-4
+# fisher.B = 2000
+# vertical = TRUE
+# cap = ""
+# lab = ""
+# col.tit.font = c("bf", "", "sf", "it", "rm")[2]
+# font.size = "footnotesize"
+# longtable = TRUE
+# nams = NA
+# cumsum = FALSE
+# debug=TRUE
+# n.max.rows = 50
+# n.max.char = 90
