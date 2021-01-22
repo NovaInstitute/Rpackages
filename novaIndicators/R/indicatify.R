@@ -568,13 +568,17 @@ indicatorMaker2 <- function(dfData,
   rm(df1,df2)
  }
  
+ if (is.nan(df$PointEst)) { return(df) }
+ 
  if (!allowNegCIL) {
   df$Lower[df$Lower < 0] <- 0 
  }
- 
+
  # convert percentages to counts if user provided 'popSize'
  if (any(!is.na(popSize))) {
-  popSize <- popSize[df[[groupVar]]] # make sure popSize is in the correct order
+  if (!is.na(groupVar)) {
+   popSize <- popSize[df[[groupVar]]] # make sure popSize is in the correct order
+  }
   df$PointEst <- round((df$PointEst / 100) * popSize)
   df$Lower <- round((df$Lower / 100) * popSize)
   df$Upper <- round((df$Upper / 100) * popSize)
