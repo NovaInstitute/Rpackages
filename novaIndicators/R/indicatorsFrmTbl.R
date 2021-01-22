@@ -72,14 +72,19 @@ prepareIndicPops <- function(dfIndicDefs, dfData, nHhs) {
 
 # ---------------------------------------- #
 #' Calculate type 1 indicators ('yes'/'no' vars)
-
+#'  
 indicsFrmTbl_tp1 <- function(dfIndicDefs, dfData, srcpth, nHhs) {
   
-  # generate the population object
-  popStuff <- prepareIndicPops(dfIndicDefs, dfData, nHhs)
-  dfIndicDefs <- popStuff[["dfIndicDefs"]]
-  lsPops <- popStuff[["lsPops"]]; rm(popStuff)
-  
+ require(dplyr)
+ 
+ # generate the population object
+ dfIndicDefs$popnm <- NA_character_
+ warning("Temporary fix. Uncomment this.")
+ # popStuff <- prepareIndicPops(dfIndicDefs, dfData, nHhs)
+ # dfIndicDefs <- popStuff[["dfIndicDefs"]]
+ # lsPops <- popStuff[["lsPops"]]; rm(popStuff)
+ 
+ 
   # ------------------- #
   # make the indicators
   failures <- c()
@@ -94,19 +99,23 @@ indicsFrmTbl_tp1 <- function(dfIndicDefs, dfData, srcpth, nHhs) {
     tryCatch(expr = {
       
       if (!is.na(dfIndicDefs$filters[ridx])) {
-        splts <- strsplit(x = dfIndicDefs$filters[ridx], split = "==", fixed = TRUE)[[1]]
-        varNm <- gsub(pattern = "^[[:blank:]]{0,}|[[:blank:]]{0,}$", replacement = "", x = splts[1])
-        value <- gsub(pattern = "^[[:blank:]]{0,}|[[:blank:]]{0,}$|'", replacement = "", x = splts[2])
-        dfSelection <- dfData[which(dfData[[varNm]] == value),]
+       
+        eval(parse(text = paste("dfSelection <- dfData %>% filter(", 
+                    dfIndicDefs$filters[ridx], 
+                    ") %>% collect() %>% as.data.frame()", 
+                    sep = "")))
+
         bEmptySelection <- nrow(dfSelection) == 0
-        if (bEmptySelection) {dfSelection <- dfData}
+        if (bEmptySelection) { dfSelection <- dfData }
       }
       # P.S. it is more memory efficient to generate dfSelection only when necessary (as we are doing above) 
       # and not all the time (i.e. not when dfSelection would simply have been a copy of dfData), so that
       # is why we are doing it like this.
       
+     if (is.null(dfSelection)) { dfSelection <- dfData }
+     
       # calculate the percentages
-      res <- indicatorMaker2(dfData = {if (!is.null(dfSelection)) {dfSelection} else {dfData}},
+      res <- indicatorMaker2(dfData = dfSelection,
                              indicVar = dfIndicDefs$indic_var[ridx], 
                              indicOption = dfIndicDefs$indic_opt[ridx], 
                              groupVar = dfIndicDefs$group_var[[ridx]], 
@@ -153,8 +162,10 @@ indicsFrmTbl_tp1 <- function(dfIndicDefs, dfData, srcpth, nHhs) {
 # ---------------------------------------- #
 #' Calculate type 2 indicators (quantitative)
 
-indicsFrmTbl_tp2 <- function(dfIndicDefs, dfData, srcpth) {
+indicsFrmTbl_tp2 <- function(dfIndicDefs, dfData, srcpth, bPlot = TRUE) {
   
+ require(dplyr)
+ 
   failures <- c()
   lsIndics <- lapply(X = 1:nrow(dfIndicDefs), FUN = function(ridx) {
     
@@ -164,23 +175,33 @@ indicsFrmTbl_tp2 <- function(dfIndicDefs, dfData, srcpth) {
     dfSelection <- NULL
     
     tryCatch(expr = {
-      
-      if (!is.na(dfIndicDefs$filters[ridx])) {
-        splts <- strsplit(x = dfIndicDefs$filters[ridx], split = "==", fixed = TRUE)[[1]]
-        varNm <- gsub(pattern = "^[[:blank:]]{0,}|[[:blank:]]{0,}$", replacement = "", x = splts[1])
-        value <- gsub(pattern = "^[[:blank:]]{0,}|[[:blank:]]{0,}$|'", replacement = "", x = splts[2])
-        dfSelection <- dfData[which(dfData[[varNm]] == value),]
-      }
+     
+     if (!is.na(dfIndicDefs$filters[ridx])) {
+       eval(parse(text = paste("dfSelection <- dfData %>% filter(", 
+                               dfIndicDefs$filters[ridx], 
+                               ") %>% collect() %>% as.data.frame()", 
+                               sep = "")))
+       
+       bEmptySelection <- nrow(dfSelection) == 0
+       if (bEmptySelection) { dfSelection <- dfData }
+     }
+     
       # P.S. it is more memory efficient to generate dfSelection only when necessary (as we are doing above) 
       # and not all the time (i.e. not when dfSelection would simply have been a copy of dfData), so that
       # is why we are doing it like this.
       
       opt <- ifelse(is.null(dfSelection), 2, ifelse(nrow(dfSelection) == 0, 1, 2))
       
+      if (is.null(dfSelection)) { dfSelection <- dfData }
+      
+      dfSelection <- dfSelection[,c("submission_id",
+                                    as.character(na.omit(c(dfIndicDefs$indic_var[ridx],
+                                                           dfIndicDefs$group_var[ridx]))))]
+      
       if (opt == 1) {
-        res <- summaryXby(dfData = dfData, 
+        res <- summaryXby(dfData = dfSelection, 
                           sumVar = dfIndicDefs$indic_var[ridx], 
-                          group_var = dfIndicDefs$group_var[ridx], 
+                          groupVar = dfIndicDefs$group_var[ridx], 
                           includeAll = TRUE, 
                           allowNegCIL = FALSE)    
         res[,setdiff(names(res), as.character(na.omit(c(dfIndicDefs$group_var[ridx], "n"))))] <- NA_real_
@@ -188,9 +209,9 @@ indicsFrmTbl_tp2 <- function(dfIndicDefs, dfData, srcpth) {
       } 
       
       if (opt == 2) {
-        res <- summaryXby(dfData = {if (is.null(dfSelection)) {dfData} else {dfSelection}}, 
+        res <- summaryXby(dfData = dfSelection, 
                           sumVar = dfIndicDefs$indic_var[ridx], 
-                          group_var = dfIndicDefs$group_var[ridx], 
+                          groupVar = dfIndicDefs$group_var[ridx], 
                           includeAll = TRUE, 
                           allowNegCIL = FALSE)    
       }
@@ -204,6 +225,26 @@ indicsFrmTbl_tp2 <- function(dfIndicDefs, dfData, srcpth) {
       indic@sourcepath <- srcpth
       indic@date_created <- as.character(Sys.time())
       indic@comments <- dfIndicDefs$comment[ridx]
+      
+      if (bPlot) {
+        tryCatch({
+          
+          pltStr <- sprintf("p <- ggplot(data = dfSelection, mapping = aes(x = %s%s)) + geom_density() + ggtitle(\"%s\") + xlim(0, %s) + %s",
+                            dfIndicDefs$indic_var[ridx],
+                            ifelse(is.na(dfIndicDefs$group_var[ridx]), 
+                                   "",
+                                   ", group = dfIndicDefs$group_var[ridx], fill = dfIndicDefs$group_var[ridx]"),
+                            sprintf("Density distribution of variable '%s'", 
+                                    dfIndicDefs$indic_var[ridx]),
+                            ceiling(max(dfSelection[[dfIndicDefs$indic_var[ridx]]], na.rm = TRUE)),
+                            "scale_x_continuous(n.breaks = 10)")
+          eval(parse(text = pltStr))
+          indic@plots <- list(p)
+          
+        }, error = function(e) {
+          warning(sprintf("Failed to generate plot for variable '%s'. Error: ", dfIndicDefs$indic_var[ridx], e))
+        })
+      }
       
       return(indic)    
     }, 
