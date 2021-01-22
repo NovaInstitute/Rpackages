@@ -19,5 +19,5 @@ move.cols(df = NULL, colNames = NULL, colIdxx = NULL, verbose = FALSE)
 Returns the data frame with the columns moved to the specified indices
 }
 \description{
-This function moves any number of culumns in a given data frame to any desired indices at once
+This function moves any number of columns in a given data frame to any desired indices at once
 }

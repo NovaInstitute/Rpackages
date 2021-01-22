@@ -4,10 +4,13 @@
 \alias{duplicates}
 \title{duplicates}
 \usage{
-duplicates(x)
+duplicates(x, uniq = TRUE, vnms = NULL)
 }
 \arguments{
 \item{x}{[data.frame/vector] The data frame/vector containing duplicates.}
+
+\item{vnms}{Names of variables to consider when checking for duplicates.
+Ignored when x is not a data.frame. Default is all variables in x.}
 }
 \value{
 duplicate rows/values
