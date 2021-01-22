@@ -7,9 +7,9 @@ indicatorsToExcel <- function(indicators, outputdir) {
     nm <- indic@name
     message(nm)
 
-    if (!("val" %in% slotNames(indic))) {
-      return(NULL)
-    }
+    # if (!("val" %in% slotNames(indic))) {
+    #   return(NULL)
+    # }
     if (is.null(names(indic@val))) {
       meanNm <- 1
     } else {
@@ -66,6 +66,7 @@ indicatorsToExcel <- function(indicators, outputdir) {
 
   table(sapply(X = lsdfs, FUN = ncol))
   dfIndics <- do.call("rbind", lsdfs)
+
   dfIndics <- dfIndics[order(dfIndics$name),]
   rownames(dfIndics) <- 1:nrow(dfIndics)
 
