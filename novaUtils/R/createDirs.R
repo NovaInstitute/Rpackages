@@ -1,3 +1,12 @@
+#'@description creates directories
+
+#'@title createDirs
+#'@name createDirs
+#'
+#'@param dirs accepts character vector, with all the paths that need to created 
+#'@export
+
+
 
 createDirs <- function(dirs) {
   
