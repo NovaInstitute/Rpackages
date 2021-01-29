@@ -1,4 +1,9 @@
 
+#'@description function that turns indicator objects to dataframe
+#'@title indicatorsToDataframe
+#'@name indicatorsToDataframe
+#'@param indicators An object of class 'indicator'
+#'@export
 
 indicatorsToDataframe <- function(indicators) {
 

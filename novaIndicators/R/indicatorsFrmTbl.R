@@ -8,6 +8,15 @@
 # ---------------------------------------- #
 #' Adds the 'popnm' var to dfIndicDefs and generates the lsPops object - needed by functions such as indicsFrmTbl_tp1
 
+
+#'@description function that turns table objects to indicators objects
+#'@title indicatorsFromTbl
+#'@name indicatorsFromTbl
+#'@param dfIndicDefs dataframe containing the indicator definitions
+#'@param dfData dataframe containing the data that will be indicatified
+#'@param nHhs number of households in the dataset
+#'@export
+
 prepareIndicPops <- function(dfIndicDefs, dfData, nHhs) {
   
   # add 'popnm' var to dfIndicDefs to make it easier for us to generate the 'N_HHS...' indicators
@@ -73,6 +82,17 @@ prepareIndicPops <- function(dfIndicDefs, dfData, nHhs) {
 # ---------------------------------------- #
 #' Calculate type 1 indicators ('yes'/'no' vars)
 #'  
+#'  
+#'  
+#'@description function that creates indicators for type 1 (discreet) data values e.g 'yes'/'no'
+#'@title indicsFrmTbl_tp1
+#'@name indicsFrmTbl_tp1
+#'@param dfIndicDefs dataframe containing the indicator definitions
+#'@param dfData dataframe containing the data that will be indicatified
+#'@param srcpth path to the script that will generate this indicator
+#'@param nHhs number of households in the dataset
+#'@export
+
 indicsFrmTbl_tp1 <- function(dfIndicDefs, dfData, srcpth, nHhs) {
   
  require(dplyr)
@@ -161,6 +181,15 @@ indicsFrmTbl_tp1 <- function(dfIndicDefs, dfData, srcpth, nHhs) {
 
 # ---------------------------------------- #
 #' Calculate type 2 indicators (quantitative)
+
+#'@description function that creates indicators for type 2 (quantitative) data values
+#'@title indicsFrmTbl_tp2
+#'@name indicsFrmTbl_tp2
+#'@param dfIndicDefs dataframe containing the indicator definitions
+#'@param dfData dataframe containing the data that will be indicatified
+#'@param srcpth path to the script that will generate this indicator
+#'@param nHhs number of households in the dataset
+#'@export
 
 indicsFrmTbl_tp2 <- function(dfIndicDefs, dfData, srcpth, bPlot = TRUE) {
   
@@ -272,7 +301,13 @@ indicsFrmTbl_tp2 <- function(dfIndicDefs, dfData, srcpth, bPlot = TRUE) {
 # ---------------------------------------- #
 #' Calculate type 3 indicators (indicator X indicator)
 
+#'@description function that creates indicators for type 2 (indicator X indicator) data values
+#'@title indicsFrmTbl_tp3
+#'@name indicsFrmTbl_tp3
+#'@param dfIndicDefs dataframe containing the indicator definitions
 #'@param indicators An environment or list of indicator objects to be used in the 
+#'@export
+
 indicsFrmTbl_tp3 <- function(dfIndicDefs, indicators) {
   
   failures <- c()

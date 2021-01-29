@@ -264,9 +264,7 @@ indicDefs_tp1 <- function(dfHh) {
 
 #'@title indicDefs_tp2
 #'@name indicDefs_tp2
-#'
 #'@description Generates the indicator definitions/descriptions for type 2 (quantitative) indicators
-#'
 #'@param dfHh The data frame/vector containing indicator definitions/descriptions for type 2 (quantitative) indicators
 #'@return data.frame
 #'
@@ -459,6 +457,11 @@ indicDefs_tp2 <- function(dfHh) {
 # ---------------------------------------- #
 #' Generates the indicator definitions/descriptions for type 3 (indicator X indicator) indicators
 # TODO: add custom type 3 indicator definitions to the end of this function
+
+#'@title indicDefs_tp3
+#'@name indicDefs_tp3
+#'@description Generates the indicator definitions/descriptions for type 3 (indicator X indicator) indicators
+#'@export
 
 indicDefs_tp3 <- function() {
   

@@ -1,4 +1,10 @@
 
+#'@description function that turns indicator objects to excel document
+#'@title indicatorsToExcel
+#'@name indicatorsToExcel
+#'@param indicators An object of class 'indicator'
+#'@param outputdir character vector of length 1, containing the path to which the excel must be saved 
+#'@export
 
 indicatorsToExcel <- function(indicators, outputdir) {
 

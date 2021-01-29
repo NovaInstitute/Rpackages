@@ -1,3 +1,9 @@
+#'@title tblToDf
+#'@name tblToDf
+#'@param tbl A dataframe 
+#'@param rwNmsAsCol logical, if TRUE it makes rownames a column
+#'@export
+
 tblToDf <- function(tbl, rwNmsAsCol = FALSE) {
   
   if (is.null(dim(tbl))) {
