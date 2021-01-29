@@ -1,3 +1,4 @@
+
 # Hulpfunksie
 CI <- function (x, ci = 0.95, na.rm=TRUE, as.df = TRUE) {
  a <- mean(x, na.rm = na.rm)

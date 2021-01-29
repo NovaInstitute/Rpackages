@@ -30,8 +30,16 @@ warning("update this description")
 #'
 
 # ---------------------------------------- #
-#'Generates the indicator definitions/descriptions for type 1 ('yes'/'no' vars) indicators from the household dataset
+#'@description Generates the indicator definitions/descriptions for type 1 ('yes'/'no' vars) indicators from the household dataset
+
+#'@title indicDefs_tp1_GHS_hh
+#'@name indicDefs_tp1_GHS_hh
+#'@param dfHh accepts a data.frame that contains the dataset
 #'@param datasetNm E.g. 'GHS2017' or 'GHS2016'
+#'@export
+
+
+
 # TODO: add custom type 1 indicator definitions to the end of this function
 
 indicDefs_tp1_GHS_hh <- function(dfHh, datasetNm = "GHSXXXX") {

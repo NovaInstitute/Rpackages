@@ -14,8 +14,16 @@ setClass("indicator",
            "comments" = "ANY",
            "plots" = "ANY"))
 
-
-#'@param x A numeric vector 
+#'@description creates an indicator object from a numeric vector
+#'@title make.indicator
+#'@name make.indicator
+#'@param x A numeric vector
+#'@param name name of the indicator
+#'@param digits number of decimals after the comma when rounding
+#'@param NAsToZero should NA's be made Zero
+#'@param indicObj indicator object
+#'@export
+#'
 make.indicator <- function(x, 
                            name = "",
                            digits = 2, 
@@ -32,7 +40,17 @@ make.indicator <- function(x,
   return(indicObj)
 }
 
-# function to indicatorise non-numeric (Nn) variables
+#'@description function to indicatorise non-numeric (Nn) variables
+#'@title make.indicatorNn
+#'@name make.indicatorNn
+#'@param df data.frame containing the data
+#'@param name name of the indicator object
+#'@param indicVar name of the variable that must be indicatified
+#'@param indicOpt option that must be indicatified
+#'@param groupVar group variable, which the data must be grouped by when summarised
+#'@param indicObj the indicator object
+#'@export
+
 make.indicatorNn <- function(df, 
                              name,
                              indicVar, 
@@ -66,7 +84,16 @@ make.indicatorNn <- function(df,
 }
 
 
+
+#'@description function that prints indicator neatly
+#'@title print.indicator
+#'@name print.indicator
 #'@param x An object of class 'indicator'
+#'@param inclCreatedBy logical, if TRUE it includes the persons name who created it
+#'@param inclComments logical, if TRUE it includes the comment from the creator
+#'@export
+
+
 print.indicator <- function(x, inclCreatedBy = FALSE, inclComments = TRUE) {
   
   print(sprintf("Name: %s", ifelse(length(x@name) == 0, "-", x@name)), 

@@ -32,6 +32,17 @@
 #' Generates the indicator definitions/descriptions for type 1 ('yes'/'no' vars) indicators
 # TODO: add custom type 1 indicator definitions to the end of this function
 
+#'@title indicDefs_tp1
+#'@name indicDefs_tp1
+#'
+#'@description Generates the indicator definitions/descriptions for type 1 ('yes'/'no' vars) indicators
+#'
+#'@param dfHh The data frame/vector containing indicator definitions/descriptions for type 1 indicators.
+#'@return data.frame
+#'
+#'@export
+
+
 indicDefs_tp1 <- function(dfHh) {
   
   indicTypes1 <- c("n_hhs", "perc_hhs")
@@ -249,6 +260,18 @@ indicDefs_tp1 <- function(dfHh) {
 # ---------------------------------------- #
 #' Generates the indicator definitions/descriptions for type 2 (quantitative) indicators
 # TODO: add custom type 2 indicator definitions to the end of this function
+
+
+#'@title indicDefs_tp2
+#'@name indicDefs_tp2
+#'
+#'@description Generates the indicator definitions/descriptions for type 2 (quantitative) indicators
+#'
+#'@param dfHh The data frame/vector containing indicator definitions/descriptions for type 2 (quantitative) indicators
+#'@return data.frame
+#'
+#'@export
+
 
 indicDefs_tp2 <- function(dfHh) {
   
